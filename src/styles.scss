@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap-scss/bootstrap.scss";
+@import 'https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Comfortaa:wght@300;400;500;600;700&family=Inconsolata:wght@200;300;400;500;600;700;800;900&family=Silkscreen:wght@400;700&family=Rozha+One&display=swap';
+
+h1{
+    font-family: 'Rozha One';
+    font-size: 120px;
+
+}
+body{
+    min-height: 100vh;
+    font-family: 'Comfortaa', sans-serif;
+    color: black;
+    font-size: 1em;
+    font-weight: 400;
+    position: relative;
+    left:0;
+    background-color: white;
+    a{
+        &:hover{
+        }
+    }
+    &.menu-opened{
+        position: relative;
+        left: 260px;
+    }
+    
+    @media (min-width: 768px) {
+        background-position: left top, right top;
+        background-repeat: no-repeat, no-repeat;
+        background-attachment: fixed;   
+        left: 0!important;
+    }
+}
