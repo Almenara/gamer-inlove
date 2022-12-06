@@ -1,7 +1,6 @@
+import { OpenMenuService } from './../../services/open-menu.service';
 import { GamesService } from './../../services/games.service';
-import { TwitchService } from './../../services/twitch.service';
-import { TwitchToken } from './../../services/twitchToken.interface';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -10,14 +9,43 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private gamesService: GamesService) { }
+  public searchOpened: boolean = false;
+
+  @ViewChild("searchInput") public input!: ElementRef;
+  @HostListener('document:click', ['$event'])
+  clickout(event:Event) {
+    if(this.searchOpened) this.searchOpened = false;
+  }
+
+  constructor(
+    private gamesService: GamesService, 
+    private openMenuService: OpenMenuService, 
+    ) { }
+
+  get menuIsOpen(){
+    return this.openMenuService.menuIsOpen;
+  }
   
   get games(){
     return 1
   }
+
   ngOnInit(): void {
     
     this.gamesService.getGames().subscribe(rest => {console.log(rest)})
   }
 
+  toggleMenu(){
+    this.openMenuService.toggleMenu()
+  }
+
+  openSearch(event:Event){
+    event.stopPropagation();
+    this.searchOpened = true;
+    this.input.nativeElement.focus();
+  }
+
+  closeMenu(){
+    this.openMenuService.closeMenu()
+  }
 }

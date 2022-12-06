@@ -1,5 +1,6 @@
 @import "../node_modules/bootstrap-scss/bootstrap.scss";
-@import 'https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Comfortaa:wght@300;400;500;600;700&family=Inconsolata:wght@200;300;400;500;600;700;800;900&family=Silkscreen:wght@400;700&family=Rozha+One&display=swap';
+@import 'https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat:wght@300;400;500;600;700&family=Inconsolata:wght@200;300;400;500;600;700;800;900&family=Silkscreen:wght@400;700&family=Rozha+One&display=swap';
+@import 'vars';
 
 h1{
     font-family: 'Rozha One';
@@ -8,15 +9,16 @@ h1{
 }
 body{
     min-height: 100vh;
-    font-family: 'Comfortaa', sans-serif;
-    color: black;
+    font-family: 'Montserrat', sans-serif;
+    color: $black;
     font-size: 1em;
     font-weight: 400;
     position: relative;
     left:0;
-    background-color: white;
+    background-color: $beige;
     a{
         &:hover{
+            color: $orange
         }
     }
     &.menu-opened{
@@ -29,5 +31,26 @@ body{
         background-repeat: no-repeat, no-repeat;
         background-attachment: fixed;   
         left: 0!important;
+    }
+}
+*{
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+
+    &:not(.no-animated):not(.slick-track):not(.slick-slide){
+        -moz-transition: all .15s ease-out;
+        -webkit-transition: all .15s ease-out;
+        -ms-transition: all .15s ease-out;
+        -o-transition: all .15s ease-out;
+        transition: all .15s ease-out;
+        &::after,
+        &::before{
+            -moz-transition: all .15s ease-out;
+            -webkit-transition: all .15s ease-out;
+            -ms-transition: all .15s ease-out;
+            -o-transition: all .15s ease-out;
+            transition: all .15s ease-out;
+        }
     }
 }

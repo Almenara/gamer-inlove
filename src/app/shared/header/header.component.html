@@ -1,22 +1,25 @@
-<p>header works!</p>
-
-<script>
-// WARNING: For POST requests, body is set to null by browsers.
-
-var xhr = new XMLHttpRequest();
-xhr.withCredentials = true;
-
-xhr.addEventListener("readystatechange", function() {
-  if(this.readyState === 4) {
-    console.log(this.responseText);
-  }
-});
-
-xhr.open("POST", "https://api.igdb.com/v4/platforms/?Client-ID=6ffwamznu9jjdfovt4eihez7fwdjue&Authorization=Bearer%20d3h9t6rrelkfmfhwls6ak0yubrok06");
-xhr.setRequestHeader("Client-ID", "6ffwamznu9jjdfovt4eihez7fwdjue");
-xhr.setRequestHeader("Authorization", "Bearer e3lajqld0w9z7ay53dkcmudbya8yak");
-// WARNING: Cookies will be stripped away by the browser before sending the request.
-xhr.setRequestHeader("Cookie", "__cf_bm=Al1remiUbvbBN0YrKFBsCBhWAlr2rtD3jmGakrpIeIA-1670092938-0-AYXFXozy/7A2RkW5Y3x+4+blFwDtkvl8+ERNk90fRNVW+7rum/5kccDIMil9i6eWhcuDCjS5sf1DoC7zL4uxh5A=");
-
-xhr.send();
-</script>
+<div id="header-container">
+  <nav class="d-flex justify-items-end">
+    <div id="burguer" (click)="toggleMenu()" [ngClass]="menuIsOpen? 'menu-opened':''">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div id="search" class="header-btn white-btn" (click)="openSearch($event)" [ngClass]="searchOpened? 'search-opened':''">
+      <input type="text" id="input-search" [ngClass]="searchOpened? 'search-opened':''" #searchInput>
+    </div>
+    <a href="#" class="d-none d-md-flex header-btn white-btn">Community</a>
+    <a href="#" class="d-none d-sm-flex header-btn black-btn">Sign Up / Log In</a>
+    <div id="menu" [ngClass]="menuIsOpen? 'menu-opened':''">
+      <ul id="options">
+        <li class="option">option</li>
+        <li class="option">option</li>
+        <li class="option">option</li>
+        <li class="option">option</li>
+        <li class="option">option</li>
+        <li class="option">option</li>
+        <li class="option">option</li>
+      </ul>
+    </div>
+  </nav>
+</div>
