@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TwitchToken } from './twitchToken.interface';
 import { TwitchService } from './twitch.service';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,8 @@ export class GamesService {
    // this.getToken()
   }
   
-  getGames(){
-     return this.http.get(this.URLService)
+  getGames(): Observable<any[]>{
+     return this.http.get<any[]>(this.URLService)
   }
 
   getToken(){

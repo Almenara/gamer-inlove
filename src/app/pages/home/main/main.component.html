@@ -1,0 +1,21 @@
+<div class="row">
+    <div id="main" class="d-flex flex-column flex-md-row">
+        <div id="title" class="">
+            <h1>My<br/>Game<br/>Lore</h1>
+        </div>
+        <div id="main-gallery" class=" d-flex flex-column justify-content-start">
+            <h2 class="flex-shrink-1">MOST POPULAR GAMES RIGHT NOW</h2>
+            <div *ngIf="gallery" class="gallery d-flex flex-column flex-lg-row h-100 justify-content-center justify-content-lg-around align-items-center ">
+                <div class="cover">
+                    <span style="background-image: url('https://images.igdb.com/igdb/image/upload/t_cover_big_2x/{{ currentGame.cover.image_id }}.jpg');"></span>
+                    <!--{{ currentGame.name | uppercase }}-->                    
+                </div>
+                <div class="d-flex flex-row flex-lg-column-reverse justify-content-center align-items-center">
+                    <div (click)="prev()" [ngClass]="indexGame == 0? 'disabled':''" class="btn gallery-btn prev-btn"><span></span></div>
+                    <h2 class="current-element-gallery">#{{indexGame + 1 | number:'2.0'}}</h2>
+                    <div (click)="next()" [ngClass]="indexGame == 9? 'disabled':''" class="btn gallery-btn next-btn"><span></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
