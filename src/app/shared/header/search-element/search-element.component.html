@@ -1,0 +1,19 @@
+<div *ngIf="dataType == 'game'" class="d-flex game-data">
+    <app-cover [img]="cover? cover : ''" [alphaChannel]="alphaChannel? alphaChannel : false"></app-cover>
+    <div class="game-info">
+        <h4>{{title}}</h4>
+        <p>
+            {{(info | slice: 0 : info.slice(0,100).lastIndexOf(' ')) + (info.length > 100 ? '...' : '')}}
+            <span *ngIf="info.length > 100"> Read more</span>
+        </p>
+        <ul>
+            <li>{{list}}</li>
+        </ul>
+    </div>
+</div>
+<div *ngIf="dataType == 'platform'" class="d-flex flex-column justify-content-center align-items-center platform-data">
+    <app-logo [img]="cover? cover : ''" [alphaChannel]="alphaChannel? alphaChannel : false"></app-logo>
+    <div class="platform-info">
+        <h6>{{title}}</h6>
+    </div>
+</div>

@@ -3,6 +3,7 @@
 @import 'vars';
 
 html{
+    &.searching,
     &.menu-opened{
         overflow: hidden;
     }

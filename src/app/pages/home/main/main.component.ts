@@ -17,7 +17,6 @@ export class MainComponent implements OnInit {
     this.gamesService.getGames().subscribe(rest => {
       this.gallery = rest;
       this.currentGame = rest[this.indexGame];
-      console.log(this.indexGame)
     })
   }
 
@@ -29,14 +28,12 @@ export class MainComponent implements OnInit {
     if(this.indexGame < 9){
       this.indexGame ++;
       this.currentGame = this.gallery[this.indexGame]
-      console.log(this.currentGame)
     }
   }
   prev(){
     if(this.indexGame > 0){
       this.indexGame --;
       this.currentGame = this.gallery[this.indexGame]
-      console.log(this.indexGame)
     }
   }
 

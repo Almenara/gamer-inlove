@@ -8,6 +8,7 @@
     width: 100%;
     min-height: 10px;
     nav{
+        z-index: 999;
         display: flex;
         position: relative;
         justify-content: flex-end;
@@ -163,6 +164,78 @@
             }
             &.menu-opened{
                 clip-path: circle(150% at 31px 26px) !important;
+            }
+        }
+    }
+
+    #search-result{
+        overflow:scroll;
+        overflow-x: hidden;
+        z-index: 998;
+        clip-path: circle(0% at 50% 60px) !important;
+        position: absolute;
+        padding: 70px 20px;
+        top: 51px;
+        left: 0;
+        height: calc(100vh - 51px);
+        width: 100%;
+        border: 1px solid $black;
+        background-color: $beige;
+        &.search-opened{
+            clip-path: circle(150% at 50% 26px) !important;
+        }
+        .logo-list{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            overflow-y: scroll;
+            margin: 0 -20px;
+        }
+        .game-list{
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            background-color: $black;
+            border: 1px solid $black;
+            z-index: 10;
+            app-search-element{
+                display: flex;
+            }
+        }
+        #close-search{
+            cursor: pointer;
+            position: fixed;
+            height: 50px;
+            padding: 5px;
+            width: 50px;
+            border: 1px solid $black;
+            background-color: $black;
+            border-radius: 50px;
+            top: 70px;
+            right: 20px;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            span{
+                display: block;
+                height: 6px;
+                background-color: $beige;
+                opacity: 0;
+                &:first-child{
+                    opacity: 1;
+                    transform: rotate(45deg) translate(11px, 12px);
+                }
+                &:last-child{
+                    opacity: 1;
+                    transform: rotate(-45deg) translate(11px, -11px);
+                }
+            }
+            &:hover{
+                background-color: $beige;
+                span{
+                    background-color: $black;
+                }
             }
         }
     }

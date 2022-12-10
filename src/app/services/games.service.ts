@@ -8,7 +8,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class GamesService {
-  private URLService: string = "http://backendgamers.com/getallgames"
+  private URLService: string = "http://backendgamers.com/"
+
+  private _searching:Boolean = false;
 
   private twitchToken!: TwitchToken;
 
@@ -17,15 +19,21 @@ export class GamesService {
   }
   
   getGames(): Observable<any[]>{
-     return this.http.get<any[]>(this.URLService)
+    return this.http.get<any[]>(this.URLService + 'getallgames');
   }
-
+  searchGames(gameName:string){
+    this._searching = true;
+    document.querySelector('html')!.classList.add('searching');
+    return this.http.get<any[]>(this.URLService + 'searchgames/'+gameName);
+  }
   getToken(){
     this.twitchTokenService.getToken().subscribe(resp => {
       this.twitchToken = resp;
-      console.log(this.twitchToken.access_token);
-            
+      console.log(this.twitchToken.access_token);         
     })
   }
-  
+  closeSearching(){
+    this._searching = false;
+    document.querySelector('html')!.classList.remove('searching')    ;
+  }
 }

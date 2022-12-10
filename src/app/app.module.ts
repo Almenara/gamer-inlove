@@ -8,13 +8,19 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { ErrorComponent } from './pages/error/error.component';
+import { SearchElementComponent } from './shared/header/search-element/search-element.component';
+import { CoverComponent } from './shared/cover/cover.component';
+import { LogoComponent } from './shared/logo/logo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ErrorComponent
+    ErrorComponent,
+    SearchElementComponent,
+    CoverComponent,
+    LogoComponent,
   ],
   imports: [
     BrowserModule,

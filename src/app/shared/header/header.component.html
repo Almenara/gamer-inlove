@@ -1,12 +1,12 @@
 <div id="header-container">
   <nav class="d-flex justify-items-end">
-    <div id="burguer" (click)="toggleMenu()" [ngClass]="menuIsOpen? 'menu-opened':''">
+    <div id="burguer" (click)="toggleMenu($event)" [ngClass]="menuIsOpen? 'menu-opened':''">
       <span></span>
       <span></span>
       <span></span>
     </div>
     <div id="search" class="header-btn white-btn" (click)="openSearch($event)" [ngClass]="searchOpened? 'search-opened':''">
-      <input type="text" id="input-search" [ngClass]="searchOpened? 'search-opened':''" #searchInput>
+      <input type="text" id="input-search" (change)="search($event)" [ngClass]="searchOpened? 'search-opened':''" #searchInput>
     </div>
     <a href="#" class="d-none d-md-flex header-btn white-btn">Community</a>
     <a href="#" class="d-none d-sm-flex header-btn black-btn">Sign Up / Log In</a>
@@ -22,4 +22,21 @@
       </ul>
     </div>
   </nav>
+
+  <div id="search-result" (click)="($event.stopPropagation())" [ngClass]="searchResult? 'search-opened':''">
+    <div id="close-search" (click)="closeSearch()">
+      <span></span>
+      <span></span>
+    </div>
+    <div *ngIf="searchResult"></div>
+    <h1>Platforms</h1>
+    <div class="logo-list">
+      <app-search-element *ngFor="let platform of platforms" [dataType]="'platform'" [title]="platform.name" [info]="platform.summary? platform.summary : ''" [alphaChannel]="platform.platform_logo? platform.platform_logo.alpha_channel : null"  [cover]="platform.platform_logo? platform.platform_logo.image_id : ''"></app-search-element>
+    </div>
+    <div *ngIf="games"></div>
+    <h1>Games</h1>
+    <div class="game-list">
+      <app-search-element *ngFor="let game of games" [dataType]="'game'" [title]="game.name" [info]="game.summary? game.summary : ''" [cover]="game.cover? game.cover.image_id : ''"></app-search-element>
+    </div>
+  </div>
 </div>
