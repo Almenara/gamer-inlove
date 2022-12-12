@@ -246,4 +246,82 @@ html{
             }
         }
     }
+    form{
+        gap: 10px;
+        display: flex;
+    }
+    input{
+        background-color: transparent;
+        border-radius: 50px;
+        border: 1px solid $black;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        box-shadow: inset 0 0 0 0 $beige;
+        font-family: "Inconsolata", sans-serif;
+        font-size: 25px;
+        font-weight: 200;
+        &::placeholder{
+            color: $black;
+            opacity: 1;
+        }
+        &:focus{
+
+            box-shadow: inset 0 0 0 2px $black;
+        }
+    }
+    button{
+        top: 0;
+        margin-left: 8px;
+        position: relative;
+        border-radius: 50px;
+        background-color: $violet;
+        border: 1px solid $black;
+        padding: 7px 20px;
+        min-width: 200px;
+        max-width: max-content;
+        font-family: "Inconsolata", sans-serif;
+        font-size: 30px;
+        font-weight: 500;
+        z-index: auto;
+        &:hover{
+            background-color: $yellow;
+        }
+        &::after{
+            content: "";
+            border-radius: 50px;
+            position: absolute;
+            display: block;
+            background-color: $black;
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+            top: 8px;
+            right: 8px;
+        }
+        &::before{
+            content: "";
+            border-radius: 50px;
+            position: absolute;
+            display: block;
+            background-color: transparent;
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+            top: 0;
+            right: 0;
+        }
+        &:active{
+            top: 8px;
+            margin-left: 0;
+            background-color: $violet;
+            &::after{
+                top: 0;
+                right: 0;
+            }
+            &::before{
+                top: -8px;
+                right: -8px;
+            }
+        }
+    }
 }

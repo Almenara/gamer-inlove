@@ -108,10 +108,13 @@
                 border-bottom: 1px solid $black;
                 width: 0;
                 padding: 0;
+                margin-right: 40px;
                 height: 30px;
                 font-weight: 200;
+                border-radius: 0;
+                box-shadow: none!important;
                 &.search-opened{
-                    width: calc(100% - 30px);
+                    width: calc(100% - 60px);
                 }
             }
             &.search-opened{
@@ -161,6 +164,12 @@
                     font-size: 3.2rem;
 
                 }*/
+                a{
+                    color:$beige;
+                    &:hover{
+                        color:$beige
+                    }
+                }
             }
             &.menu-opened{
                 clip-path: circle(150% at 31px 26px) !important;

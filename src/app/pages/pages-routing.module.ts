@@ -1,9 +1,9 @@
-
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
-
+import { SignUpComponent } from './user/sign-up/sign-up.component';
+import { LogInComponent } from './user/log-in/log-in.component';
 
 const routes: Routes = [
   {
@@ -17,6 +17,22 @@ const routes: Routes = [
       {
         path: 'home',
         redirectTo: ''
+      },
+      {
+        path: 'sign-up',
+        component: SignUpComponent,
+      },
+      {
+        path: 'signup',
+        redirectTo: 'sign-up'
+      },
+      {
+        path: 'log-in',
+        component: LogInComponent,
+      },
+      {
+        path: 'login',
+        redirectTo: 'log-in',
       },
       //{
       //  path: 'starships',

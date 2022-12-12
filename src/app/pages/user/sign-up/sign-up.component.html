@@ -1,0 +1,19 @@
+<div class="row">
+    <div id="sign-in" class="d-flex flex-column flex-md-row">
+        <div id="sign-in-form" class="d-flex flex-column justify-content-start">
+            <form [formGroup]="signUpForm" class="d-flex flex-column just-content-center">
+                <input formControlName="name" type="text" name="name" placeholder="Name">
+                <input formControlName="surname" type="text" name="surname" placeholder="Surname">
+                <input type="text" name="username" placeholder="User name">
+                <input formControlName="email" type="email" name="email" placeholder="email">
+                <input type="email" name="repeatemail" placeholder="Repeat email">
+                <input formControlName="password" type="password" name="password" placeholder="Password">
+                <input type="email" name="repeatpassword" placeholder="Repeat Password">
+                <button type="submit" [disabled]="!signUpForm.valid" (click)="register()">Register</button>
+            </form>
+        </div>
+        <div id="title" class="d-flex">
+            <h1>Sign<br/>In</h1>
+        </div>
+    </div>
+</div>
