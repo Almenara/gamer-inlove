@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { LogInComponent } from './user/log-in/log-in.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
+
 
 const routes: Routes = [
   {
@@ -33,6 +35,10 @@ const routes: Routes = [
       {
         path: 'login',
         redirectTo: 'log-in',
+      },
+      {
+        path: 'profile',
+        component: UserProfileComponent,
       },
       //{
       //  path: 'starships',

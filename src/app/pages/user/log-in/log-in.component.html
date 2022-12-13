@@ -4,10 +4,10 @@
             <h1>Log<br/>In</h1>
         </div>
         <div id="log-in-form" class="d-flex flex-column justify-content-start">
-            <form class="d-flex flex-column just-content-center">
-                <input type="email" name="email" placeholder="email">
-                <input type="password" name="password" placeholder="Password">
-                <button type="submit">Send</button>
+            <form [formGroup]="logInForm" class="d-flex flex-column just-content-center">
+                <input formControlName="email" type="email" name="email" placeholder="email">
+                <input formControlName="password" type="password" name="password" placeholder="Password">
+                <button type="submit" [disabled]="!logInForm.valid" (click)="login()">Log In</button>
             </form>
         </div>
     </div>
