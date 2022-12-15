@@ -6,18 +6,20 @@
       <span></span>
     </div>
     <div id="search" class="header-btn white-btn d-flex justify-content-end" (click)="openSearch($event)" [ngClass]="searchOpened? 'search-opened':''">
-      <input type="text" id="input-search" (change)="search($event)" [ngClass]="searchOpened? 'search-opened':''" #searchInput>
+      <input type="text" id="input-search" onfocus="this.select();" (change)="search($event)" [ngClass]="searchOpened? 'search-opened':''" #searchInput>
     </div>
-    <a href="#" class="d-none d-md-flex header-btn white-btn">Community</a>
+    <a [routerLink]="[ '/community' ]" class="d-none d-md-flex header-btn white-btn">Community</a>
     <a *ngIf="!auth.ok" [routerLink]="[ '/sign-up' ]" class="d-none d-sm-flex header-btn black-btn">Sign Up / Log In</a>
     <a *ngIf="auth.ok" [routerLink]="[ '/profile' ]" class="d-none d-sm-flex header-btn black-btn">My Profile</a>
     <div id="menu" [ngClass]="menuIsOpen? 'menu-opened':''">
       <ul id="options">
-        <li class="option"><a (click)="toggleMenu($event)" [routerLink]="[ '/' ]" >Home</a></li>
-        <li *ngIf="!auth.ok" class="option"><a (click)="toggleMenu($event)" [routerLink]="[ '/sign-up' ]" >Sign Up</a></li>
-        <li *ngIf="!auth.ok" class="option"><a (click)="toggleMenu($event)" [routerLink]="[ '/log-in' ]" >Log In</a></li>
-        <li *ngIf="auth.ok" class="option"><a (click)="toggleMenu($event)" [routerLink]="[ '/profile' ]" >My Profile</a></li>
-        <li *ngIf="auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="logOut()" >Log Out</a></li>
+        <li class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
+        <li class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()"[routerLink]="[ '/community' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Community</a></li>
+        <li class="option"><a (click)="toggleMenu($event)" (click)="openSearch($event)">Search</a></li>
+        <li *ngIf="!auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/sign-up' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Sign Up</a></li>
+        <li *ngIf="!auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/log-in' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Log In</a></li>
+        <li *ngIf="auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/profile' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">My Profile</a></li>
+        <li *ngIf="auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" (click)="logOut()" >Log Out</a></li>
       </ul>
     </div>
   </nav>

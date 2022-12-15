@@ -1,10 +1,10 @@
 <div class="row">
-    <div id="log-in" class="d-flex flex-column flex-md-row">
+    <div id="log-in" class="main-section-page d-flex flex-column flex-md-row">
         <div id="title" class="d-flex">
             <h1>Log<br/>In</h1>
         </div>
         <div id="log-in-form" class="d-flex flex-column justify-content-start">
-            <form [formGroup]="logInForm" class="d-flex flex-column just-content-center">
+            <form [formGroup]="logInForm" class="d-flex flex-column just-content-center mt-5 mb-5">
 
                 <input formControlName="email" type="email" name="email" placeholder="email">
 
@@ -12,7 +12,7 @@
 
                 <span *ngIf="errorMessage != ''" class="form-error">{{ errorMessage }}</span>
 
-                <button type="submit" [disabled]="!logInForm.valid" (click)="login()">Log In</button>
+                <button type="submit" class="mt-4" [disabled]="!logInForm.valid" (click)="login()">Log In</button>
 
             </form>
         </div>

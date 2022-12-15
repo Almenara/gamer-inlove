@@ -40,8 +40,9 @@ const routes: Routes = [
       {
         path: 'profile',
         component: UserProfileComponent,
+        loadChildren: () => import('./user/user-profile/user-profile-pages-routing.module').then( m => m.UserProfilePagesRoutingModule),
         canActivate: [AuthGuard],
-        canLoad: [AuthGuard]
+        canLoad: [AuthGuard],
       },
       //{
       //  path: 'starships',
@@ -63,10 +64,6 @@ const routes: Routes = [
       //  path: 'register',
       //  component: RegisterComponent
       //},
-      {
-        path: '**',
-        redirectTo: '404'
-      }
     ]
   }
 ];

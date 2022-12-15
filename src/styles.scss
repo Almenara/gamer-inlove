@@ -9,10 +9,22 @@ html{
     }
     h1{
         font-family: 'Rozha One', serif;
-        font-size: 120px;
+
+        font-size: 14vw;
+        line-height: 10.5vw;
+        @media (min-width: 768px) {
+            font-size: 8vw;
+            line-height: 6vw;
+        }
+        
     }
     h2{
-        font-size: calc(2.325rem + 0.9vw);
+        font-size: 6vw;
+        line-height: 5vw;
+        @media (min-width: 768px) {
+            font-size: 4vw;
+            line-height: 3.5vw;
+        }
     }
     body{
         z-index: 1;
@@ -25,8 +37,15 @@ html{
         left:0;
         background-color: $beige;
         #content{
-            margin-top: 50px;
-            min-height: calc(100vh - 52px);
+            margin-top: 51px;
+            min-height: calc(100vh - 51px);
+        }
+        .main-section-page{
+            min-height: calc(100vh - 51px);
+            gap: 1px;
+            background-color: $black;
+            padding: 0;
+            border: 1px solid $black;
         }
         a{
             color: $black;
@@ -49,6 +68,16 @@ html{
                     display: block;
                     position: absolute;
                     background-color: $red;
+                    width: 100%;
+                    height: 5px;
+                }
+            }
+            &.active{
+                &::before{
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    background-color: $violet;
                     width: 100%;
                     height: 5px;
                 }
@@ -354,3 +383,12 @@ html{
         }
     }
 }
+*::selection{ 
+    color: $black;
+    background: $violet;
+}
+*::-moz-selection { 
+    color: $black;
+    background: $violet;
+}
+  

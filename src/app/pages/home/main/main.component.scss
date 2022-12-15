@@ -1,11 +1,6 @@
 @import '../../../../vars';
 
 #main{
-    min-height: calc(100vh - 49px);
-    gap: 1px;
-    background-color: $black;
-    padding: 0;
-    border: 1px solid $black;
     #title{
         flex: 1;
         background-color: $orange;
