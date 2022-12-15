@@ -164,7 +164,9 @@
                     font-size: 3.2rem;
 
                 }*/
+                
                 a{
+                    cursor: pointer;
                     color:$beige;
                     &:hover{
                         color:$beige

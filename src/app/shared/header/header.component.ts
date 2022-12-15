@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { OpenMenuService } from './../../services/open-menu.service';
 import { GamesService } from './../../services/games.service';
 import { Component, ElementRef, HostListener, OnInit, SimpleChange, ViewChild } from '@angular/core';
@@ -15,6 +16,10 @@ export class HeaderComponent implements OnInit {
   public games: any ;
   public platforms: any ;
 
+  get auth(){
+    return this.authService.auth
+  }
+
   @ViewChild("searchInput") public input!: ElementRef;
   
   @HostListener('document:click', ['$event'])
@@ -30,6 +35,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private gamesService: GamesService, 
     private openMenuService: OpenMenuService, 
+    private authService: AuthService
     ) { }
 
   get menuIsOpen(){
@@ -65,5 +71,9 @@ export class HeaderComponent implements OnInit {
   closeSearch(){
     this.gamesService.closeSearching();
     this.searchResult = null;
+  }
+
+  logOut(){
+    this.authService.logout()
   }
 }

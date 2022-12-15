@@ -13,6 +13,7 @@ export class SignUpComponent implements OnInit {
     email:    ['', [Validators.required, Validators.email]],
     name:     ['', [Validators.required, Validators.minLength(3)]],
     surname:  ['', [Validators.required, Validators.minLength(3)]],
+    username:  ['', [Validators.required, Validators.minLength(3)]],
     password:    ['', [Validators.required, Validators.minLength(6)]],
   })
 
@@ -25,8 +26,9 @@ export class SignUpComponent implements OnInit {
       email: this.signUpForm.value.email,
       name: this.signUpForm.value.name,
       surname: this.signUpForm.value.surname,
+      username: this.signUpForm.value.username,
       password: this.signUpForm.value.password
     }
-    this.usersService.postRegister(user).subscribe(resp => console.log(resp), error => console.log(error));
+    this.usersService.postRegister(user).subscribe({next: resp => console.log(resp), error: error => console.log(error)});
   }
 }
