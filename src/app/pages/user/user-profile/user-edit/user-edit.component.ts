@@ -50,15 +50,21 @@ export class UserEditComponent {
   }
 
   upload(){
-    let user:Object = {
+    let user:User = {
       id: this._user.id,
-      currentMail: this._user.email,
       email: this.editUserForm.value.email,
       name: this.editUserForm.value.name,
       surname: this.editUserForm.value.surname,
       username: this.editUserForm.value.username,
-      password: this.editUserForm.value.password
+      password: this.editUserForm.value.password,
+      is_shop: false,
     }
-    this.usersService.postRegister(user).subscribe({next: resp => console.log(resp), error: error => console.log(error)});
+    this.usersService.editUser(user).subscribe({
+      next: resp => {
+        this.usersService.user = resp;
+        console.log(this.usersService.user)
+      },
+      error: error => console.log(error)
+    });
   }
 }

@@ -14,18 +14,21 @@ export class UserProfileComponent implements OnInit {
   private _user!: User;
 
   get user(){
+    if(this.usersService.user) this._user = this.usersService.user;
     return this._user;
   }
-
+  set user(user: User){
+    if(this.usersService.user) this._user = this.usersService.user;
+    this._user = user
+  }
   constructor( private usersService: UsersService, public router: Router ) { }
 
   ngOnInit(): void {
     this.usersService.getProfile().subscribe({
       next:(resp)=>{
-        this._user = resp;
+        this.user = this.usersService.user;
       },
       error:(error)=>{
-        console.log(error);
         this.router.navigate(['/']);
       }
     })

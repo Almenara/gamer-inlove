@@ -45,8 +45,8 @@ export class AuthService {
             localStorage.setItem('auth_token', this._auth.data?.accessToken!);
           }
         }),
-        map(resp => resp.ok),
-        catchError(resp => of(resp.error))
+        map(resp => resp),
+        catchError(resp => of(resp))
     );
 
   }

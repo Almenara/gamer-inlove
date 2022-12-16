@@ -6,8 +6,8 @@ export interface User {
     email:      string;
     password:   string;
     is_shop:    boolean;
-    shops:      Shop[] | null;
-    ecommerces: Ecommerce[] | null;
+    shops?:      Shop[];
+    ecommerces?: Ecommerce[];
 }
 export interface Shop{
     id:             null | number;

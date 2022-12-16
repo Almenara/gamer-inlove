@@ -36,13 +36,11 @@ export class PasswordEditComponent {
   ngOnInit(): void {
   }
 
-  upload(){
-    let user:Object = {
-      id: this._user.id,
-      currentMail: this._user.email,
-      username: this.editPasswordForm.value.newpassword,
-      password: this.editPasswordForm.value.password
-    }
-    this.usersService.postRegister(user).subscribe({next: resp => console.log(resp), error: error => console.log(error)});
+  uploadPassword(){
+      const id = this._user.id;
+      const newpassword = this.editPasswordForm.value.newpassword;
+      const password = this.editPasswordForm.value.password;
+    
+    this.usersService.editPassword(password, newpassword, id!).subscribe({next: resp => console.log(resp), error: error => console.log(error)});
   }
 }

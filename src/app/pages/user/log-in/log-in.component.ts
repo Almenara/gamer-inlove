@@ -32,11 +32,11 @@ export class LogInComponent implements OnInit {
     
     this.authService.login(email, password).subscribe({
       next: resp => {
-        if(resp){
+        if(resp.ok){
           this.router.navigate(['/profile'])
         } 
         else{
-          this.errorMessage = resp.message;
+          this.errorMessage = resp.error.message;
         }
       }
     });
