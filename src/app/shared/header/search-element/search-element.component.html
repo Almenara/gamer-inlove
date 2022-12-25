@@ -1,0 +1,31 @@
+<a *ngIf="game" class="d-flex flex-row game-data" (click)="closeSearch()" [routerLink]="[ '/game/', game.id + '-' + game.slug ]">
+    <app-cover [img]="game.cover? game.cover : ''"></app-cover>
+    <div class="game-info">
+        <h4>{{game.name}}</h4>
+        <p *ngIf="game.summary" class="d-none d-md-block">
+            {{(game.summary | slice: 0 : game.summary.slice(0,100).lastIndexOf(' ')) + (game.summary.length > 100 ? '...' : '')}}
+            <span *ngIf="game.summary.length > 100"> Read more</span>
+        </p>
+        <ul *ngIf="game.platforms">
+            <li>Listado de plataformas</li>
+        </ul>
+    </div>
+</a>
+<a *ngIf="platform" (click)="closeSearch()" class="d-flex flex-column justify-content-center align-items-center platform-data" [routerLink]="[ '/user/',  platform.id + '-' + platform.slug]">
+    <app-logo [img]="platform.platform_logo? platform.platform_logo : ''" [alphaChannel]="false"></app-logo>
+    <div class="platform-info">
+        <h6>{{platform.name}}</h6>
+    </div>
+</a>
+<a *ngIf="user" (click)="closeSearch()" class="d-flex flex-column justify-content-center align-items-center platform-data" [routerLink]="[ '/user/',  user.id + '-' + user.username]">
+    <app-logo [img]="user.image? user.image : ''" [alphaChannel]="false"></app-logo>
+    <div class="platform-info">
+        <h6>{{user.username}}</h6>
+    </div>
+</a>
+<a *ngIf="company" (click)="closeSearch()" class="d-flex flex-column justify-content-center align-items-center platform-data" [routerLink]="[ '/company/',  company.id + '-' + company.slug]">
+    <app-logo [img]="company.logo? company.logo : ''" [alphaChannel]="false"></app-logo>
+    <div class="platform-info">
+        <h6>{{company.name}}</h6>
+    </div>
+</a>

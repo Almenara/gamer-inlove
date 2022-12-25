@@ -1,0 +1,13 @@
+@import '../../../../vars';
+#log-in{
+    #log-in-form{
+        flex: 1;
+        background-color: $beige;
+        padding: 20px;
+    }
+    #title{
+        flex: 1;
+        background-color: $red;
+        padding: 20px;
+    }
+}

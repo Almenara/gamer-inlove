@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/vars.scss",
               "src/styles.scss"
             ],
             "scripts": []
@@ -67,6 +68,8 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+          },
           "configurations": {
             "production": {
               "browserTarget": "gamer-inlove:build:production"
@@ -103,5 +106,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "592a01ce-be29-4eec-840c-abfa40aa57b1"
   }
 }

@@ -1,0 +1,13 @@
+
+<div *ngIf="user" id="user-in-form" class="d-flex flex-column justify-content-start order-1 order-md-0 mt-5 mb-5">
+    <h2 class="text-center mb-4">Edit your profile data</h2>
+    <form [formGroup]="editUserForm" class="d-flex flex-column just-content-center">
+        <input formControlName="name" type="text" name="name" placeholder="Name">
+        <input formControlName="surname" type="text" name="surname" placeholder="Surname">
+        <input formControlName="username" type="text" name="username" placeholder="User name">
+        <input formControlName="email" type="email" name="email" placeholder="email">
+        <!--input type="email" name="repeatemail" placeholder="Repeat email"-->
+        <input formControlName="password" type="password" name="password" placeholder="Password">
+        <button type="submit" class="mt-4" [disabled]="!editUserForm.valid" (click)="upload()">Edit</button>
+    </form>
+</div>

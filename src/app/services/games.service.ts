@@ -1,49 +1,66 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TwitchToken } from './twitchToken.interface';
 import { TwitchService } from './twitch.service';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Game } from '../interfaces/game';
+import { GameData } from '../interfaces/user_game copy';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GamesService {
-  private URLService: string = "https://api.igdb.com/v4/platforms/?Client-ID=6ffwamznu9jjdfovt4eihez7fwdjue&Authorization=bearer d3h9t6rrelkfmfhwls6ak0yubrok06"
+
+  private _URLService: string = "http://backendgamers.com/"
+
+  private _searching:Boolean = false;
+
+  private _auth = this.authService.auth;
 
   private twitchToken!: TwitchToken;
-  private headers = new HttpHeaders()
-  .set("Client-ID", "6ffwamznu9jjdfovt4eihez7fwdjue")
-  .set('Access-Control-Allow-Methods', "POST")
-  .set('Access-Control-Allow-Headers', 'Authorization')
-  .set('Access-Control-Allow-Origin', 'http://localhost:4200/')
-  .set("Content-Type", "application/json")
-  .set("Authorization", "bearer d3h9t6rrelkfmfhwls6ak0yubrok06");
-  //
-  private query = "fields *; fields platform_logo.*; limit 10;";
 
-  private requestOptions = {
-     method: 'POST',
-     headers: this.headers,
-     body: this.query,
-     redirect: 'follow',
-     mode: 'no-cors'
-  };
+  public game!: Game;
 
-  constructor(private twitchTokenService: TwitchService, private http: HttpClient ) { 
-   // this.getToken()
-    console.log('hola',this.headers)
-  }
+  constructor(
+    private twitchTokenService: TwitchService, 
+    private http: HttpClient,
+    private authService: AuthService ) { }
   
-  getGames(){
-     return this.http.post(this.URLService,this.query,this.requestOptions)
+
+  getGames(): Observable<GameData[]>{
+    return this.http.get<GameData[]>(this._URLService + 'api/get10games');
+  }
+
+  getGame(id: number): Observable<GameData>{
+    let URLService = this._URLService + "api/game/detail/" + id; 
+    let headers = new HttpHeaders();
+    headers = headers.append('Acept', 'application/json');
+    const body = { id }
+
+    if(this._auth.ok){
+      headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
+      URLService = this._URLService + "api/game/detailWithUserCollectionData/" + id; 
+    }
+    console.log(URLService);
+    //URLService = this._URLService + "api/game/detail/" + id; 
+    console.log(headers);
+    return this.http.get<GameData>(URLService, {headers});
+  }
+
+  search(gameName:string){
+    this._searching = true;
+    document.querySelector('html')!.classList.add('searching');
+    return this.http.get<GameData[]>(this._URLService + 'api/search/' + gameName);
   }
 
   getToken(){
-    this.twitchTokenService.getToken().subscribe(resp => {
-      this.twitchToken = resp;
-      console.log(this.twitchToken.access_token);
-      this.headers.set("Authorization", `${this.twitchToken.token_type} ${this.twitchToken.access_token}`);
-      
-    })
+    return localStorage.getItem('auth_token');
   }
-  
+
+  closeSearching(){
+    this._searching = false;
+    document.querySelector('html')!.classList.remove('searching');
+  }
+
 }

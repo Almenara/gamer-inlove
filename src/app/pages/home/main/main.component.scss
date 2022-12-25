@@ -1,0 +1,49 @@
+@import '../../../../vars';
+
+#main{
+    #title{
+        flex: 1;
+        background-color: $orange;
+        padding: 20px;
+    }
+    #main-gallery{
+        flex: 1;
+        background-color: $beige;
+        padding: 20px;
+        h2{
+            padding-bottom: 20px;
+        }
+        h2.current-element-gallery{         
+            font-family: 'Rozha One', serif;
+            margin: 30px 10vw;
+            padding: 0 0 0 5px;
+            min-width: 82px;
+            -webkit-user-select: none;
+            user-select: none;
+            font-size: 40px;
+
+            @media (min-width: 768px){
+                padding: 0 0 0 10px;
+                margin: 30px 0;
+                min-width: 100px;
+                font-size: 50px;
+            }
+        }
+        .cover{
+            width: calc(100vw - 50px);
+            height: calc(100vw - 50px);
+            max-width: 500px;
+            max-height: 500px;
+            @media (min-width: 768px){
+                width: calc(50vw - 40px);
+                height: calc(50vw - 40px);
+            }
+            @media (min-width: 992px){
+                max-width: 600px;
+                max-height: 600px;
+                width: 30vw;
+                height: 30vw;
+            }
+        }
+    }
+}

@@ -1,0 +1,42 @@
+@import '../../../../vars.scss';
+
+.game-data{
+    width: 100%;
+    padding: 20px;
+    background-color: $beige;
+    cursor: pointer;
+    &:hover{
+        background-color: $blue;
+        color: $black;
+    }
+    &::before{
+        content: none;
+    }
+    app-cover{
+        height: 100%;
+        width: 100%;
+        max-width: 135px;
+        max-height: 200px;
+        padding: 8px 20px 0 0;
+    }
+
+}
+.platform-data{
+
+    width: 150px;
+    padding: 20px;
+    background-color: $beige;
+    app-cover{
+        height: 100%;
+        width: 100%;
+        max-width: 135px;
+        max-height: 200px;
+        padding: 8px 20px 0 0;
+    }
+    h6{
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        max-width: 135px;
+    }
+}
