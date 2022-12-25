@@ -1,4 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+
+import { GamesService } from './../../../services/games.service';
+
+import { Platform } from 'src/app/interfaces/platform';
+import { Game } from 'src/app/interfaces/game';
+import { User } from 'src/app/interfaces/user';
+import { Company } from 'src/app/interfaces/company';
 
 @Component({
   selector: 'app-search-element',
@@ -6,23 +13,27 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./search-element.component.scss']
 })
 export class SearchElementComponent implements OnInit {
-  @Input() public title: any;
+  @Input() public game!: Game;
 
-  @Input() public cover: any;
+  @Input() public platform!: Platform;
 
-  @Input() public info: any;
+  @Input() public company!: Company;
 
-  @Input() public list: any;
+  @Input() public user!: User;
 
-  @Input() public alphaChannel: any;
+  @Output() delelteSearchResult = new EventEmitter<string>();
 
-  @Input() public dataType: string = "game";
-
-  constructor() { 
+  constructor( private gamesService: GamesService ) { 
     
   }
 
+  closeSearch(){
+    this.gamesService.closeSearching();
+    this.delelteSearchResult.emit(undefined)
+  }
+
   ngOnInit(): void {
+
   }
 
 }

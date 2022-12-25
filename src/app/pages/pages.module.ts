@@ -10,6 +10,7 @@ import { MainComponent } from './home/main/main.component';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { LogInComponent } from './user/log-in/log-in.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { GameComponent } from './games/game/game.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
     MainComponent,
     SignUpComponent,
     LogInComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    GameComponent
   ],
   imports: [
     UserModule,

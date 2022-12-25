@@ -1,13 +1,14 @@
 export interface User {
-    id:         null | number;
-    name:       string;
-    surname:    string;
-    username:   string;
-    email:      string;
-    password:   string;
-    is_shop:    boolean;
-    shops?:      Shop[];
-    ecommerces?: Ecommerce[];
+    id:             undefined | number;
+    name:           string;
+    surname:        string;
+    username:       string;
+    email:          string;
+    password:       string;
+    image:          string | null | undefined;
+    is_shop:        boolean;
+    shops?:         Shop[];
+    ecommerces?:    Ecommerce[];
 }
 export interface Shop{
     id:             null | number;

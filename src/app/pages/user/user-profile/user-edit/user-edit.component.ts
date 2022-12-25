@@ -57,6 +57,7 @@ export class UserEditComponent {
       surname: this.editUserForm.value.surname,
       username: this.editUserForm.value.username,
       password: this.editUserForm.value.password,
+      image: null,
       is_shop: false,
     }
     this.usersService.editUser(user).subscribe({

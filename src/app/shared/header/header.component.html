@@ -5,9 +5,10 @@
       <span></span>
       <span></span>
     </div>
-    <div id="search" class="header-btn white-btn d-flex justify-content-end" (click)="openSearch($event)" [ngClass]="searchOpened? 'search-opened':''">
-      <input type="text" id="input-search" onfocus="this.select();" (change)="search($event)" [ngClass]="searchOpened? 'search-opened':''" #searchInput>
-    </div>
+    <form id="search" role="search" class="header-btn white-btn d-flex justify-content-end"  (ngSubmit)="search()" (click)="openSearch($event)" [ngClass]="searchOpened? 'search-opened':''">
+      <input type="text" id="inputSearch" onfocus="this.select();" [ngClass]="searchOpened? 'search-opened':''" #searchInput>
+      <button name="search" type="submit"><span class="d-none">Search</span></button>
+    </form>
     <a [routerLink]="[ '/community' ]" class="d-none d-md-flex header-btn white-btn">Community</a>
     <a *ngIf="!auth.ok" [routerLink]="[ '/sign-up' ]" class="d-none d-sm-flex header-btn black-btn">Sign Up / Log In</a>
     <a *ngIf="auth.ok" [routerLink]="[ '/profile' ]" class="d-none d-sm-flex header-btn black-btn">My Profile</a>
@@ -29,15 +30,29 @@
       <span></span>
       <span></span>
     </div>
-    <div *ngIf="searchResult"></div>
-    <h1>Platforms</h1>
-    <div class="logo-list">
-      <app-search-element *ngFor="let platform of platforms" [dataType]="'platform'" [title]="platform.name" [info]="platform.summary? platform.summary : ''" [alphaChannel]="platform.platform_logo? platform.platform_logo.alpha_channel : null"  [cover]="platform.platform_logo? platform.platform_logo.image_id : ''"></app-search-element>
+    <div *ngIf="users && users.length > 0">
+      <h1>Users</h1>
+      <div class="logo-list">
+        <app-search-element (delelteSearchResult)="deleteSearch()" *ngFor="let user of users" [user]="user"></app-search-element>
+      </div>
     </div>
-    <div *ngIf="games"></div>
-    <h1>Games</h1>
-    <div class="game-list">
-      <app-search-element *ngFor="let game of games" [dataType]="'game'" [title]="game.name" [info]="game.summary? game.summary : ''" [cover]="game.cover? game.cover.image_id : ''"></app-search-element>
+    <div *ngIf="platforms && platforms.length > 0">
+      <h1>Platforms</h1>
+      <div class="logo-list">
+        <app-search-element (delelteSearchResult)="deleteSearch()" *ngFor="let platform of platforms" [platform]="platform"></app-search-element>
+      </div>
+    </div>
+    <div *ngIf="companies && companies.length > 0">
+      <h1>Companies</h1>
+      <div class="logo-list">
+        <app-search-element (delelteSearchResult)="deleteSearch()" *ngFor="let company of companies" [company]="company"></app-search-element>
+      </div>
+    </div>
+    <div *ngIf="games && games.length > 0">
+      <h1 class="games-search-title">Games</h1>
+      <div class="game-list">
+        <app-search-element (delelteSearchResult)="deleteSearch()" *ngFor="let game of games" [game]="game"></app-search-element>
+      </div>
     </div>
   </div>
 </div>

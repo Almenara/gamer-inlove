@@ -7,6 +7,10 @@
     cursor: pointer;
     &:hover{
         background-color: $blue;
+        color: $black;
+    }
+    &::before{
+        content: none;
     }
     app-cover{
         height: 100%;

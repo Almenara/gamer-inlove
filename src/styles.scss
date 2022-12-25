@@ -26,6 +26,21 @@ html{
             line-height: 3.5vw;
         }
     }
+    .bg-yellow{
+        background-color: $yellow;
+    }
+    .bg-red{
+        background-color: $red;
+    }
+    .bg-blue{
+        background-color: $blue;
+    }
+    .bg-orange{
+        background-color: $orange;
+    }
+    .bg-violet{
+        background-color: $violet;
+    }
     body{
         z-index: 1;
         min-height: 100vh;
@@ -118,79 +133,192 @@ html{
             }
         }
     }
-    .gallery-btn{
+    .btn{
         position: relative;
         border-radius: 50px;
-        padding: 0;
+        background-color: $black;
+        padding: 6px 16px 14px 24px;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         border: none;
-        span{
-            position: relative;
-            height: 50px;
-            width: 50px;
-            border: 1px solid $black;
-            border-radius: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: $violet;
-            top:0;
-            right:0;
-            &::before{
-                content: "";
-                position: absolute;
-                top: 17px;
-                display: block;
-                height: 1px;
-                width: 20px;
-                left: 16px;
-                background-color: $black;
-                transform: rotate(45deg);
-            }
-            &::after{
-                content: "";
-                position: absolute;
-                bottom: 16px;
-                display: block;
-                height: 1px;
-                width: 20px;
-                left: 16px;
-                background-color: $black;
-                transform: rotate(-45deg);
-            }
-        }
+        margin-right: 0;
+        color:$black;
         &::before{
             content: "";
             position: absolute;
-            background-color: $black;
-            height: 50px;
-            width: 50px;
+            background-color: $violet;
+            border: 1px solid $black;
+            height: 100%;
+            width: 100%;
             border-radius: 50px;
             z-index: -1;
-            top: 4px;
-            right: 4px;
-        }
-        &:active span{
-            position: relative;
-            top: 4px;
-            right: 4px;
-            background-color: $violet !important;
+            top: -4px;
+            right: -4px;
         }
         &:hover{
-            span{
+            background-color: $black;
+            &::before{
                 background-color: $yellow;
             }
         }
-        &.prev-btn span{
-            transform: rotate(180deg);
-
+        &:active{
+            background-color: $black!important;
+            padding: 10px 20px;
+            &::before{
+                background-color: $violet;
+                top: 0;
+                right: 0;
+            }
         }
+        &:disabled,
         &.disabled{
+            &::before{
+                opacity: 1;
+                background-color: $beige;
+            }
             opacity: 1;
+            background-color: $black;            
+        }
+        &.gallery-btn{
+            position: relative;
+            border-radius: 50px;
+            padding: 0;
+            border: none;
+            height: 50px;
+            width: 50px;
             span{
-                background-color: $beige !important;
+                position: relative;
+                height: 50px;
+                width: 50px;
+                border-radius: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                top:0;
+                right:0;
+                &::before{
+                    content: "";
+                    position: absolute;
+                    top: 14px;
+                    display: block;
+                    height: 1px;
+                    width: 20px;
+                    left: 22px;
+                    background-color: $black;
+                    transform: rotate(45deg);
+                }
+                &::after{
+                    content: "";
+                    position: absolute;
+                    bottom: 21px;
+                    display: block;
+                    height: 1px;
+                    width: 20px;
+                    left: 22px;
+                    background-color: $black;
+                    transform: rotate(-45deg);
+                }
+            }
+            &::before{
+                content: "";
+                position: absolute;
+                height: 50px;
+                width: 50px;
+                border-radius: 50px;
+            }
+            &.prev-btn span{
+                transform: rotate(180deg);
+                bottom: 8px;
+                top: auto;
+                right: auto;
+                left: 8px;
+            }
+            &:active {
+    
+                span{
+                    top: -6px;
+                    right: 23px
+                    
+                }
+                &.prev-btn span{
+                    bottom: 14px;
+                    top: auto;
+                    right: auto;
+                    left: -16px;
+                }
+            }
+        }
+        &.check-btn{
+            padding-right: 40px;
+            &:active{
+                &::before{
+                    background-color: $green!important;
+                }
+            }
+            &.checking{
+                margin-right: 4px;
+                padding: 10px 40px 10px 20px;
+                &::before{
+                    background-image: url(../src/assets/images/loading.svg)!important;
+                    background-size: 45px 45px;
+                    background-position: calc(100%) center;
+                    background-color: $yellow!important;
+                    top: 0;
+                    right: 0;
+                }
+            }
+            &.checked{
+                margin-right: 4px;
+                padding: 10px 40px 10px 20px;
+                &::before{
+                    background-image: url(../src/assets/images/added.svg);
+                    background-size: 30px 30px;
+                    background-position: calc(100% - 8px) center;
+                    background-color: $green;
+                    top: 0;
+                    right: 0;
+                }
+                &.erasable{
+                    &:hover{
+                        &::before{
+                            background-image: url(../src/assets/images/delete.svg);
+                            background-color: $red;
+                        }
+                    }
+                    &:active{
+                        &::before{
+                            background-color: $red!important;
+                        }
+                    }
+                }
+                &:active{
+                    margin-right: 4px;
+                    &::before{
+                        background-size: 0px 0px;
+                        background-position: calc(100% - 22px) center;
+                    }
+                }
+            }
+            &::before{
+                background-image: url(../src/assets/images/add.svg);
+                background-repeat: no-repeat;
+                background-position: calc(100% - 8px) center;
+                background-size: 30px 30px;
+            }
+            &:active{
+                margin-right: 4px;
+                &::before{
+                    background-size: 0px 0px;
+                    background-position: calc(100% - 22px) center;
+                }
             }
         }
     }
+
+    
+
     .cover{
         cursor: pointer;
         position: relative;
@@ -330,7 +458,7 @@ html{
             background-color: $black;
             height: 100%;
             width: 100%;
-            z-index: -1;
+            z-index: -2;
             top: 8px;
             right: 8px;
         }

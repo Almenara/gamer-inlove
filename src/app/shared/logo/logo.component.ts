@@ -14,6 +14,7 @@ export class LogoComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.img);
     if (!this.img || this.img == ""){
       this.img = "../../../../assets/images/default.png"
     }

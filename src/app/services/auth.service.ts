@@ -5,7 +5,6 @@ import { catchError, map, of, tap } from 'rxjs';
 
 import { Auth } from '../interfaces/auth';
 import { User } from '../interfaces/user';
-import { Token } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +16,11 @@ export class AuthService {
   private _auth: Auth = { ok: false }; 
   
   get user(){
-    return{...this._user}
+    return this._user;
   }
 
   get auth(){
-    return{...this._auth}
+    return this._auth;
   }
 
   constructor(private http: HttpClient, private router: Router) {

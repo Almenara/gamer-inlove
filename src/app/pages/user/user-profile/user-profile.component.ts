@@ -1,5 +1,4 @@
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { UsersService } from './../../../services/users.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/interfaces/user';
@@ -29,7 +28,7 @@ export class UserProfileComponent implements OnInit {
         this.user = this.usersService.user;
       },
       error:(error)=>{
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
       }
     })
   }

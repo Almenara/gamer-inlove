@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate, CanLoad, CanMatch {
+export class AuthGuard implements CanActivate, CanLoad {
 
   constructor(
     private authService: AuthService,
@@ -17,14 +17,8 @@ export class AuthGuard implements CanActivate, CanLoad, CanMatch {
     if(!this.authService.validateToken()) this.router.navigate(['/login']);
     return this.authService.validateToken();
   }
-  canMatch(): Observable<boolean> | boolean{
-    if(!this.authService.validateToken()) this.router.navigate(['/login']);
-    return this.authService.validateToken();
-  }
   canLoad(): Observable<boolean> | boolean{
     if(!this.authService.validateToken()) this.router.navigate(['/login']);
     return this.authService.validateToken();
   }
-
-  
 }
