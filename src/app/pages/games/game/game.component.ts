@@ -1,7 +1,7 @@
 import { AuthService } from 'src/app/services/auth.service';
 
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Game } from 'src/app/interfaces/game';
 import { GamesService } from 'src/app/services/games.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -12,7 +12,7 @@ import { UserGame } from 'src/app/interfaces/user_game';
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent {
+export class GameComponent implements OnInit{
 
   private _game!: Game;
 
@@ -54,7 +54,7 @@ export class GameComponent {
 
       this.gamesService.getGame(this.id).subscribe({
         next:(resp)=>{
-
+          this.gamesService.gameData = resp;
           this.game = resp.game;
           if(resp.collection){
             this.userCollectionGame = resp.collection;
@@ -76,32 +76,5 @@ export class GameComponent {
         this.secondaryColor = this.classes[Math.floor(Math.random() * this.classes.length)];
     }
 
-  }
-  toggleToUserCollection(platformId:number, event: Event){
-    let button = event.target as HTMLElement;
-    button.classList.add('checking');
-    this.userService.toggleToGameCollection(this.game.id, platformId).subscribe({
-      next: resp => {
-        button.classList.remove('checking');
-        if(resp.delete){
-          button.classList.remove('erasable');
-          button.classList.remove('checked');
-        }
-        else
-          button.classList.add('checked');
-      },
-      error: error => {
-        button.classList.remove('checking');
-        button.classList.remove('checked');
-        button.classList.remove('erasable');
-        //TODO mostrar modal con mensaje de error.
-      }
-    });
-  }
-  addDeleteClass(event: Event){
-    let button = event.target as HTMLElement;
-    if(button.classList.contains("checked") || button.classList.contains("checking")){
-      button.classList.add('erasable')
-    }
   }
 }

@@ -4,6 +4,7 @@ import { UsersService } from 'src/app/services/users.service';
 import { Component, Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
+import { UserWishgame } from 'src/app/interfaces/user_wishgame';
 
 @Component({
   selector: 'app-user-info',
@@ -14,16 +15,18 @@ import { User } from 'src/app/interfaces/user';
 export class UserInfoComponent implements OnInit {
 
   public collection!: UserGame[];
+  public wishlist!: UserWishgame[];
 
   constructor(
     private userService:UsersService,
     private route: ActivatedRoute){ }
 
   ngOnInit(): void {
-    this.userService.getUserCollection().subscribe({
+    this.userService.getUserCollectionAndWishlist().subscribe({
       next: resp => {
-        this.collection = resp;
-        console.log(this.collection)
+        this.collection = resp.collection;
+        this.wishlist = resp.wishlist;
+        console.log(resp);
       },
       error: error => {
         console.log(error);

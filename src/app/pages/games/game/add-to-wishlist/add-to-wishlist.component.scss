@@ -1,0 +1,7 @@
+@import '../../../../../vars';
+.btn.check-btn.checked{
+    &::before{
+        background-color: $yellow;
+        background-image: url(../../../../../assets/images/wish.svg);
+    }
+}

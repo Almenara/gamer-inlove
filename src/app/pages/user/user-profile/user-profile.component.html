@@ -5,7 +5,7 @@
             <h2 *ngIf="user">{{user.username}}</h2>
         </div>
         <div id="user-info" class="d-flex flex-column justify-content-start">
-            <ul id="user-menu" class="sub-menu d-flex justify-content-around justify-content-lg-center">
+            <ul id="user-menu" class="sub-menu d-flex align-items-center justify-content-between justify-content-lg-center">
                 <li class="sub-menu-option"><a [routerLink]="[ '/profile' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">My info</a></li>
                 <li class="sub-menu-option"><a [routerLink]="[ 'edit' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Edit data</a></li>
                 <li class="sub-menu-option"><a [routerLink]="[ 'password-edit' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Change Password</a></li>

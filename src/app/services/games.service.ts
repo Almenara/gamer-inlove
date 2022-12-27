@@ -5,7 +5,7 @@ import { TwitchService } from './twitch.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Game } from '../interfaces/game';
-import { GameData } from '../interfaces/user_game copy';
+import { GameData } from '../interfaces/game_data';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class GamesService {
 
   private twitchToken!: TwitchToken;
 
-  public game!: Game;
+  public gameData!: GameData;
 
   constructor(
     private twitchTokenService: TwitchService, 
@@ -40,11 +40,36 @@ export class GamesService {
 
     if(this._auth.ok){
       headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
-      URLService = this._URLService + "api/game/detailWithUserCollectionData/" + id; 
+      URLService = this._URLService + "api/game/detailWithUserCollectionAndWishlistData/" + id; 
     }
-    console.log(URLService);
-    //URLService = this._URLService + "api/game/detail/" + id; 
-    console.log(headers);
+    
+    return this.http.get<GameData>(URLService, {headers});
+  }
+
+  getUpdateGameCollection(id: number): Observable<GameData>{
+    let URLService = this._URLService + "api/game/detail/" + id; 
+    let headers = new HttpHeaders();
+    headers = headers.append('Acept', 'application/json');
+    const body = { id }
+
+    if(this._auth.ok){
+      headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
+      URLService = this._URLService + "api/game/UserCollectionData/" + id; 
+    }
+    
+    return this.http.get<GameData>(URLService, {headers});
+  }
+  getUpdateGameWishlist(id: number): Observable<GameData>{
+    let URLService = this._URLService + "api/game/detail/" + id; 
+    let headers = new HttpHeaders();
+    headers = headers.append('Acept', 'application/json');
+    const body = { id }
+
+    if(this._auth.ok){
+      headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
+      URLService = this._URLService + "api/game/UserWishlistData/" + id; 
+    }
+    
     return this.http.get<GameData>(URLService, {headers});
   }
 

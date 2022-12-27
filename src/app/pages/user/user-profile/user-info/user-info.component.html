@@ -10,4 +10,15 @@
             </div>
         </a>
     </div>
+    <h3>My Game Wishlist</h3>
+    <div id="game-list" class="d-flex flex-column" *ngFor="let game of wishlist" #gameList>
+        <a [routerLink]="[ '/game/' + game.game.id + '-' + game.game.slug ]" class="d-flex" *ngIf="game.game && game.platform">
+            <app-cover *ngIf="game.game.cover" [img]="game.game.cover" [alphaChannel]="false"></app-cover>
+            <div class="game-collection-info d-flex flex-column justify-content-start">
+                <h4>{{game.game.name}}</h4>
+                <span *ngIf="game.platform.abbreviation; else platformName">{{game.platform.abbreviation}}</span>
+                <ng-template #platformName>{{game.platform.name}}</ng-template>
+            </div>
+        </a>
+    </div>
 </div>
