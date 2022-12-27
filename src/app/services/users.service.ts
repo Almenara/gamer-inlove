@@ -115,4 +115,17 @@ export class UsersService {
     }
     return this.http.post<any>(URLService, data, {headers});
   }
+
+  toggleToGameWishlist(game_id: number , platform_id: number){
+    const URLService = this._URLService + "/api/user/toggle-game-to-wishlist";
+    let headers = new HttpHeaders();
+      
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
+    const data:Object = {
+      game_id: game_id,
+      platform_id: platform_id
+    }
+    return this.http.post<any>(URLService, data, {headers});
+  }
 }

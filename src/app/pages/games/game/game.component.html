@@ -41,16 +41,6 @@
                 <li class="sub-menu-option"><a [routerLink]="[ '/login' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Edit</a></li>
             </ul>
             <router-outlet></router-outlet>
-            <div *ngIf="auth.ok && game.platforms" class="mt-4">
-                <h3>Platform<ng-container *ngIf="game.platforms.length > 1">s</ng-container>:</h3>
-                
-                <div *ngIf="userCollectionGame" class="platforms d-flex justify-content-md-start flex-wrap gap-3">
-                    <div (click)="toggleToUserCollection(platform.id, $event)" [ngClass]="{'checked erasable': userCollectionGame[platform.id]}" (mouseout)="addDeleteClass($event)" *ngFor="let platform of game.platforms" class="platform btn check-btn">
-                        {{platform.name}}<span></span><span></span>
-                    </div>      
-                </div>
-                
-            </div>
         </div>
     </div>
 </div>
