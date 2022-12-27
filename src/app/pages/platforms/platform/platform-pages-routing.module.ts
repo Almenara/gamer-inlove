@@ -2,19 +2,19 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from 'src/app/guards/auth.guard';
-import { GameComponent } from './game.component';
 import { AddToCollectComponent } from './add-to-collect/add-to-collect.component';
 import { AddToWishlistComponent } from './add-to-wishlist/add-to-wishlist.component';
 import { EditComponent } from './edit/edit.component';
+import { PlatformComponent} from './platform.component';
 
 const routes: Routes = [
   {
-    path: 'game/:idSlug',
-    component: GameComponent,
+    path: 'platform/:idSlug',
+    component: PlatformComponent,
     children: [
       {
         path: 'add-to-collection',
-        component: AddToCollectComponent,
+        component: AddToCollectComponent, 
         canActivate: [AuthGuard],
         canLoad: [AuthGuard],
       },
@@ -26,9 +26,9 @@ const routes: Routes = [
       },
       {
         path: 'edit',
-        component: EditComponent,       
+        component: EditComponent,      
         canActivate: [AuthGuard],
-        canLoad: [AuthGuard],
+        canLoad: [AuthGuard], 
       }
     ]
   }
@@ -38,4 +38,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class GamePagesRoutingModule { }
+export class PlatformPagesRoutingModule { }

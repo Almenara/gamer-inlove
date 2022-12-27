@@ -258,7 +258,6 @@ html{
                 }
             }
             &.checking{
-                pointer-events: none;
                 margin-right: 4px;
                 padding: 10px 40px 10px 20px;
                 &::before{

@@ -47,25 +47,27 @@ export class AddToCollectComponent implements OnInit{
 
   toggleToUserCollection(platformId:number, event: Event){
     let button = event.target as HTMLElement;
-    button.classList.add('checking');
-    this.userService.toggleToGameCollection(this.game.game.id, platformId).subscribe({
-      next: resp => {
-        button.classList.remove('checking');
-        if(resp.delete){
-          this.gamesService.gameData.collection = resp.collection;
-          button.classList.remove('erasable', 'checked');
-          button.classList.remove('checked');
+    if(!button.classList.contains("checking")){
+      button.classList.add('checking');
+      this.userService.toggleToGameCollection(this.game.game.id, platformId).subscribe({
+        next: resp => {
+          button.classList.remove('checking');
+          if(resp.delete){
+            this.gamesService.gameData.collection = resp.collection;
+            button.classList.remove('erasable', 'checked');
+            button.classList.remove('checked');
+          }
+          else{
+            this.gamesService.gameData.collection = resp.collection;
+            button.classList.add('checked');
+          }
+        },
+        error: error => {
+          button.classList.remove('checking');
+          //TODO mostrar modal con mensaje de error.
         }
-        else{
-          this.gamesService.gameData.collection = resp.collection;
-          button.classList.add('checked');
-        }
-      },
-      error: error => {
-        button.classList.remove('checking');
-        //TODO mostrar modal con mensaje de error.
-      }
-    });
+      });
+    }
   }
 
   addDeleteClass(event: Event){
