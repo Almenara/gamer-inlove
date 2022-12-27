@@ -16,5 +16,5 @@ export interface UserGame {
     updated_at:     Date;
     game?:          Game;
     user?:          User;
-    Platform?:      Platform;
+    platform?:      Platform;
 }

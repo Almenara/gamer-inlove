@@ -11,7 +11,7 @@
         </ul>
     </div>
 </a>
-<a *ngIf="platform" (click)="closeSearch()" class="d-flex flex-column justify-content-center align-items-center platform-data" [routerLink]="[ '/user/',  platform.id + '-' + platform.slug]">
+<a *ngIf="platform" (click)="closeSearch()" class="d-flex flex-column justify-content-center align-items-center platform-data" [routerLink]="[ '/platform/',  platform.id + '-' + platform.slug]">
     <app-logo [img]="platform.platform_logo? platform.platform_logo : ''" [alphaChannel]="false"></app-logo>
     <div class="platform-info">
         <h6>{{platform.name}}</h6>

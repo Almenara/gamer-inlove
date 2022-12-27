@@ -5,33 +5,24 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
-import { PagesModule } from './pages/pages.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './shared/header/header.component';
-import { FooterComponent } from './shared/footer/footer.component';
 import { ErrorComponent } from './pages/error/error.component';
-import { SearchElementComponent } from './shared/header/search-element/search-element.component';
-import { CoverComponent } from './shared/cover/cover.component';
-import { LogoComponent } from './shared/logo/logo.component';
+import { SharedModule } from './shared/shared.module';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent,
     ErrorComponent,
-    SearchElementComponent,
-    CoverComponent,
-    LogoComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    PagesModule,
     HttpClientModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
