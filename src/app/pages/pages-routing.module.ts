@@ -48,10 +48,6 @@ const routes: Routes = [
         canLoad: [AuthGuard],
       },
       {
-        path: 'user/:idSlug',
-        component: UserProfileComponent,
-      },
-      {
         path: 'platform/:idSlug',
         component: GameComponent,
       },
@@ -60,7 +56,7 @@ const routes: Routes = [
         component: GameComponent,
       },
       {
-        path: 'game/:idSlug',
+        path: 'game:',
         component: GameComponent,
         loadChildren: () => import('./games/game/game-pages-routing.module').then( m => m.GamePagesRoutingModule)
       },

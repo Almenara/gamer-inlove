@@ -17,12 +17,12 @@ const routes: Routes = [
         component: UserInfoComponent,
       },
       {
-        path: 'edit',
-        component: UserEditComponent,
-      },
-      {
         path: 'password-edit',
         component: PasswordEditComponent,
+      },
+      {
+        path: 'edit',
+        component: UserEditComponent,
       }
     ]
   }

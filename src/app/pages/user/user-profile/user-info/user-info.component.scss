@@ -1,0 +1,43 @@
+@import '../../../../../vars';
+h3{
+    margin: 0;
+    padding: 15px 20px;
+    position: sticky;
+    top:116px;
+    border-bottom: 1px solid $black;
+    z-index: 2;
+    background-color: $beige;
+}
+#game-list{
+    app-cover{
+        height: 100%;
+        width: 100%;
+        max-width: 135px;
+        max-height: 200px;
+        padding: 8px 20px 0 0;
+    }
+    a{
+        padding: 20px;
+        border: 1px solid $black;
+        border-top: 0;
+        &:hover{
+            background-color: $blue;
+            border-color: $black;
+            color: $black;
+            &::before{
+                display: none;
+            }
+        }
+    }
+    .game-collection-info{
+        span{
+            display: inline-block;
+            padding: 5px 12px;
+            border: 1px solid $black;
+            max-width: max-content;
+            border-radius: 50px;
+            background-color: $beige;
+
+        }
+    }
+}

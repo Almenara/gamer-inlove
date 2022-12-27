@@ -262,8 +262,8 @@ html{
                 padding: 10px 40px 10px 20px;
                 &::before{
                     background-image: url(../src/assets/images/loading.svg)!important;
-                    background-size: 45px 45px;
-                    background-position: calc(100%) center;
+                    background-size: 45px 45px!important;
+                    background-position: calc(100%) center!important;
                     background-color: $yellow!important;
                     top: 0;
                     right: 0;

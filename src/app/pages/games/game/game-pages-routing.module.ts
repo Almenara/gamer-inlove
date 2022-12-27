@@ -13,12 +13,8 @@ const routes: Routes = [
     component: GameComponent,
     children: [
       {
-        path: '',
+        path: 'add-to-collection',
         component: AddToCollectComponent, 
-      },
-      {
-        path: 'add-to-collect',
-        component: AddToCollectComponent,       
       },
       {
         path: 'add-to-wishlist',

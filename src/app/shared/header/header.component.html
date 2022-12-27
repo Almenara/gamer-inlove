@@ -5,14 +5,14 @@
       <span></span>
       <span></span>
     </div>
-    <form id="search" role="search" class="header-btn white-btn d-flex justify-content-end"  (ngSubmit)="search()" (click)="openSearch($event)" [ngClass]="searchOpened? 'search-opened':''">
-      <input type="text" id="inputSearch" onfocus="this.select();" [ngClass]="searchOpened? 'search-opened':''" #searchInput>
+    <form id="search" role="search" class="header-btn white-btn d-flex justify-content-end" (ngSubmit)="search()" (click)="openSearch($event)" [ngClass]="searchOpened? 'search-opened':''">
+      <input type="text" id="searchInput" onfocus="this.select()" [ngClass]="searchOpened? 'search-opened':''" #searchInput>
       <button name="search" type="submit"><span class="d-none">Search</span></button>
     </form>
     <a [routerLink]="[ '/community' ]" class="d-none d-md-flex header-btn white-btn">Community</a>
     <a *ngIf="!auth.ok" [routerLink]="[ '/sign-up' ]" class="d-none d-sm-flex header-btn black-btn">Sign Up / Log In</a>
     <a *ngIf="auth.ok" [routerLink]="[ '/profile' ]" class="d-none d-sm-flex header-btn black-btn">My Profile</a>
-    <div id="menu" [ngClass]="menuIsOpen? 'menu-opened':''">
+    <nav id="menu" [ngClass]="menuIsOpen? 'menu-opened':''">
       <ul id="options">
         <li class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
         <li class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()"[routerLink]="[ '/community' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Community</a></li>
@@ -22,7 +22,7 @@
         <li *ngIf="auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/profile' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">My Profile</a></li>
         <li *ngIf="auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" (click)="logOut()" >Log Out</a></li>
       </ul>
-    </div>
+    </nav>
   </nav>
 
   <div id="search-result" (click)="($event.stopPropagation())" [ngClass]="searchResult? 'search-opened':''">
