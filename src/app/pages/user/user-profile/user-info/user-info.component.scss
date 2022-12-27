@@ -1,9 +1,9 @@
 @import '../../../../../vars';
 h3{
     margin: 0;
-    padding: 15px 20px;
+    padding: 20px 0;
     position: sticky;
-    top:116px;
+    top:120px;
     border-bottom: 1px solid $black;
     z-index: 2;
     background-color: $beige;
@@ -30,6 +30,9 @@ h3{
         }
     }
     .game-collection-info{
+        h4{
+            word-wrap: break-word;
+        }
         span{
             display: inline-block;
             padding: 5px 12px;

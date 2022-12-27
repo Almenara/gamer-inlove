@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -52,19 +51,17 @@ export class AddToWishlistComponent implements OnInit{
       next: resp => {
         button.classList.remove('checking');
         if(resp.delete){
-          console.log(this.gamesService)
+          this.gamesService.gameData.wishlist = resp.wishlist;
           button.classList.remove('erasable');
           button.classList.remove('checked');
         }
         else{
-          console.log(this.gamesService)
+          this.gamesService.gameData.wishlist = resp.wishlist;
           button.classList.add('checked');
         }
       },
       error: error => {
         button.classList.remove('checking');
-        button.classList.remove('checked');
-        button.classList.remove('erasable');
         //TODO mostrar modal con mensaje de error.
       }
     });

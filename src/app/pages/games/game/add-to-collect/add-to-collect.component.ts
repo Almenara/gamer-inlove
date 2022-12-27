@@ -52,16 +52,17 @@ export class AddToCollectComponent implements OnInit{
       next: resp => {
         button.classList.remove('checking');
         if(resp.delete){
-          button.classList.remove('erasable');
+          this.gamesService.gameData.collection = resp.collection;
+          button.classList.remove('erasable', 'checked');
           button.classList.remove('checked');
         }
-        else
+        else{
+          this.gamesService.gameData.collection = resp.collection;
           button.classList.add('checked');
+        }
       },
       error: error => {
         button.classList.remove('checking');
-        button.classList.remove('checked');
-        button.classList.remove('erasable');
         //TODO mostrar modal con mensaje de error.
       }
     });

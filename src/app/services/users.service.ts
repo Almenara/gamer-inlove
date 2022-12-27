@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../interfaces/user';
 import { UserGame } from '../interfaces/user_game';
+import { UserWishgame } from '../interfaces/user_wishgame';
 
 @Injectable({
   providedIn: 'root'
@@ -67,6 +68,21 @@ export class UsersService {
 
   }
 
+  getUserCollectionAndWishlist(id?: number): Observable<any>{
+    
+    const URLService = this._URLService + "/api/profile/collection-and-wishlist";
+    
+    this._token = this.getToken()!;
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${this._token}`);
+    
+    //TODO entender porque esto no funciona ->   return this.http.get<[collection: UserGame, wishList: UserWishgame]>(URLService,{ headers });
+    
+    return this.http.get<any>(URLService,{ headers });
+
+  }
   getUserById(id: number): Observable<any>{
     
     const URLService = this._URLService + `/api/user/${id}`;
