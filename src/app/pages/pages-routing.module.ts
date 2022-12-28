@@ -1,5 +1,3 @@
-import { PlatformComponent } from './platforms/platform/platform.component';
-
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -10,6 +8,7 @@ import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { LogInComponent } from './user/log-in/log-in.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { GameComponent } from './games/game/game.component';
+import { PlatformComponent } from './platforms/platform/platform.component';
 
 
 const routes: Routes = [

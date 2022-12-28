@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from 'src/app/guards/auth.guard';
+import { PlatformComponent} from './platform.component';
 import { AddToCollectComponent } from './add-to-collect/add-to-collect.component';
 import { AddToWishlistComponent } from './add-to-wishlist/add-to-wishlist.component';
 import { EditComponent } from './edit/edit.component';
-import { PlatformComponent} from './platform.component';
 
 const routes: Routes = [
   {

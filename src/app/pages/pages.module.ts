@@ -1,3 +1,4 @@
+import { PlatformsModule } from './platforms/platforms.module';
 import { GamesModule } from './games/games.module';
 import { UserModule } from './user/user.module';
 import { NgModule } from '@angular/core';
@@ -21,6 +22,7 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule, 
     UserModule,
     GamesModule,
+    PlatformsModule,
     SharedModule
   ],
   exports: [

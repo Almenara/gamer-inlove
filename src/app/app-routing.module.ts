@@ -8,14 +8,14 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./pages/pages.module').then( m => m.PagesModule)
   },
-  /*{
+  {
     path: '404',
     component: ErrorComponent
   },
-  /*{
+  {
     path: '**',
     redirectTo: '404',
-  }*/
+  }
 ];
 
 @NgModule({
