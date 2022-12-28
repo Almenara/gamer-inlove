@@ -18,64 +18,65 @@ export class HeaderComponent implements OnInit {
   public searchOpened: boolean = false;
 
   public searchResult: any;
-  public games!: Game[] ;
-  public platforms!: Platform[] ;
-  public companies!: Company[] ;
-  public users!: User[] ;
+  public games!: Game[];
+  public platforms!: Platform[];
+  public companies!: Company[];
+  public users!: User[];
 
-  get auth(){
+  get auth() {
     return this.authService.auth
   }
 
   @ViewChild("searchInput") public input!: ElementRef;
-  
-  constructor(
-    private gamesService: GamesService, 
-    private openMenuService: OpenMenuService, 
-    private authService: AuthService
-    ) { }
 
-  get menuIsOpen(){
+  constructor(
+    private gamesService: GamesService,
+    private openMenuService: OpenMenuService,
+    private authService: AuthService
+  ) { }
+
+  get menuIsOpen() {
     return this.openMenuService.menuIsOpen;
   }
-  
+
   ngOnInit(): void {
   }
 
-  toggleMenu(event:Event){
+  toggleMenu(event: Event) {
     event.stopPropagation();
     this.openMenuService.toggleMenu()
   }
 
-  openSearch(event:Event){
+  openSearch(event: Event) {
     event.stopPropagation();
     this.searchOpened = true;
     this.input.nativeElement.focus();
   }
-  search(){
+  search() {
     let text: string = this.input.nativeElement.value;
-    this.gamesService.search(text).subscribe(rest => { {
-      this.searchResult = rest;
-      this.games = this.searchResult.games.data;
-      this.platforms = this.searchResult.platforms;
-      this.companies = this.searchResult.companies;
-      this.users = this.searchResult.users;
-      console.log(this.searchResult);
-    }})
+    this.gamesService.search(text).subscribe(rest => {
+      {
+        this.searchResult = rest;
+        this.games = this.searchResult.games.data;
+        this.platforms = this.searchResult.platforms;
+        this.companies = this.searchResult.companies;
+        this.users = this.searchResult.users;
+      }
+    })
   }
-  closeMenu(){
+  closeMenu() {
     this.openMenuService.closeMenu()
   }
-  closeSearch(){
+  closeSearch() {
     this.gamesService.closeSearching();
     this.searchResult = null;
-  } 
+  }
 
   deleteSearch() {
     this.searchResult = null;
   }
 
-  logOut(){
+  logOut() {
     this.authService.logout()
   }
 }

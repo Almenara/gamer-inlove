@@ -1,3 +1,6 @@
+import { UserPlatform } from './../../../interfaces/user_platform';
+import { Platform } from 'src/app/interfaces/platform';
+import { PlatformsService } from './../../../services/platforms.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -21,12 +24,17 @@ export class PlatformComponent implements OnInit{
 
   public secondaryColor:string = "";
 
+  public platform!: Platform;
+
+  public userCollectionPlatform: UserPlatform[] | undefined = [];
+
   public auth = this.authService.auth;
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private route: ActivatedRoute, 
+    private platformsService: PlatformsService
     ){
   }
   ngOnInit(){
@@ -38,19 +46,20 @@ export class PlatformComponent implements OnInit{
      
       if(param) this.id = Number(param.split("-", 1));
 
-      /*this.gamesService.getGame(this.id).subscribe({
+      this.platformsService.getPlatform(this.id).subscribe({
         next:(resp)=>{
-          this.gamesService.gameData = resp;
-          this.game = resp.game;
+          this.platformsService.platformData = resp;
+          this.platform = resp.platform;
+          console.log(this.platform);
           if(resp.collection){
-            this.userCollectionGame = resp.collection;
+            this.userCollectionPlatform = resp.collection;
           }
         },
         error:(error)=>{
           console.log(error);
           this.router.navigate(['/404']);
         }
-      })*/
+      })
 
     });
 

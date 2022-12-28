@@ -1,6 +1,9 @@
 <div class="row" >
     <div id="platform" class="main-section-page d-flex flex-column flex-md-row">
         <div id="title" [class]="bgColor" class="d-flex flex-column order-md-1 text-md-end">
+            <h1 *ngIf="platform">{{platform.name}}</h1>
+            <h2></h2>
+            <div *ngIf="platform && platform.platform_logo" class="logo"><img [class]="secondaryColor" [src]="'https://images.igdb.com/igdb/image/upload/t_cover_big_2x/' + platform.platform_logo + '.png'" alt="{{platform.name}}"></div>
         </div>
         <div id="platform-info" class="d-flex flex-column justify-content-start order-md-0">
             <router-outlet></router-outlet>
