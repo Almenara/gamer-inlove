@@ -22,6 +22,7 @@ export class PlatformsService {
     private authService: AuthService ) { }
   
   getPlatform(id: number): Observable<PlatformData>{
+    console.log('logueado', this._auth.ok);
     let URLService = this._URLService + "api/platform/detail/" + id; 
     let headers = new HttpHeaders();
     headers = headers.append('Acept', 'application/json');

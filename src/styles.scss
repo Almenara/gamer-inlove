@@ -254,7 +254,13 @@ html{
             padding-right: 40px;
             &:active{
                 &::before{
-                    background-color: $green!important;
+                    background-color: $green;
+                }
+
+                &.wishlist{
+                    &::before{
+                        background-color: $yellow;
+                    }
                 }
             }
             &.checking{
@@ -279,6 +285,12 @@ html{
                     background-color: $green;
                     top: 0;
                     right: 0;
+                }
+                &.wishlist{
+                    &::before{
+                        background-color: $yellow;
+                        background-image: url(../src/assets/images/wish.svg);
+                    }
                 }
                 &.erasable{
                     &:hover{

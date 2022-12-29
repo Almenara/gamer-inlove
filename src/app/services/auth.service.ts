@@ -55,9 +55,9 @@ export class AuthService {
   }
   
   logout() {
-    this.router.navigate(['/']);
     this._auth = { ok: false }
     localStorage.removeItem('auth_token');
+    this.router.navigate(['/']);
   }
 
   validateToken(){

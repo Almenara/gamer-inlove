@@ -30,9 +30,8 @@ export class AddToCollectComponent implements OnInit{
 
   constructor( 
     private gamesService: GamesService, 
-    private userService: UsersService, 
+    private usersService: UsersService, 
     public router: Router, 
-    private route: ActivatedRoute, 
     private authService: AuthService ) {
       this.game = this.gamesService.gameData;
 
@@ -49,7 +48,7 @@ export class AddToCollectComponent implements OnInit{
     let button = event.target as HTMLElement;
     if(!button.classList.contains("checking")){
       button.classList.add('checking');
-      this.userService.toggleToGameCollection(this.game.game.id, platformId).subscribe({
+      this.usersService.toggleToGameCollection(this.game.game.id, platformId).subscribe({
         next: resp => {
           button.classList.remove('checking');
           if(resp.delete){

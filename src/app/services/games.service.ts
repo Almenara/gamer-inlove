@@ -1,10 +1,8 @@
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { TwitchToken } from './twitchToken.interface';
 import { TwitchService } from './twitch.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Game } from '../interfaces/game';
 import { GameData } from '../interfaces/game_data';
 
 @Injectable({
@@ -17,8 +15,6 @@ export class GamesService {
   private _searching:Boolean = false;
 
   private _auth = this.authService.auth;
-
-  private twitchToken!: TwitchToken;
 
   public gameData!: GameData;
 
