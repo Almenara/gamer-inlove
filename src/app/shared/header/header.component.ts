@@ -54,15 +54,17 @@ export class HeaderComponent implements OnInit {
   }
   search() {
     let text: string = this.input.nativeElement.value;
-    this.gamesService.search(text).subscribe(rest => {
-      {
-        this.searchResult = rest;
-        this.games = this.searchResult.games.data;
-        this.platforms = this.searchResult.platforms;
-        this.companies = this.searchResult.companies;
-        this.users = this.searchResult.users;
-      }
-    })
+    if(text != ''){
+      this.gamesService.search(text).subscribe(rest => {
+        {
+          this.searchResult = rest;
+          this.games = this.searchResult.games.data;
+          this.platforms = this.searchResult.platforms;
+          this.companies = this.searchResult.companies;
+          this.users = this.searchResult.users;
+        }
+      })
+    }
   }
   closeMenu() {
     this.openMenuService.closeMenu()
