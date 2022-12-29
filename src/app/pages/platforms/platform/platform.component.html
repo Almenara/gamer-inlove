@@ -1,0 +1,28 @@
+<div class="row" >
+    <div id="platform" class="main-section-page d-flex flex-column flex-md-row">
+        <div id="title" [class]="bgColor" class="d-flex flex-column order-md-1 text-md-end">
+            <h1 *ngIf="platform">{{platform.name}}</h1>
+            <h2></h2>
+            <div *ngIf="platform && platform.platform_logo" class="logo"><img [class]="secondaryColor" [src]="'https://images.igdb.com/igdb/image/upload/t_cover_big_2x/' + platform.platform_logo + '.png'" alt="{{platform.name}}"></div>
+        </div>
+        <div id="platform-info" class="d-flex flex-column justify-content-start order-md-0">
+            <ul *ngIf="auth.ok && userWishlistPlatform && platform" id="game-menu" class="sub-menu d-flex justify-content-around justify-content-lg-center">
+                <li (click)="toggleToUserCollection(platform.id, $event)" [ngClass]="{'checked erasable': userWishlistPlatform[platform.id]}" (mouseout)="addDeleteClass($event)" class="platform btn check-btn">
+                    I Have It
+                </li> 
+                <li (click)="toggleToUserWishlist(platform.id, $event)" [ngClass]="{'checked erasable': userWishlistPlatform[platform.id]}" (mouseout)="addDeleteClass($event)" class="platform btn check-btn wishlist">
+                    I Wish It
+                </li>   
+            </ul>
+            <ul *ngIf="!auth.ok" id="game-menu" class="sub-menu d-flex justify-content-around justify-content-lg-center">
+                <li (click)="toggleToUserCollection(platform.id, $event)" class="platform btn check-btn">
+                    I Have It
+                </li> 
+                <li [routerLink]="[ '/login' ]" class="platform btn check-btn wishlist">
+                    I Wish It
+                </li> 
+            </ul>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

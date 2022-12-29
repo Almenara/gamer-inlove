@@ -1,14 +1,13 @@
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { TwitchService } from './twitch.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GameData } from '../interfaces/game_data';
+import { PlatformData } from '../interfaces/platform_data';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GamesService {
+export class PlatformsService {
 
   private _URLService: string = "http://backendgamers.com/"
 
@@ -16,63 +15,58 @@ export class GamesService {
 
   private _auth = this.authService.auth;
 
-  public gameData!: GameData;
+  public platformData!: PlatformData;
 
   constructor(
-    private twitchTokenService: TwitchService, 
     private http: HttpClient,
     private authService: AuthService ) { }
   
-
-  getGames(): Observable<GameData[]>{
-    return this.http.get<GameData[]>(this._URLService + 'api/get10games');
-  }
-
-  getGame(id: number): Observable<GameData>{
-    let URLService = this._URLService + "api/game/detail/" + id; 
+  getPlatform(id: number): Observable<PlatformData>{
+    console.log('logueado', this._auth.ok);
+    let URLService = this._URLService + "api/platform/detail/" + id; 
     let headers = new HttpHeaders();
     headers = headers.append('Acept', 'application/json');
     const body = { id }
 
     if(this._auth.ok){
       headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
-      URLService = this._URLService + "api/game/detailWithUserCollectionAndWishlistData/" + id; 
+      URLService = this._URLService + "api/platform/detailWithUserCollectionAndWishlistData/" + id; 
     }
     
-    return this.http.get<GameData>(URLService, {headers});
+    return this.http.get<PlatformData>(URLService, {headers});
   }
 
-  getUpdateGameCollection(id: number): Observable<GameData>{
-    let URLService = this._URLService + "api/game/detail/" + id; 
+  getUpdatePlatformCollection(id: number): Observable<PlatformData>{
+    let URLService = this._URLService + "api/platform/detail/" + id; 
     let headers = new HttpHeaders();
     headers = headers.append('Acept', 'application/json');
     const body = { id }
 
     if(this._auth.ok){
       headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
-      URLService = this._URLService + "api/game/UserCollectionData/" + id; 
+      URLService = this._URLService + "api/platform/UserCollectionData/" + id; 
     }
     
-    return this.http.get<GameData>(URLService, {headers});
+    return this.http.get<PlatformData>(URLService, {headers});
   }
-  getUpdateGameWishlist(id: number): Observable<GameData>{
-    let URLService = this._URLService + "api/game/detail/" + id; 
+  getUpdatePlatformWishlist(id: number): Observable<PlatformData>{
+    let URLService = this._URLService + "api/platform/detail/" + id; 
     let headers = new HttpHeaders();
     headers = headers.append('Acept', 'application/json');
     const body = { id }
 
     if(this._auth.ok){
       headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
-      URLService = this._URLService + "api/game/UserWishlistData/" + id; 
+      URLService = this._URLService + "api/platform/UserWishlistData/" + id; 
     }
     
-    return this.http.get<GameData>(URLService, {headers});
+    return this.http.get<PlatformData>(URLService, {headers});
   }
 
-  search(gameName:string){
+  search(platformName:string){
     this._searching = true;
     document.querySelector('html')!.classList.add('searching');
-    return this.http.get<GameData[]>(this._URLService + 'api/search/' + gameName);
+    return this.http.get<PlatformData[]>(this._URLService + 'api/search/' + platformName);
   }
 
   getToken(){

@@ -29,7 +29,7 @@ export class AddToWishlistComponent implements OnInit{
 
   constructor( 
     private gamesService: GamesService, 
-    private userService: UsersService, 
+    private usersService: UsersService, 
     public router: Router, 
     private route: ActivatedRoute, 
     private authService: AuthService ) {
@@ -47,7 +47,7 @@ export class AddToWishlistComponent implements OnInit{
   toggleToUserWishlist(platformId:number, event: Event){
     let button = event.target as HTMLElement;
     button.classList.add('checking');
-    this.userService.toggleToGameWishlist(this.game.game.id, platformId).subscribe({
+    this.usersService.toggleToGameWishlist(this.game.game.id, platformId).subscribe({
       next: resp => {
         button.classList.remove('checking');
         if(resp.delete){

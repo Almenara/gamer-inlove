@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -9,6 +8,7 @@ import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { LogInComponent } from './user/log-in/log-in.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { GameComponent } from './games/game/game.component';
+import { PlatformComponent } from './platforms/platform/platform.component';
 
 
 const routes: Routes = [
@@ -48,17 +48,18 @@ const routes: Routes = [
         canLoad: [AuthGuard],
       },
       {
-        path: 'platform/:idSlug',
+        path: 'game:',
         component: GameComponent,
+        loadChildren: () => import('./games/game/game-pages-routing.module').then( m => m.GamePagesRoutingModule)
+      },
+      {
+        path: 'platform:',
+        component: PlatformComponent,
+        loadChildren: () => import('./platforms/platform/platform-pages-routing.module').then( m => m.PlatformPagesRoutingModule)
       },
       {
         path: 'company/:idSlug',
         component: GameComponent,
-      },
-      {
-        path: 'game:',
-        component: GameComponent,
-        loadChildren: () => import('./games/game/game-pages-routing.module').then( m => m.GamePagesRoutingModule)
       },
     ]
   }

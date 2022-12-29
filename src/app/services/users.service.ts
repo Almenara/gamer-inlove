@@ -144,4 +144,28 @@ export class UsersService {
     }
     return this.http.post<any>(URLService, data, {headers});
   }
+
+  toggleToPlatformCollection(game_id: number , platform_id: number){
+    const URLService = this._URLService + "/api/user/toggle-platform-to-collection";
+    let headers = new HttpHeaders();
+      
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
+    const data:Object = {
+      platform_id: platform_id
+    }
+    return this.http.post<any>(URLService, data, {headers});
+  }
+
+  toggleToPlatformWishlist(game_id: number , platform_id: number){
+    const URLService = this._URLService + "/api/user/toggle-platform-to-wishlist";
+    let headers = new HttpHeaders();
+      
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
+    const data:Object = {
+      platform_id: platform_id
+    }
+    return this.http.post<any>(URLService, data, {headers});
+  }
 }

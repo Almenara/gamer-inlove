@@ -1,10 +1,10 @@
-import { AuthService } from 'src/app/services/auth.service';
-
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { Game } from 'src/app/interfaces/game';
+
+import { AuthService } from 'src/app/services/auth.service';
 import { GamesService } from 'src/app/services/games.service';
-import { UsersService } from 'src/app/services/users.service';
+
+import { Game } from 'src/app/interfaces/game';
 import { UserGame } from 'src/app/interfaces/user_game';
 
 @Component({
@@ -37,9 +37,8 @@ export class GameComponent implements OnInit{
 
 
   constructor( 
-    private gamesService: GamesService, 
-    private userService: UsersService, 
-    public router: Router, 
+    private gamesService: GamesService,
+    private router: Router, 
     private route: ActivatedRoute, 
     private authService: AuthService ) { }
 
