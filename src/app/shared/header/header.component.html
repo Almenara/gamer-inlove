@@ -32,19 +32,19 @@
     </div>
     <div *ngIf="users && users.length > 0">
       <h1>Users</h1>
-      <div class="logo-list">
+      <div class="logo-list" draggable="true">
         <app-search-element (delelteSearchResult)="deleteSearch()" *ngFor="let user of users" [user]="user"></app-search-element>
       </div>
     </div>
     <div *ngIf="platforms && platforms.length > 0">
       <h1>Platforms</h1>
-      <div class="logo-list">
+      <div class="logo-list" draggable="true">
         <app-search-element (delelteSearchResult)="deleteSearch()" *ngFor="let platform of platforms" [platform]="platform"></app-search-element>
       </div>
     </div>
     <div *ngIf="companies && companies.length > 0">
       <h1>Companies</h1>
-      <div class="logo-list">
+      <div class="logo-list" draggable="true">
         <app-search-element (delelteSearchResult)="deleteSearch()" *ngFor="let company of companies" [company]="company"></app-search-element>
       </div>
     </div>

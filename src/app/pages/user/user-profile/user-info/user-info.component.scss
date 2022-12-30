@@ -3,12 +3,24 @@ h3{
     margin: 0;
     padding: 20px 0;
     position: sticky;
-    top:120px;
+    top:70px;
     border-bottom: 1px solid $black;
     z-index: 2;
     background-color: $beige;
+    padding-top: 70px;
+    &:first-child{
+        top:120px;
+        padding-top: 20px;
+    }
+    .btn{
+        margin-right: 4px;
+        margin-top: 4px;
+        min-width: max-content;
+    }
 }
-#game-list{
+
+.game-wish-list,
+.game-list{
     app-cover{
         height: 100%;
         width: 100%;
@@ -16,31 +28,51 @@ h3{
         max-height: 200px;
         padding: 8px 20px 0 0;
     }
-    a{
+    .game{
         padding: 20px;
         border: 1px solid $black;
         border-top: 0;
-        &:hover{
-            background-color: $blue;
-            border-color: $black;
-            color: $black;
-            &::before{
-                display: none;
-            }
-        }
     }
     .game-collection-info{
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
         h4{
             word-wrap: break-word;
         }
         span{
             display: inline-block;
-            padding: 5px 12px;
+            padding: 3px 8px;
             border: 1px solid $black;
             max-width: max-content;
             border-radius: 50px;
+            font-size: 12px;
             background-color: $beige;
+            margin-left: 20px;
+            min-width: max-content;
+        }
+    }
+}
 
+.platform-wish-list,
+.platform-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    margin: 0;
+    padding: 30px 0 15px 0;
+    border: 1px solid black;
+    border-top: none;
+    .platform{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        justify-items: center;
+        padding: 0 20px;
+        max-width: 140px;
+        h6{
+            margin-top: 20px;
         }
     }
 }

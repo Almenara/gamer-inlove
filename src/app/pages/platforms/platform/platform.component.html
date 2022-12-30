@@ -7,15 +7,15 @@
         </div>
         <div id="platform-info" class="d-flex flex-column justify-content-start order-md-0">
             <ul *ngIf="auth.ok && userWishlistPlatform && platform" id="game-menu" class="sub-menu d-flex justify-content-around justify-content-lg-center">
-                <li (click)="toggleToUserCollection(platform.id, $event)" [ngClass]="{'checked erasable': userWishlistPlatform[platform.id]}" (mouseout)="addDeleteClass($event)" class="platform btn check-btn">
+                <li (click)="toggleToUserCollection($event)" [ngClass]="{'checked erasable': userWishlistPlatform[platform.id]}" (mouseout)="addDeleteClass($event)" class="platform btn check-btn">
                     I Have It
                 </li> 
-                <li (click)="toggleToUserWishlist(platform.id, $event)" [ngClass]="{'checked erasable': userWishlistPlatform[platform.id]}" (mouseout)="addDeleteClass($event)" class="platform btn check-btn wishlist">
+                <li (click)="toggleToUserWishlist($event)" [ngClass]="{'checked erasable': userWishlistPlatform[platform.id]}" (mouseout)="addDeleteClass($event)" class="platform btn check-btn wishlist">
                     I Wish It
                 </li>   
             </ul>
             <ul *ngIf="!auth.ok" id="game-menu" class="sub-menu d-flex justify-content-around justify-content-lg-center">
-                <li (click)="toggleToUserCollection(platform.id, $event)" class="platform btn check-btn">
+                <li [routerLink]="[ '/login' ]" class="platform btn check-btn">
                     I Have It
                 </li> 
                 <li [routerLink]="[ '/login' ]" class="platform btn check-btn wishlist">

@@ -81,10 +81,10 @@ export class PlatformComponent implements OnInit{
 
   }
 
-  toggleToUserWishlist(platformId:number, event: Event){
+  toggleToUserWishlist(event: Event){
     let button = event.target as HTMLElement;
     button.classList.add('checking');
-    this.usersService.toggleToPlatformWishlist(this.platform.id, platformId).subscribe({
+    this.usersService.toggleToPlatformWishlist(this.platform.id).subscribe({
       next: resp => {
         button.classList.remove('checking');
         if(resp.delete){
@@ -104,11 +104,11 @@ export class PlatformComponent implements OnInit{
     });
   }
 
-  toggleToUserCollection(platformId:number, event: Event){
+  toggleToUserCollection(event: Event){
     let button = event.target as HTMLElement;
     if(!button.classList.contains("checking")){
       button.classList.add('checking');
-      this.usersService.toggleToGameCollection(this.platform.id, platformId).subscribe({
+      this.usersService.toggleToPlatformCollection(this.platform.id).subscribe({
         next: resp => {
           button.classList.remove('checking');
           if(resp.delete){
