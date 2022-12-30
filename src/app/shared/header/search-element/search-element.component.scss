@@ -26,6 +26,9 @@
     width: 150px;
     padding: 20px;
     background-color: $beige;
+    &::before{
+        content: none;
+    }
     app-cover{
         height: 100%;
         width: 100%;
@@ -38,5 +41,12 @@
         margin-top: 20px;
         margin-bottom: 30px;
         max-width: 135px;
+    }
+
+    &:hover{
+        color: $black!important;
+        &::before{
+            content: none;
+        }
     }
 }

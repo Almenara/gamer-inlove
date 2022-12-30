@@ -1,3 +1,5 @@
+import { UserWishplatform } from 'src/app/interfaces/user_wishplatform';
+import { UserPlatform } from './../../../../interfaces/user_platform';
 import { ActivatedRoute } from '@angular/router';
 import { UserGame } from 'src/app/interfaces/user_game';
 import { UsersService } from 'src/app/services/users.service';
@@ -14,8 +16,10 @@ import { UserWishgame } from 'src/app/interfaces/user_wishgame';
 @Injectable() 
 export class UserInfoComponent implements OnInit {
 
-  public collection!: UserGame[];
-  public wishlist!: UserWishgame[];
+  public gameCollection!: UserGame[];
+  public gameWishlist!: UserWishgame[];
+  public platformCollection!: UserPlatform[];
+  public platformWishlist!: UserWishplatform[];
 
   constructor(
     private userService:UsersService,
@@ -24,9 +28,11 @@ export class UserInfoComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUserCollectionAndWishlist().subscribe({
       next: resp => {
-        this.collection = resp.collection;
-        this.wishlist = resp.wishlist;
-        console.log(resp);
+        this.gameCollection = resp.gameCollection;
+        this.gameWishlist = resp.gameWishlist;
+        this.platformCollection = resp.platformCollection;
+        this.platformWishlist = resp.platformWishlist;
+        console.log(resp)
       },
       error: error => {
         console.log(error);

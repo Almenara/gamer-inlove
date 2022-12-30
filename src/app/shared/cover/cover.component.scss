@@ -69,9 +69,46 @@
             bottom: 0;
         }
     }
-    //&:hover{
-    //    span{
-    //      // background-size: 105%;
-    //  }
-    //}
+    &:hover{
+        border-color: $violet;
+        &::after{
+            border: 12px solid transparent;
+            border-top: 12px solid $black;
+            right: -12px;
+            bottom: -12px;
+        }
+        &::before{
+            border: 12px solid transparent;
+            left: -12px;
+            top: -12px;
+            border-right: 12px solid $black;
+        }
+        span{
+            top: -12px;
+            right: -12px;
+        }
+
+        &:active{
+            span{
+                top: 0;
+                right: 0;
+            }
+            &::before{
+                height: 0;
+                width: 0;
+                border: 0 solid transparent;
+                border-right: 0 solid $black;
+                top: 0;
+                left: 0;
+            }
+            &::after{
+                height: 0;
+                width: 0;
+                border: 0 solid transparent;
+                border-top: 0 solid $black;
+                right: 0;
+                bottom: 0;
+            }
+        }
+    }
 }
