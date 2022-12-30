@@ -54,13 +54,14 @@ export class PlatformComponent implements OnInit{
         next:(resp)=>{
           this.platformsService.platformData = resp;
           this.platform = resp.platform;
-          console.log(this.platform);
           if(resp.collection){
             this.userCollectionPlatform = resp.collection;
           }
           if(resp.wishlist){
             this.userWishlistPlatform = resp.wishlist;
           }
+          console.log(this);
+
         },
         error:(error)=>{
           console.log(error);

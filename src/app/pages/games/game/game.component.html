@@ -12,7 +12,7 @@
                 <h3>Platform<ng-container *ngIf="game.platforms.length > 1">s</ng-container>:</h3>
                 
                 <div class="platforms d-flex justify-content-md-end">
-                    <a [routerLink]="[ '/platform', platform.slug ]" *ngFor="let platform of game.platforms" class="platform">
+                    <a [routerLink]="[ '/platform', platform.id + '-' + platform.slug ]" *ngFor="let platform of game.platforms" class="platform">
                         {{platform.name}}
                     </a>      
                 </div>
