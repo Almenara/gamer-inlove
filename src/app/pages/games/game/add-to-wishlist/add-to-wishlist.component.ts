@@ -16,7 +16,9 @@ export class AddToWishlistComponent implements OnInit{
 
   private _game!: GameData;
 
-  public auth = this.authService.auth;
+  get auth() {
+    return this.authService.auth
+  }
 
   public userWishlist: UserWishgame[] | undefined = [];
 

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { PlatformsService } from 'src/app/services/platforms.service';
 import { PlatformData } from 'src/app/interfaces/platform_data';
 import { UserWishplatform } from 'src/app/interfaces/user_wishplatform';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-add-to-collect',
@@ -22,15 +23,19 @@ export class AddToCollectComponent implements OnInit{
     this._platform = platform;
   }
 
+  get auth() {
+    return this.authService.auth
+  }
+
   constructor(
     private usersService: UsersService,
     private platformsService: PlatformsService,
+    private authService: AuthService
     ){
       this.platform = this.platformsService.platformData;
 
       if(this.platform.collection){
         this.userWishlist = this.platform.wishlist;
-        console.log( this.platform)
       }
 
     }

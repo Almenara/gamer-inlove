@@ -4,18 +4,17 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-log-in',
-  templateUrl: './log-in.component.html',
-  styleUrls: ['./log-in.component.scss']
+  selector: 'app-login-popup',
+  templateUrl: './login-popup.component.html',
+  styleUrls: ['./login-popup.component.scss']
 })
-export class LogInComponent implements OnInit {
+export class LoginPopupComponent implements OnInit {
   public logInForm: FormGroup = this.fb.group({
     email:        ['', [Validators.required, Validators.email]],
     password:     ['', [Validators.required, Validators.minLength(6)]],
   })
   public loginError:boolean   = false;
   public errorMessage:string  = "";
-
   constructor(private fb: FormBuilder, private authService: AuthService, public router: Router ) { }
 
   ngOnInit(): void {
@@ -35,7 +34,6 @@ export class LogInComponent implements OnInit {
           this.router.navigate(['/profile'])
         } 
         else{
-          this.errorMessage = resp.error.message;
         }
       }
     });

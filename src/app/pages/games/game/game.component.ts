@@ -26,7 +26,9 @@ export class GameComponent implements OnInit{
 
   public secondaryColor:string = "";
 
-  public auth = this.authService.auth;
+  get auth() {
+    return this.authService.auth
+  }
 
   get game(){
     return this._game;

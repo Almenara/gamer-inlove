@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'gamer-inlove';
+  
+  get auth() {
+    return this.authService.auth
+  }
+
+  constructor(private authService: AuthService){
+
+  }
 }
