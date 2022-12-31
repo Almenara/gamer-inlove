@@ -31,7 +31,9 @@ export class PlatformComponent implements OnInit{
 
   public userCollectionPlatform: UserPlatform[] | undefined = [];
 
-  public auth = this.authService.auth;
+  get auth() {
+    return this.authService.auth
+  }
 
   constructor(
     private router: Router,

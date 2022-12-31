@@ -1,0 +1,30 @@
+<div class="modal fade" id="sing-up-popup" tabindex="-1" aria-labelledby="sing-up-popup-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centere">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title" id="sing-up-popup-label">Sing up</h3>
+            <div class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <form [formGroup]="signUpForm" class="d-flex flex-column just-content-center">
+            <div class="modal-body">
+                <div id="sing-up-form" class="d-flex flex-column justify-content-start">
+                    <input formControlName="name" type="text" name="name" placeholder="Name">
+                    <input formControlName="surname" type="text" name="surname" placeholder="Surname">
+                    <input formControlName="username" type="text" name="username" placeholder="User name">
+                    <input formControlName="email" type="email" name="email" placeholder="email">
+                    <input type="email" name="repeatemail" placeholder="Repeat email">
+                    <input formControlName="password" type="password" name="password" placeholder="Password">
+                    <input type="password" name="repeatpassword" placeholder="Repeat Password">
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="submit" class="mt-4" [disabled]="!signUpForm.valid" (click)="register()">Register</button>
+                <a class="me-3"  data-bs-target="#log-in-popup" data-bs-toggle="modal"><h3>Log In</h3></a>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>

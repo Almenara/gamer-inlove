@@ -17,7 +17,9 @@ export class AddToCollectComponent implements OnInit{
 
   private _game!: GameData;
 
-  public auth = this.authService.auth;
+  get auth() {
+    return this.authService.auth
+  }
 
   public userCollectionGame: UserGame[] | undefined = [];
 

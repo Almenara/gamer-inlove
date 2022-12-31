@@ -1,4 +1,4 @@
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,8 @@ import { FooterComponent } from './footer/footer.component';
 import { CoverComponent } from './cover/cover.component';
 import { LogoComponent } from './logo/logo.component';
 import { SearchElementComponent } from './header/search-element/search-element.component';
+import { LoginPopupComponent } from './login-popup/login-popup.component';
+import { SingUpPopupComponent } from './sing-up-popup/sing-up-popup.component';
 
 
 
@@ -16,10 +18,13 @@ import { SearchElementComponent } from './header/search-element/search-element.c
     SearchElementComponent,
     FooterComponent,
     CoverComponent,
-    LogoComponent
+    LogoComponent,
+    LoginPopupComponent,
+    SingUpPopupComponent
   ],
   imports: [
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     RouterModule
   ],
@@ -28,7 +33,9 @@ import { SearchElementComponent } from './header/search-element/search-element.c
     SearchElementComponent,
     FooterComponent,
     CoverComponent,
-    LogoComponent
+    LogoComponent,
+    LoginPopupComponent,
+    SingUpPopupComponent
   ]
 })
 export class SharedModule { }
