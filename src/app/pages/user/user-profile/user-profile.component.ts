@@ -26,11 +26,11 @@ export class UserProfileComponent implements OnInit {
     this.usersService.getProfile().subscribe({
       next:(resp)=>{
         this.user = this.usersService.user;
+        console.log(this.user);
       },
       error:(error)=>{
         this.router.navigate(['/login']);
       }
     })
   }
-
 }

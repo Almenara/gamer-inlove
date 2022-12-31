@@ -4,5 +4,11 @@
   ],
   "hints": {
     "axe/forms": "off"
-  }
+  },
+  "browserslist": [
+    "defaults",
+    "not ie 11",
+    "not firefox <= 107",
+    "not and_ff <= 106"
+  ]
 }

@@ -11,6 +11,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { AddressEditComponent } from './user-profile/address-edit/address-edit.component';
+import { AddressAddComponent } from './user-profile/address-add/address-add.component';
 
 
 
@@ -21,7 +23,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     UserProfileComponent,
     UserInfoComponent,
     UserEditComponent,
-    PasswordEditComponent
+    PasswordEditComponent,
+    AddressEditComponent,
+    AddressAddComponent,
   ],
   imports: [
     UserProfilePagesRoutingModule,

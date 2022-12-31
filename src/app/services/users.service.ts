@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../interfaces/user';
 import { UserGame } from '../interfaces/user_game';
-import { UserWishgame } from '../interfaces/user_wishgame';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +34,7 @@ export class UsersService {
     return this.http.post<any>(URLService,{user},{headers});
 
   }
-  getProfile(): Observable<any>{
+  getProfile(): Observable<User>{
     
     const URLService = this._URLService + "/api/profile";
     

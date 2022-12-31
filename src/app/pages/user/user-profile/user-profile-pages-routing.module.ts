@@ -1,3 +1,5 @@
+import { AddressAddComponent } from './address-add/address-add.component';
+import { AddressEditComponent } from './address-edit/address-edit.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -17,12 +19,20 @@ const routes: Routes = [
         component: UserInfoComponent,
       },
       {
+        path: 'edit',
+        component: UserEditComponent,
+      },
+      {
         path: 'password-edit',
         component: PasswordEditComponent,
       },
       {
-        path: 'edit',
-        component: UserEditComponent,
+        path: 'address-add',
+        component: AddressAddComponent,
+      },
+      {
+        path: 'address-edit',
+        component: AddressEditComponent,
       }
     ]
   }
