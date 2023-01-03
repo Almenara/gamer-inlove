@@ -1,3 +1,4 @@
+import { ModalsService } from './services/modals.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Component } from '@angular/core';
 
@@ -13,7 +14,7 @@ export class AppComponent {
     return this.authService.auth
   }
 
-  constructor(private authService: AuthService){
+  constructor(private authService: AuthService, private modalsService: ModalsService){
 
   }
 }

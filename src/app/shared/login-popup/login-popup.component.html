@@ -1,26 +1,25 @@
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
 <ng-template #content let-modal>
-            <div class="modal-header">
-                <h3 class="modal-title" id="log-in-popup-label">Log in</h3>
-                <div class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span></span>
-                    <span></span>
-                </div>
+    <div class="modal-header">
+        <h3 class="modal-title" id="log-in-popup-label">Log in</h3>
+        <div class="close" data-bs-dismiss="modal" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <form [formGroup]="logInForm" class="d-flex flex-column just-content-center">
+        <div class="modal-body">
+            <div id="log-in-form" class="d-flex flex-column justify-content-start">
+
+                    <input formControlName="email" type="email" name="email" placeholder="email">
+
+                    <input [class.error]="!logInForm.controls['password'].errors && !logInForm.controls['password'].touched" formControlName="password" type="password" name="password" placeholder="Password">
+
+                    <span *ngIf="errorMessage != ''" class="form-error">{{ errorMessage }}</span>
             </div>
-            <form [formGroup]="logInForm" class="d-flex flex-column just-content-center">
-                <div class="modal-body">
-                    <div id="log-in-form" class="d-flex flex-column justify-content-start">
-            
-                            <input formControlName="email" type="email" name="email" placeholder="email">
-            
-                            <input [class.error]="!logInForm.controls['password'].errors && !logInForm.controls['password'].touched" formControlName="password" type="password" name="password" placeholder="Password">
-            
-                            <span *ngIf="errorMessage != ''" class="form-error">{{ errorMessage }}</span>
-                    </div>
-                </div>
-                <div class="modal-footer d-flex justify-content-between">
-                    <button type="submit" class="mt-4" [disabled]="!logInForm.valid" (click)="login()">Login</button>
-                    <a class="me-3"  data-bs-target="#sing-up-popup" data-bs-toggle="modal"><h3>Sing Up</h3></a>
-                </div>
-            </form>
+        </div>
+        <div class="modal-footer d-flex justify-content-between">
+            <button type="submit" class="mt-4" [disabled]="!logInForm.valid" (click)="login()">Login</button>
+            <a (click)="openSingUpModal()"><h3>Sing Up</h3></a>
+        </div>
+    </form>
 </ng-template>

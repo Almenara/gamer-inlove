@@ -1,3 +1,4 @@
+import { ModalsService } from './../../../services/modals.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -42,7 +43,8 @@ export class GameComponent implements OnInit{
     private gamesService: GamesService,
     private router: Router, 
     private route: ActivatedRoute, 
-    private authService: AuthService ) { }
+    private authService: AuthService, 
+    private modalsService: ModalsService ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -77,5 +79,8 @@ export class GameComponent implements OnInit{
         this.secondaryColor = this.classes[Math.floor(Math.random() * this.classes.length)];
     }
 
+  }
+  openLoginModal(){
+    this.modalsService.openModal('log-in');
   }
 }

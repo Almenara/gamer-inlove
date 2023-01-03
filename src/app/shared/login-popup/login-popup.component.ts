@@ -1,10 +1,11 @@
 import { Router } from '@angular/router';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthService } from 'src/app/services/auth.service';
+import { ModalsService } from 'src/app/services/modals.service';
 
 @Component({
   selector: 'app-login-popup',
@@ -12,6 +13,9 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login-popup.component.scss']
 })
 export class LoginPopupComponent implements OnInit {
+
+  @ViewChild('content') modalContent!:HTMLElement; 
+
   public logInForm: FormGroup = this.fb.group({
     email:        ['', [Validators.required, Validators.email]],
     password:     ['', [Validators.required, Validators.minLength(6)]],
@@ -22,20 +26,21 @@ export class LoginPopupComponent implements OnInit {
     private fb: FormBuilder, 
     private authService: AuthService, 
     private router: Router,
-    private modalService: NgbModal) { }
+    private modalsService: ModalsService,
+    private loginModalService: NgbModal) {
+      this.modalsService.modals['log-in'] = this;
+     }
 
   ngOnInit(): void {
 
   }
-  open(content:any){
-    this.modalService.open(content,{ariaLabelledBy: 'modal-log-in'}).result.then(
-      (result) => {
 
-      },
-      (reason) => {
-        
-      }
-    )
+  open(){
+    this.loginModalService.open(this.modalContent);
+  }
+
+  close(){
+    this.loginModalService.dismissAll()
   }
 
   login(){
@@ -47,8 +52,9 @@ export class LoginPopupComponent implements OnInit {
     let password = this.logInForm.value.password;
     
     this.authService.login(email, password).subscribe({
-      next: resp => {
+      next: resp => {        
         if(resp.ok){
+          this.loginModalService.dismissAll();
           this.router.navigate(['/profile'])
         } 
         else{
@@ -56,4 +62,10 @@ export class LoginPopupComponent implements OnInit {
       }
     });
   }
+
+  openSingUpModal(){
+    this.close();
+    this.modalsService.openModal('sing-up');
+  }
+
 }
