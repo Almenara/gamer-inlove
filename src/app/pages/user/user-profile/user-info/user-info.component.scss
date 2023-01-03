@@ -3,13 +3,13 @@ h3{
     margin: 0;
     padding: 20px 0;
     position: sticky;
-    top:70px;
+    top:2px;
     border-bottom: 1px solid $black;
     z-index: 2;
     background-color: $beige;
     padding-top: 70px;
     &:first-child{
-        top:120px;
+        top:52px;
         padding-top: 20px;
     }
     .btn{

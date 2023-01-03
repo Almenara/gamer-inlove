@@ -1,0 +1,10 @@
+<div id="user-in-form" class="d-flex flex-column justify-content-start order-1 order-md-0 mt-5 mb-5">
+    <h2 class="text-center mb-4">Edit your address</h2>
+    <form [formGroup]="addUserAddressForm" class="d-flex flex-column just-content-center">
+        <textarea formControlName="address" type="text" name="address" placeholder="Address*"></textarea>
+        <input formControlName="city" type="text" name="city" placeholder="City*">
+        <input formControlName="country" type="text" name="country" placeholder="Country*">
+        <input formControlName="zip_code" type="text" name="zip_code" placeholder="Zip code*">
+        <button type="submit" class="mt-4" [disabled]="!addUserAddressForm.valid" (click)="add()">Edit</button>
+    </form>
+</div>

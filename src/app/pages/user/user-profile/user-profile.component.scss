@@ -11,7 +11,7 @@
         padding: 0 20px 20px;
         position: relative;
         @media (min-width: 768px) {
-            max-width: 50vw;
+            max-width: calc( 50vw - 2px );
         }
         .sub-menu{
             padding: 0 20px;
