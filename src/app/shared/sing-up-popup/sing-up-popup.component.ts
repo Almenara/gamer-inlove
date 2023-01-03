@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { User } from 'src/app/interfaces/user';
 import { UsersService } from 'src/app/services/users.service';
+import { ModalsService } from 'src/app/services/modals.service';
 
 @Component({
   selector: 'app-sing-up-popup',
@@ -9,6 +13,8 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./sing-up-popup.component.scss']
 })
 export class SingUpPopupComponent implements OnInit {
+
+  @ViewChild('content') modalContent!:HTMLElement; 
 
   public signUpForm: FormGroup = this.fb.group({
     email:    ['', [Validators.required, Validators.email]],
@@ -18,10 +24,25 @@ export class SingUpPopupComponent implements OnInit {
     password:    ['', [Validators.required, Validators.minLength(6)]],
   })
 
-  constructor( private fb: FormBuilder, private usersService: UsersService ) {}
+  constructor( 
+    private fb: FormBuilder, 
+    private usersService: UsersService,
+    private modalsService: ModalsService,
+    private loginModalService: NgbModal) {
+      this.modalsService.modals['sing-up'] = this;
+   } 
 
   ngOnInit(): void {
   }
+
+  open(){
+    this.loginModalService.open(this.modalContent);
+  }
+
+  close(){
+    this.loginModalService.dismissAll()
+  }
+
   register(){
     let user:User = {
       id: undefined,
@@ -35,4 +56,10 @@ export class SingUpPopupComponent implements OnInit {
     }
     this.usersService.postRegister(user).subscribe({next: resp => console.log(resp), error: error => console.log(error)});
   }
+
+  openLogInModal(){
+    this.close();
+    this.modalsService.openModal('log-in');
+  }
+
 }

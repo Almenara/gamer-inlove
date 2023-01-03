@@ -36,9 +36,9 @@
                 <li class="sub-menu-option"><a [routerLink]="[ 'edit' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Edit</a></li>
             </ul>
             <ul *ngIf="!auth.ok" id="game-menu" class="sub-menu d-flex justify-content-around justify-content-lg-center">
-                <li class="sub-menu-option"><a [routerLink]="[ '/login' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Add to collection</a></li>
-                <li class="sub-menu-option"><a [routerLink]="[ '/login' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">I want it</a></li>
-                <li class="sub-menu-option"><a [routerLink]="[ '/login' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Edit</a></li>
+                <li class="sub-menu-option"><a (click)="openLoginModal()" >Add to collection</a></li>
+                <li class="sub-menu-option"><a (click)="openLoginModal()" >I want it</a></li>
+                <li class="sub-menu-option"><a (click)="openLoginModal()" >Edit</a></li>
             </ul>
             <router-outlet></router-outlet>
         </div>
