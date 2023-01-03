@@ -1,6 +1,9 @@
 import { Router } from '@angular/router';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+
+import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -15,11 +18,26 @@ export class LoginPopupComponent implements OnInit {
   })
   public loginError:boolean   = false;
   public errorMessage:string  = "";
-  constructor(private fb: FormBuilder, private authService: AuthService, public router: Router ) { }
+  constructor(
+    private fb: FormBuilder, 
+    private authService: AuthService, 
+    private router: Router,
+    private modalService: NgbModal) { }
 
   ngOnInit(): void {
 
   }
+  open(content:any){
+    this.modalService.open(content,{ariaLabelledBy: 'modal-log-in'}).result.then(
+      (result) => {
+
+      },
+      (reason) => {
+        
+      }
+    )
+  }
+
   login(){
     
     this.errorMessage = "";
