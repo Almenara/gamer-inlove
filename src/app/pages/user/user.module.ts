@@ -41,7 +41,9 @@ import { AddressAddComponent } from './user-profile/address-add/address-add.comp
     UserProfileComponent,
     UserInfoComponent,
     UserEditComponent,
-    PasswordEditComponent
+    PasswordEditComponent,
+    AddressEditComponent,
+    AddressAddComponent,
   ]
 })
 export class UserModule { }

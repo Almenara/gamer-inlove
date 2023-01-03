@@ -1,3 +1,4 @@
+import { Address } from 'src/app/interfaces/user';
 import { Observable, tap, map, catchError, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -26,13 +27,26 @@ export class UsersService {
     return localStorage.getItem('auth_token');
   }
 
-  postRegister(user:any): Observable<any>{
+  postRegister(user:User): Observable<User>{
 
     let URLService = this._URLService + "/api/users";
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
     
-    return this.http.post<any>(URLService,{user},{headers});
+    return this.http.post<User>(URLService,{user},{headers});
 
+  }
+
+
+  addAddress(address: Address){
+    const URLService = this._URLService + "/api/address/add" ;
+
+    this._token = this.getToken()!;
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${this._token}`);
+
+    return this.http.post<Address>(URLService, address, { headers });
   }
   getProfile(): Observable<User>{
     
@@ -51,6 +65,18 @@ export class UsersService {
         }
       }));
 
+  }
+
+  newUserAddress(user:User){
+    const URLService = this._URLService + "/api/address/new" + user.id;
+
+    this._token = this.getToken()!;
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${this._token}`);
+
+    return this.http.get<User>(URLService,{ headers });
   }
 
   getUserCollection(id?: number): Observable<any>{
@@ -116,6 +142,18 @@ export class UsersService {
       newpassword: newpassword
     }
     return this.http.put<User>(URLService, data, {headers});
+  }
+
+  editAddress(address: Address){
+    const URLService = this._URLService + "/api/address/update" ;
+
+    this._token = this.getToken()!;
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${this._token}`);
+
+    return this.http.put<Address>(URLService, address, { headers });
   }
 
   toggleToGameCollection(game_id: number , platform_id: number){

@@ -1,6 +1,7 @@
 import { UsersService } from './../../../services/users.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { User } from 'src/app/interfaces/user';
 
 @Component({
   selector: 'app-sign-up',
@@ -22,12 +23,15 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
   }
   register(){
-    let user:Object = {
+    let user:User = {
+      id: undefined,
       email: this.signUpForm.value.email,
       name: this.signUpForm.value.name,
       surname: this.signUpForm.value.surname,
       username: this.signUpForm.value.username,
-      password: this.signUpForm.value.password
+      password: this.signUpForm.value.password,
+      image: undefined,
+      is_shop: false
     }
     this.usersService.postRegister(user).subscribe({next: resp => console.log(resp), error: error => console.log(error)});
   }

@@ -11,26 +11,26 @@ export interface User {
     shops?:         Shop[];
     ecommerces?:    Ecommerce[];
 }
+export interface Address{
+    id?:            number;
+    address:        string;
+    city:           string;
+    country:        string;
+    zip_code:       string;
+}
 export interface Shop{
-    id:             null | number;
+    id?:            number;
     user_id:        number;
     shop_name:      string;
     shop_address:   string;
     country:        string;
     city:           string;
-    cp:             string;
+    zip_code:       string;
     lat:            string;
     lon:            string;
 }
-export interface Address{
-    id:             null | number;
-    address:        string;
-    city:           string;
-    country:        string;
-    cp:             string;
-}
 export interface Ecommerce{
-    id:             null | number;
+    id?:            number;
     user_id:        number;
     shop_name:      string;
     shop_url:       string;
