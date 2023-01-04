@@ -1,0 +1,23 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h3 class="modal-title" id="sing-up-popup-label">Add your address</h3>
+        <div class="close" data-bs-dismiss="modal" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <form [formGroup]="addUserAddressForm" class="d-flex flex-column just-content-center">
+        <div class="modal-body">
+            <div id="address-form" class="d-flex flex-column justify-content-start">
+                <textarea formControlName="address" type="text" name="address" placeholder="Address*"></textarea>
+                <input formControlName="city" type="text" name="city" placeholder="City*">
+                <input formControlName="country" type="text" name="country" placeholder="Country*">
+                <input formControlName="zip_code" type="text" name="zip_code" placeholder="Zip code*">
+            </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-between">
+            <button type="submit" class="mt-4" [disabled]="!addUserAddressForm.valid" (click)="add()">Save</button>
+        </div>
+    </form>
+</ng-template>
+

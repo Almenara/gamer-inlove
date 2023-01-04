@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Testability } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({
@@ -9,8 +9,11 @@ export class ModalsService {
   constructor(private allModals: NgbModal) { 
     console.log(this.modals)
   }
-  openModal(key:string){
-    this.modals[key].open()
+  openModal(key:string, object?:any){
+    if(object)
+      this.modals[key].open(object);
+    else
+      this.modals[key].open()
   }
   closeAllModals(){
     this.allModals.dismissAll()

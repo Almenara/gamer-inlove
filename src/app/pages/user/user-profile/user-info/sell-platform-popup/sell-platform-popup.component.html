@@ -1,0 +1,27 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h3 class="modal-title" id="sing-up-popup-label">Sell your platform:</h3>
+        <div class="close" data-bs-dismiss="modal" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <form [formGroup]="sellPlatformForm" class="d-flex flex-column just-content-center">
+        <div class="modal-body">
+            <h3 class="mb-4">{{platform.name}}</h3>
+            <div id="sell-platform-form" class="d-flex flex-column justify-content-start">
+                <input formControlName="price" type="number" min="0" name="price" placeholder="Price in $">
+                <select formControlName="status" type="text" name="status">
+                    <option value="" disabled>Select status:</option>
+                    <option *ngFor="let state of status | keyvalue" [ngValue]="state.key">
+                        {{state.value}}
+                    </option>
+                </select>
+                <textarea formControlName="comments" type="text" name="comments" placeholder="Comments*"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-between">
+            <button type="submit" class="mt-4" [disabled]="!sellPlatformForm.valid" (click)="platformForSale()">Sell platform</button>
+        </div>
+    </form>
+</ng-template>

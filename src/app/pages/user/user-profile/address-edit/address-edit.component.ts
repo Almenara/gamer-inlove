@@ -22,6 +22,7 @@ export class AddressEditComponent {
     private fb: FormBuilder, 
     private usersService: UsersService,
     private router: Router ){
+      console.log(this.user)
     if(!this.user.address) this.router.navigate(['/profile/address-add']);
     else{
       this.editUserAddressForm = this.fb.group({
