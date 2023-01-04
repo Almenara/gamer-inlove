@@ -1,0 +1,9 @@
+#sell-game-form{
+    gap: 10px;
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button {  
+        display: none;
+        opacity: 1;
+
+    }
+}

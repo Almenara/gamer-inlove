@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../interfaces/user';
 import { UserGame } from '../interfaces/user_game';
+import { UserPlatform } from '../interfaces/user_platform';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,12 @@ export class UsersService {
     headers = headers.append('Acept', 'application/json');
     headers = headers.append('Authorization', `Bearer ${this._token}`);
 
-    return this.http.post<Address>(URLService, address, { headers });
+    return this.http.post<any>(URLService, address, { headers }).pipe(
+      tap(resp => {
+        if(resp){
+          this.user.address = resp.data;
+        }
+      }));;
   }
   getProfile(): Observable<User>{
     
@@ -154,6 +160,27 @@ export class UsersService {
     headers = headers.append('Authorization', `Bearer ${this._token}`);
 
     return this.http.put<Address>(URLService, address, { headers });
+  }
+
+  putGameForSale(userGame:UserGame){
+    
+    const URLService = this._URLService + "/api/user/game-for-sale";
+    let headers = new HttpHeaders();
+      
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
+
+    return this.http.post<UserGame>(URLService, userGame, {headers});
+  }
+  putPlatformForSale(userPlatform:UserPlatform){
+    
+    const URLService = this._URLService + "/api/user/platform-for-sale";
+    let headers = new HttpHeaders();
+      
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
+
+    return this.http.post<UserPlatform>(URLService, userPlatform, {headers});
   }
 
   toggleToGameCollection(game_id: number , platform_id: number){

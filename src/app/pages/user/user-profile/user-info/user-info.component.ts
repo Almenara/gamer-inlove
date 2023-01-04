@@ -1,12 +1,14 @@
-import { UserWishplatform } from 'src/app/interfaces/user_wishplatform';
-import { UserPlatform } from './../../../../interfaces/user_platform';
+import { ModalsService } from './../../../../services/modals.service';
+
 import { ActivatedRoute } from '@angular/router';
-import { UserGame } from 'src/app/interfaces/user_game';
-import { UsersService } from 'src/app/services/users.service';
 import { Component, Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
+import { UserGame } from 'src/app/interfaces/user_game';
+import { UsersService } from 'src/app/services/users.service';
 import { UserWishgame } from 'src/app/interfaces/user_wishgame';
+import { UserWishplatform } from 'src/app/interfaces/user_wishplatform';
+import { UserPlatform } from 'src/app/interfaces/user_platform';
 
 @Component({
   selector: 'app-user-info',
@@ -21,9 +23,16 @@ export class UserInfoComponent implements OnInit {
   public platformCollection!: UserPlatform[];
   public platformWishlist!: UserWishplatform[];
 
+  private _user = this.userService.user;
+
+  get user(){
+    return this._user;
+  }
+
   constructor(
     private userService:UsersService,
-    private route: ActivatedRoute){ }
+    private modalsService:ModalsService,
+    ){ }
 
   ngOnInit(): void {
     this.userService.getUserCollectionAndWishlist().subscribe({
@@ -38,5 +47,14 @@ export class UserInfoComponent implements OnInit {
         console.log(error);
       }
     })
+  }
+  openAddressModal(){
+    this.modalsService.openModal('address');
+  }
+  openSellGameModal(userGame:UserGame){
+    this.modalsService.openModal('sell-game', userGame);
+  }
+  openSellPlatformModal(userPlatform:UserPlatform){
+    this.modalsService.openModal('sell-platform', userPlatform);
   }
 }

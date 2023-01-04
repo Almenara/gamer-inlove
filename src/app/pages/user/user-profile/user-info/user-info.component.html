@@ -9,7 +9,8 @@
                     <span class="ms-0 ms-sm-3 ms-md-0 ms-lg-3 mt-1 mt-sm-0 mt-md-1 mt-lg-0" *ngIf="game.platform.abbreviation; else platformName">{{game.platform.abbreviation}}</span>
                     <ng-template #platformName><span class="ms-0 ms-sm-3 ms-md-0 ms-lg-3 mt-1 mt-sm-0 mt-md-1 mt-lg-0">{{game.platform.name}}</span></ng-template>
                 </div>
-                <div class="btn mt-4 mt-sm-0 mt-md-4 mt-lg-0 me-1">Sell it</div>
+                <div *ngIf="user.address" class="btn mt-4 mt-sm-0 mt-md-4 mt-lg-0 me-1" (click)="openSellGameModal(game)">Sell game</div>
+                <div *ngIf="!user.address" class="btn mt-4 mt-sm-0 mt-md-4 mt-lg-0 me-1" (click)="openAddressModal()">Sell game</div>
             </div>
         </div>
     </div>
@@ -34,7 +35,8 @@
                 <div class="text-center">
                     <h6>{{platform.platform.name}}</h6>
                 </div>
-                <div class="btn mt-auto me-1">Sell it</div>
+                <div *ngIf="user.address" class="btn mt-auto me-1" (click)="openSellPlatformModal(platform)">Sell it</div>
+                <div *ngIf="!user.address" class="btn mt-auto me-1" (click)="openAddressModal()">Sell it</div>
             </div>
         </div>
     </div>
@@ -50,3 +52,6 @@
         </div>
     </div>
 </div>
+<app-address-popup *ngIf="!user.address"></app-address-popup>
+<app-sell-game-popup *ngIf="user.address"></app-sell-game-popup>
+<app-sell-platform-popup *ngIf="user.address"></app-sell-platform-popup>

@@ -20,8 +20,11 @@ export class LoginPopupComponent implements OnInit {
     email:        ['', [Validators.required, Validators.email]],
     password:     ['', [Validators.required, Validators.minLength(6)]],
   })
+  
   public loginError:boolean   = false;
+
   public errorMessage:string  = "";
+
   constructor(
     private fb: FormBuilder, 
     private authService: AuthService, 
@@ -29,7 +32,7 @@ export class LoginPopupComponent implements OnInit {
     private modalsService: ModalsService,
     private loginModalService: NgbModal) {
       this.modalsService.modals['log-in'] = this;
-     }
+  }
 
   ngOnInit(): void {
 

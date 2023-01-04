@@ -13,6 +13,9 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AddressEditComponent } from './user-profile/address-edit/address-edit.component';
 import { AddressAddComponent } from './user-profile/address-add/address-add.component';
+import { AddressPopupComponent } from './user-profile/user-info/address-popup/address-popup.component';
+import { SellGamePopupComponent } from './user-profile/user-info/sell-game-popup/sell-game-popup.component';
+import { SellPlatformPopupComponent } from './user-profile/user-info/sell-platform-popup/sell-platform-popup.component';
 
 
 
@@ -26,6 +29,9 @@ import { AddressAddComponent } from './user-profile/address-add/address-add.comp
     PasswordEditComponent,
     AddressEditComponent,
     AddressAddComponent,
+    AddressPopupComponent,
+    SellGamePopupComponent,
+    SellPlatformPopupComponent,
   ],
   imports: [
     UserProfilePagesRoutingModule,
@@ -44,6 +50,7 @@ import { AddressAddComponent } from './user-profile/address-add/address-add.comp
     PasswordEditComponent,
     AddressEditComponent,
     AddressAddComponent,
+    AddressPopupComponent,
   ]
 })
 export class UserModule { }
