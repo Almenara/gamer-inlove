@@ -57,4 +57,16 @@ export class UserInfoComponent implements OnInit {
   openSellPlatformModal(userPlatform:UserPlatform){
     this.modalsService.openModal('sell-platform', userPlatform);
   }
+  openCancelSaleGameModal(userGame:UserGame){
+    this.modalsService.openModal('sell-game', userGame);
+  }
+  openCancelSalePlatformModal(userPlatform:UserPlatform){
+    this.modalsService.openModal('sell-platform', userPlatform);
+  }
+  openSoldOutGameModal(userGame:UserGame){
+    this.modalsService.openModal('confirmation', userGame);
+  }
+  openSoldOutPlatformModal(userPlatform:UserPlatform){
+    this.modalsService.openModal('confirmation', userPlatform);
+  }
 }

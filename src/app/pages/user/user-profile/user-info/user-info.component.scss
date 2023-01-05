@@ -56,6 +56,9 @@ h3{
 
 .platform-wish-list,
 .platform-list{
+    app-logo{
+        max-width: 100px;
+    }
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -70,7 +73,7 @@ h3{
         justify-content: center;
         justify-items: center;
         padding: 0 20px;
-        max-width: 140px;
+        width: 180px;
         h6{
             margin-top: 20px;
         }

@@ -331,6 +331,16 @@ html{
                 }
             }
         }
+        &.success{
+            &::before{
+                background-color:  $green;
+            }
+        }
+        &.danger{
+            &::before{
+                background-color:  $red;
+            }
+        }
     }
 
     
