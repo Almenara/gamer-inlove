@@ -172,7 +172,52 @@ export class UsersService {
 
     return this.http.post<UserGame>(URLService, userGame, {headers});
   }
+
+  putGameSoldOut(userGame:UserGame){
+    
+    const URLService = this._URLService + "/api/user/game-sold-out";
+    let headers = new HttpHeaders();
+      
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
+
+    return this.http.post<UserGame>(URLService, userGame, {headers});
+  }
+
+  cancelGameForSale(userGame:UserGame){
+    
+    const URLService = this._URLService + "/api/user/game-for-sale";
+    let headers = new HttpHeaders();
+      
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
+
+    return this.http.post<UserGame>(URLService, userGame, {headers});
+  }
+  
   putPlatformForSale(userPlatform:UserPlatform){
+    
+    const URLService = this._URLService + "/api/user/platform-for-sale";
+    let headers = new HttpHeaders();
+      
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
+
+    return this.http.post<UserPlatform>(URLService, userPlatform, {headers});
+  }
+  
+  putPlatformSoldOut(userPlatform:UserPlatform){
+    
+    const URLService = this._URLService + "/api/user/platform-sold-out";
+    let headers = new HttpHeaders();
+      
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
+
+    return this.http.post<UserPlatform>(URLService, userPlatform, {headers});
+  }
+
+  cancelPlatformForSale(userPlatform:UserPlatform){
     
     const URLService = this._URLService + "/api/user/platform-for-sale";
     let headers = new HttpHeaders();

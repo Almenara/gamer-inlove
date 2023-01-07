@@ -267,56 +267,7 @@ html{
                     }
                 }
             }
-            &.checking{
-                margin-right: 4px;
-                padding: 10px 40px 10px 20px;
-                &::before{
-                    background-image: url(../src/assets/images/loading.svg)!important;
-                    background-size: 45px 45px!important;
-                    background-position: calc(100%) center!important;
-                    background-color: $yellow!important;
-                    top: 0;
-                    right: 0;
-                }
-            }
-            &.checked{
-                margin-right: 4px;
-                padding: 10px 40px 10px 20px;
-                &::before{
-                    background-image: url(../src/assets/images/added.svg);
-                    background-size: 30px 30px;
-                    background-position: calc(100% - 8px) center;
-                    background-color: $green;
-                    top: 0;
-                    right: 0;
-                }
-                &.wishlist{
-                    &::before{
-                        background-color: $yellow;
-                        background-image: url(../src/assets/images/wish.svg);
-                    }
-                }
-                &.erasable{
-                    &:hover{
-                        &::before{
-                            background-image: url(../src/assets/images/delete.svg);
-                            background-color: $red;
-                        }
-                    }
-                    &:active{
-                        &::before{
-                            background-color: $red!important;
-                        }
-                    }
-                }
-                &:active{
-                    margin-right: 4px;
-                    &::before{
-                        background-size: 0px 0px;
-                        background-position: calc(100% - 22px) center;
-                    }
-                }
-            }
+            
             &::before{
                 background-image: url(../src/assets/images/add.svg);
                 background-repeat: no-repeat;
@@ -335,10 +286,73 @@ html{
             &::before{
                 background-color:  $green;
             }
+            &:hover{
+                &::before{
+                    background-color:  $yellow;
+                }
+            }
         }
         &.danger{
             &::before{
                 background-color:  $red;
+            }
+            &:hover{
+                &::before{
+                    background-color:  $yellow;
+                }
+            }
+        }
+        &.loading,
+        &.checking{
+            pointer-events: none;
+            margin-right: 4px;
+            padding: 10px 40px 10px 20px;
+            &::before{
+                background-repeat: no-repeat;
+                background-image: url(../src/assets/images/loading.svg)!important;
+                background-size: 45px 45px!important;
+                background-position: calc(100%) center!important;
+                background-color: $yellow!important;
+                top: 0;
+                right: 0;
+            }
+        }
+        &.checked{
+            margin-right: 4px;
+            padding: 10px 40px 10px 20px;
+            &::before{
+                background-image: url(../src/assets/images/added.svg);
+                background-size: 30px 30px;
+                background-position: calc(100% - 8px) center;
+                background-color: $green;
+                top: 0;
+                right: 0;
+            }
+            &.wishlist{
+                &::before{
+                    background-color: $yellow;
+                    background-image: url(../src/assets/images/wish.svg);
+                }
+            }
+            &.erasable{
+                &:hover{
+                    &::before{
+                        background-image: url(../src/assets/images/delete.svg);
+                        background-color: $red;
+                    }
+                }
+                &:active{
+                    &::before{
+                        background-color: $red!important;
+                    }
+                }
+            }
+            &:active{
+                margin-right: 4px;
+                &::before{
+                    background-size: 0px 0px;
+                    background-position: calc(100% - 22px) center;
+                }
             }
         }
     }

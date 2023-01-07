@@ -11,8 +11,8 @@
                 </div>
                 <div class="d-flex gap-2">
                     <div *ngIf="!game.for_sale && user.address" class="btn mt-4 mt-sm-0 mt-md-4 mt-lg-0 me-1" (click)="openSellGameModal(game)">Sell game</div>
-                    <div *ngIf="game.for_sale" class="btn success mt-4 mt-sm-0 mt-md-4 mt-lg-0 me-1" (click)="openSoldOutGameModal(game)">Sold out</div>
-                    <div *ngIf="game.for_sale" class="btn danger mt-4 mt-sm-0 mt-md-4 mt-lg-0 me-1" (click)="openCancelSaleGameModal(game)">Cancel sale</div>
+                    <div *ngIf="game.for_sale" class="btn success mt-4 mt-sm-0 mt-md-4 mt-lg-0 me-1" (click)="openSoldOutGameModal(game, $event)">Sold out</div>
+                    <div *ngIf="game.for_sale" class="btn danger mt-4 mt-sm-0 mt-md-4 mt-lg-0 me-1" (click)="openCancelSaleGameModal(game, $event)">Cancel sale</div>
                     <div *ngIf="!user.address" class="btn mt-4 mt-sm-0 mt-md-4 mt-lg-0 me-1" (click)="openAddressModal()">Sell game</div>
                 </div>
             </div>
@@ -41,8 +41,8 @@
                 </div>
                 <div class="d-flex mt-auto flex-column gap-2">
                     <div *ngIf="!platform.for_sale && user.address" class="btn me-1" (click)="openSellPlatformModal(platform)">Sell it</div>
-                    <div *ngIf="platform.for_sale" class="btn danger w-100 me-1" (click)="openSoldOutPlatformModal(platform)">Sold out</div>
-                    <div *ngIf="platform.for_sale" class="btn success w-100 me-1" (click)="openCancelSalePlatformModal(platform)">Cancel sale</div>
+                    <div *ngIf="platform.for_sale" class="btn success w-100 me-1" (click)="openSoldOutPlatformModal(platform, $event)">Sold out</div>
+                    <div *ngIf="platform.for_sale" class="btn danger w-100 me-1" (click)="openCancelSalePlatformModal(platform, $event)">Cancel sale</div>
                     <div *ngIf="!user.address" class="btn me-1" (click)="openAddressModal()">Sell it</div>
                 </div>
             </div>
