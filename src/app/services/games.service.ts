@@ -1,9 +1,10 @@
-import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TwitchService } from './twitch.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GameData } from '../interfaces/game_data';
+import { RankingGames } from 'src/app/interfaces/ranking_games';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,19 @@ export class GamesService {
 
   getGames(): Observable<GameData[]>{
     return this.http.get<GameData[]>(this._URLService + 'api/get10games');
+  }
+
+  getPopularGamesNow(): Observable<GameData[]>{
+    return this.http.get<GameData[]>(this._URLService + 'api/games/get-popular-now');
+  }
+  getPopularGames(): Observable<RankingGames[]>{
+    return this.http.get<RankingGames[]>(this._URLService + 'api/games/get-popular');
+  }
+  getWantedGames(): Observable<RankingGames[]>{
+    return this.http.get<RankingGames[]>(this._URLService + 'api/games/get-wanted');
+  }
+  getExpensiveGames(): Observable<RankingGames[]>{
+    return this.http.get<RankingGames[]>(this._URLService + 'api/games/get-expensive');
   }
 
   getGame(id: number): Observable<GameData>{

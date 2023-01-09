@@ -1,0 +1,55 @@
+@import '../../../../vars';
+.top-gallery{
+    width: 100%;
+    border: 1px solid $black;
+    .gallery-header{
+        border-bottom: 1px solid $black;
+        padding: 20px;
+        h3{
+            max-width: 50%;
+            line-height: 24px;
+            margin: 0;
+        }
+    }
+    .gallery-body{
+        padding: 28px 20px 20px;
+        overflow-x: scroll;
+        app-cover{
+            min-width: 112px!important;
+        }
+        .game{
+            min-width: 100%;
+            width: 100%;
+            margin-right: 20px;
+            @media (min-width: 576px) {
+                min-width: 400px;
+                max-width: 500px;
+            }
+            .game-info{
+                margin-left: 28px;
+                width: 100%;
+                margin-top: -8px;
+                @media (min-width: 576px) {
+                    border-right: 1px solid $black;
+                }
+                h5{
+                    margin-top: -4px;
+                    padding-right: 20px;
+                    word-wrap: break-word;
+                }
+            }
+            &:last-child{
+                margin-left: 0;
+                .game-info{
+                    @media (min-width: 576px) {
+                        border-right: none;
+                    }
+                }
+            }
+        }
+    }
+    .gallery-footer{
+        border-top: 1px solid $black;
+        padding: 10px 20px;
+    }
+}

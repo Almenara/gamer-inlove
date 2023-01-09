@@ -2,9 +2,18 @@
 
 #main{
     #title{
-        flex: 1;
+      
         background-color: $orange;
         padding: 20px;
+        @media (min-width: 768px){
+            flex: 1;
+        }
+        img{
+            max-width: 75vw;
+            @media (min-width: 768px){
+                max-width: 35vw;
+            }
+        }
     }
     #main-gallery{
         flex: 1;

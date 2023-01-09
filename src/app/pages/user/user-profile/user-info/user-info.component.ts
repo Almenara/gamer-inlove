@@ -1,9 +1,10 @@
-import { ModalsService } from './../../../../services/modals.service';
-
 import { ActivatedRoute } from '@angular/router';
 import { Component, Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
+
+
 import { User } from 'src/app/interfaces/user';
+import { ModalsService } from 'src/app/services/modals.service';
 import { UserGame } from 'src/app/interfaces/user_game';
 import { UsersService } from 'src/app/services/users.service';
 import { UserWishgame } from 'src/app/interfaces/user_wishgame';
@@ -23,19 +24,19 @@ export class UserInfoComponent implements OnInit {
   public platformCollection!: UserPlatform[];
   public platformWishlist!: UserWishplatform[];
 
-  private _user = this.userService.user;
+  private _user = this.usersService.user;
 
   get user(){
     return this._user;
   }
 
   constructor(
-    private userService:UsersService,
+    private usersService:UsersService,
     private modalsService:ModalsService,
     ){ }
 
   ngOnInit(): void {
-    this.userService.getUserCollectionAndWishlist().subscribe({
+    this.usersService.getUserCollectionAndWishlist().subscribe({
       next: resp => {
         this.gameCollection = resp.gameCollection;
         this.gameWishlist = resp.gameWishlist;
@@ -57,16 +58,66 @@ export class UserInfoComponent implements OnInit {
   openSellPlatformModal(userPlatform:UserPlatform){
     this.modalsService.openModal('sell-platform', userPlatform);
   }
-  openCancelSaleGameModal(userGame:UserGame){
-    this.modalsService.openModal('sell-game', userGame);
+  openCancelSaleGameModal(userGame:UserGame, event: Event){
+    //TODO añadir modal de confirmación
+    let button = event.target as HTMLElement;
+    button.classList.add('checking');
+    userGame.for_sale = 0,
+    this.usersService.cancelGameForSale(userGame).subscribe({
+      next: resp => {
+        button.classList.remove('checking');
+      },
+      error: error =>{
+        console.log(error)
+        button.classList.remove('checking');
+      }
+    });
   }
-  openCancelSalePlatformModal(userPlatform:UserPlatform){
-    this.modalsService.openModal('sell-platform', userPlatform);
+  openCancelSalePlatformModal(userPlatform:UserPlatform, event: Event){
+    //TODO añadir modal de confirmación
+    let button = event.target as HTMLElement;
+    button.classList.add('checking');
+    userPlatform.for_sale = 0,
+    this.usersService.cancelPlatformForSale(userPlatform).subscribe({
+      next: resp => {
+        button.classList.remove('checking');
+      },
+      error: error =>{
+        console.log(error)
+        button.classList.remove('checking');
+      }
+    });
   }
-  openSoldOutGameModal(userGame:UserGame){
-    this.modalsService.openModal('confirmation', userGame);
+  openSoldOutGameModal(userGame:UserGame, event: Event){
+    //TODO añadir modal de confirmación
+    let button = event.target as HTMLElement;
+    button.classList.add('checking');
+    userGame.for_sale = 0,
+    this.usersService.putGameSoldOut(userGame).subscribe({
+      next: resp => {
+        button.classList.remove('checking');
+        this.gameCollection = this.gameCollection.filter( game => game.game_id != userGame.game_id)
+      },
+      error: error =>{
+        console.log(error)
+        button.classList.remove('checking');
+      }
+    });
   }
-  openSoldOutPlatformModal(userPlatform:UserPlatform){
-    this.modalsService.openModal('confirmation', userPlatform);
+  openSoldOutPlatformModal(userPlatform:UserPlatform, event: Event){
+    //TODO añadir modal de confirmación
+    let button = event.target as HTMLElement;
+    button.classList.add('checking');
+    userPlatform.for_sale = 0,
+    this.usersService.putPlatformSoldOut(userPlatform).subscribe({
+      next: resp => {
+        button.classList.remove('checking');
+        this.platformCollection = this.platformCollection.filter( platform => platform.platform_id != userPlatform.platform_id)
+      },
+      error: error =>{
+        console.log(error)
+        button.classList.remove('checking');
+      }
+    });
   }
 }

@@ -10,11 +10,13 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { HomeComponent } from './home/home.component';
 import { MainComponent } from './home/main/main.component';
 import { SharedModule } from '../shared/shared.module';
+import { TopGalleryComponent } from './home/top-gallery/top-gallery.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     MainComponent,
+    TopGalleryComponent,
   ],
   imports: [
     PagesRoutingModule,
