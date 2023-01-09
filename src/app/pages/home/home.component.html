@@ -1,1 +1,11 @@
 <app-main></app-main>
+<article class="row d-flex flex-column align-items-center just-content-center">
+    <app-top-gallery *ngIf="popularGames" [rankingGames]="popularGames" [title]="'TOP ' + popularGames.length + ' MOST POPULAR GAMES EVER'"></app-top-gallery>
+    <div id="contribute" class="d-flex flex-column justify-content-start align-items-start">
+        <h2>Quick Start Guide For<br/>
+            New Contributors</h2>
+        <div class="btn">Read more</div>
+    </div>
+    <app-top-gallery *ngIf="wantedGames" [rankingGames]="wantedGames" [title]="'TOP ' + wantedGames.length + ' MOST WANTED GAMES'"></app-top-gallery>
+    <app-top-gallery *ngIf="expensiveGames" [rankingGames]="expensiveGames" [title]="'TOP ' + expensiveGames.length + ' MOST EXPENSIVE GAMES'"></app-top-gallery>
+</article>

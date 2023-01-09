@@ -55,6 +55,16 @@ html{
             margin-top: 51px;
             min-height: calc(100vh - 51px);
         }
+        article{
+            border-left: 1px solid $black;
+            border-right: 1px solid $black;
+            gap: 20px;
+            padding: 20px 8px;
+            @media (min-width: 768px) {
+                gap: 50px;
+                padding: 50px 38px;
+            }
+        }
         .main-section-page{
             min-height: calc(100vh - 51px);
             gap: 1px;
@@ -242,15 +252,15 @@ html{
             &:active {
     
                 span{
-                    top: -6px;
-                    right: 23px
+                    top: 4px;
+                    right: 4px
                     
                 }
                 &.prev-btn span{
-                    bottom: 14px;
+                    bottom: 4px;
+                    left: 4px;
                     top: auto;
                     right: auto;
-                    left: -16px;
                 }
             }
         }

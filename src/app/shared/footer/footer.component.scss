@@ -3,10 +3,17 @@
 footer{
     background-color: $black;
     color: $beige;
-    padding: 80px 20px 30px;
+    padding: 50px 20px 30px;
+    #footer-logo{
+        max-width: 215px;
+        min-width: 150px;
+        margin-right: 30px;
+        margin-bottom: 10px;
+    }
     h3{
         font-family: "Inconsolata", sans-serif;
         text-transform: uppercase;
+        margin-top: 50px;
     }
     ul{
         list-style: none;
