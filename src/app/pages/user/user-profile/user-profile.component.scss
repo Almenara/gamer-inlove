@@ -4,6 +4,36 @@
         flex: 1;
         background-color: $yellow;
         padding: 20px;
+        #user-menu{
+            width: 100%;
+            margin: 20px 0 -21px;
+            padding: 0;
+            list-style: none;
+            
+            .sub-menu-option{
+                margin: 0 -20px;
+                border-top: 1px solid $black;
+                &:last-child{
+                    border-bottom: 1px solid $black;
+                }
+                a{
+                    padding: 20px;
+                    display: flex;
+                    font-family: "Inconsolata", sans-serif;
+                    text-transform: uppercase;
+                    font-size: 30px;
+                    font-weight: 700;
+                    line-height: 23px;
+                    &::before{
+                        height: 100%;
+                    }
+                    &:hover{
+                        color: $black
+                    }
+                }
+                
+            }
+        }
     }
     #user-info{
         flex: 1;

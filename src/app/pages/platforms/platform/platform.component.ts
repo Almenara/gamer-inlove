@@ -62,8 +62,7 @@ export class PlatformComponent implements OnInit{
           if(resp.wishlist){
             this.userWishlistPlatform = resp.wishlist;
           }
-          console.log(this);
-
+          console.log(resp);
         },
         error:(error)=>{
           console.log(error);
