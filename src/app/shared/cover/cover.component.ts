@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-cover',
@@ -9,11 +9,19 @@ export class CoverComponent implements OnInit {
 
   @Input() public img: string = "";
   @Input() public alphaChannel: boolean = false;
+
   constructor() {
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    this.getUrlImg();        
+  }
+
   ngOnInit(): void {
-    if (!this.img || this.img == ""){
+  }
+
+  getUrlImg(){
+    if (!this.img || this.img == "" ){
       this.img = "../../../../assets/images/default.png"
     }
     else{
@@ -28,5 +36,4 @@ export class CoverComponent implements OnInit {
       }
     }
   }
-
 }

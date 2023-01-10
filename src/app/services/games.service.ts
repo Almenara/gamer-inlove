@@ -29,8 +29,8 @@ export class GamesService {
     return this.http.get<GameData[]>(this._URLService + 'api/get10games');
   }
 
-  getPopularGamesNow(): Observable<GameData[]>{
-    return this.http.get<GameData[]>(this._URLService + 'api/games/get-popular-now');
+  getPopularGamesNow(): Observable<RankingGames[]>{
+    return this.http.get<RankingGames[]>(this._URLService + 'api/games/get-popular-now');
   }
   getPopularGames(): Observable<RankingGames[]>{
     return this.http.get<RankingGames[]>(this._URLService + 'api/games/get-popular');
