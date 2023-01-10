@@ -7,7 +7,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class ModalsService {
   modals: { [id: string]: any; } = {};
   constructor(private allModals: NgbModal) { 
-    console.log(this.modals)
   }
   openModal(key:string, object?:any){
     if(object)

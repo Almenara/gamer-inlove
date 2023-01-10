@@ -4,15 +4,15 @@
             <h1>{{user.name}}<br/>{{user.surname}}</h1>
             <h2>{{user.username}}</h2>
             <div id="profile-info" class="d-flex flex-column align-items-start justify-content-start">
-            <ul id="user-menu" class="sub-menu d-flex align-items-center justify-content-between justify-content-lg-center">
+            <ul id="user-menu" class="sub-menu d-flex flex-column">
                 <li class="sub-menu-option">
                     <a [routerLink]="[ '/profile' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Collection & Wishlist</a>
                 </li>
-                <li class="sub-menu-option">
-                    <a *ngIf="user.address" [routerLink]="[ 'address-edit' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Edit your address</a>
+                <li *ngIf="user.address" class="sub-menu-option">
+                    <a [routerLink]="[ 'address-edit' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Edit your address</a>
                 </li>
-                <li class="sub-menu-option">
-                    <a *ngIf="!user.address" [routerLink]="[ 'address-add' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Add your address</a>
+                <li *ngIf="!user.address" class="sub-menu-option">
+                    <a [routerLink]="[ 'address-add' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Add your address</a>
                 </li>
                 <li class="sub-menu-option">
                     <a [routerLink]="[ 'edit' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Edit data</a>

@@ -1,5 +1,4 @@
 @import '../../../../vars';
-$colors: $violet, $red, $blue, $yellow, $orange;
 
 #platform{
     #title{
@@ -25,12 +24,10 @@ $colors: $violet, $red, $blue, $yellow, $orange;
         img{
             width: 50%;
             margin: -17px 20px 10px 0;
-            border: 1px solid black;
             @media (min-width: 768px) {
                 margin: -17px 0 10px 20px;
             }
         }
-
     }
     #platform-info{
         flex: 1;
