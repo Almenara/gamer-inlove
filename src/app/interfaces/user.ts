@@ -1,10 +1,10 @@
 export interface User {
     id:             undefined | number;
-    name:           string;
-    surname:        string;
+    name?:          string;
+    surname?:       string;
     username:       string;
-    email:          string;
-    password:       string;
+    email?:         string;
+    password?:      string;
     image:          string | null | undefined;
     is_shop:        boolean;
     address?:       Address;

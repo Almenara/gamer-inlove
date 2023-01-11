@@ -27,9 +27,9 @@ export class PlatformComponent implements OnInit{
 
   public platform!: Platform;
 
-  public userWishlistPlatform: UserWishplatform[] | undefined = [];
+  public userWishlistPlatform: UserWishplatform[] = [];
 
-  public userCollectionPlatform: UserPlatform[] | undefined = [];
+  public userCollectionPlatform: UserPlatform[] = [];
 
   get auth() {
     return this.authService.auth
@@ -62,7 +62,6 @@ export class PlatformComponent implements OnInit{
           if(resp.wishlist){
             this.userWishlistPlatform = resp.wishlist;
           }
-          console.log(resp);
         },
         error:(error)=>{
           console.log(error);

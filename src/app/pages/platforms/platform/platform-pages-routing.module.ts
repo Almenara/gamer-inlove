@@ -6,12 +6,17 @@ import { PlatformComponent} from './platform.component';
 import { AddToCollectComponent } from './add-to-collect/add-to-collect.component';
 import { AddToWishlistComponent } from './add-to-wishlist/add-to-wishlist.component';
 import { EditComponent } from './edit/edit.component';
+import { InfoComponent } from './info/info.component';
 
 const routes: Routes = [
   {
     path: 'platform/:idSlug',
     component: PlatformComponent,
     children: [
+      {
+        path: '',
+        component: InfoComponent,
+      },
       {
         path: 'add-to-collection',
         component: AddToCollectComponent, 

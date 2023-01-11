@@ -1,7 +1,7 @@
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map, of, tap, catchError } from 'rxjs';
 import { PlatformData } from '../interfaces/platform_data';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class PlatformsService {
 
   private _URLService: string = "http://backendgamers.com/"
 
-  private _searching:Boolean = false;
+  private _searching: Boolean = false;
 
   private _auth = this.authService.auth;
 
@@ -33,7 +33,16 @@ export class PlatformsService {
       URLService = this._URLService + "api/platform/detailWithUserCollectionAndWishlistData/" + id; 
     }
     
-    return this.http.get<PlatformData>(URLService, {headers});
+    return this.http.get<PlatformData>(URLService, {headers})
+      .pipe(
+        tap(resp => {
+          if(resp){
+            this.platformData = resp;
+          }
+        }),
+        map(resp => resp),
+        catchError(resp => of(resp))
+      );
   }
 
   getUpdatePlatformCollection(id: number): Observable<PlatformData>{

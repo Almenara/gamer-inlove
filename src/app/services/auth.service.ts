@@ -46,7 +46,7 @@ export class AuthService {
         }),
         map(resp => resp),
         catchError(resp => of(resp))
-    );
+      );
 
   }
 
