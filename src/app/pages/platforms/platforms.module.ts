@@ -9,6 +9,7 @@ import { AddToCollectComponent } from './platform/add-to-collect/add-to-collect.
 import { AddToWishlistComponent } from './platform/add-to-wishlist/add-to-wishlist.component';
 import { EditComponent } from './platform/edit/edit.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { InfoComponent } from './platform/info/info.component';
 
 
 
@@ -17,7 +18,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     PlatformComponent,
     AddToCollectComponent,
     AddToWishlistComponent,
-    EditComponent
+    EditComponent,
+    InfoComponent
   ],
   imports: [
     RouterModule,
