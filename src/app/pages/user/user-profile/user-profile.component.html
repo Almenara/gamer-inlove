@@ -6,7 +6,7 @@
             <div id="profile-info" class="d-flex flex-column align-items-start justify-content-start">
             <ul id="user-menu" class="sub-menu d-flex flex-column">
                 <li class="sub-menu-option">
-                    <a [routerLink]="[ '/profile' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Collection & Wishlist</a>
+                    <a [routerLink]="[ '/profile/collection' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">Collection & Wishlist</a>
                 </li>
                 <li *ngIf="user.address" class="sub-menu-option">
                     <a [routerLink]="[ 'address-edit' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Edit your address</a>

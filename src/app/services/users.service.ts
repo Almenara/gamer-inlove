@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { User } from '../interfaces/user';
 import { UserGame } from '../interfaces/user_game';
 import { UserPlatform } from '../interfaces/user_platform';
+import { UserWishplatform } from '../interfaces/user_wishplatform';
 
 @Injectable({
   providedIn: 'root'
@@ -85,9 +86,9 @@ export class UsersService {
     return this.http.get<User>(URLService,{ headers });
   }
 
-  getUserCollection(id?: number): Observable<any>{
+  getUserCollection(url?: string): Observable<any>{
     
-    const URLService = this._URLService + "/api/profile/collection";
+    const URLService = url? url : this._URLService + "/api/profile/collection";
     
     this._token = this.getToken()!;
 
@@ -96,6 +97,45 @@ export class UsersService {
     headers = headers.append('Authorization', `Bearer ${this._token}`);
 
     return this.http.get<UserGame>(URLService,{ headers });
+
+  }
+  getUserWishlist(url?: string): Observable<any>{
+    
+    const URLService = url? url : this._URLService + "/api/profile/wishlist";
+    
+    this._token = this.getToken()!;
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${this._token}`);
+
+    return this.http.get<UserGame>(URLService,{ headers });
+
+  }
+  getUserPlatformCollection(url?: string): Observable<any>{
+    
+    const URLService = url? url : this._URLService + "/api/profile/platform-collection";
+    
+    this._token = this.getToken()!;
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${this._token}`);
+
+    return this.http.get<UserPlatform>(URLService,{ headers });
+
+  }
+  getUserPlatformWishlist(url?: string): Observable<any>{
+    
+    const URLService = url? url : this._URLService + "/api/profile/platform-wishlist";
+    
+    this._token = this.getToken()!;
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${this._token}`);
+
+    return this.http.get<UserWishplatform>(URLService,{ headers });
 
   }
 

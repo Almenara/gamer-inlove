@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { GameData } from 'src/app/interfaces/game_data';
 import { UserWishgame } from 'src/app/interfaces/user_wishgame';
@@ -33,14 +33,14 @@ export class AddToWishlistComponent implements OnInit{
     private gamesService: GamesService, 
     private usersService: UsersService, 
     public router: Router, 
-    private route: ActivatedRoute, 
     private authService: AuthService ) {
       this.game = this.gamesService.gameData;
 
-      if(this.game.collection){
+      if(this.game.wishlist){
         this.userWishlist = this.game.wishlist;
       }
-     }
+      console.log(this.game);
+    }
 
   ngOnInit(): void {
   

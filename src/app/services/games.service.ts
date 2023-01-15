@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TwitchService } from './twitch.service';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap, map, catchError, of } from 'rxjs';
 import { GameData } from '../interfaces/game_data';
 import { RankingGames } from 'src/app/interfaces/ranking_games';
 import { AuthService } from 'src/app/services/auth.service';
@@ -53,7 +53,17 @@ export class GamesService {
       URLService = this._URLService + "api/game/detailWithUserCollectionAndWishlistData/" + id; 
     }
     
-    return this.http.get<GameData>(URLService, {headers});
+    return this.http.get<GameData>(URLService, {headers})
+      .pipe(
+        tap(resp => {
+          if(resp){
+            this.gameData = resp;
+            console.log('cambio de datos')
+          }
+        }),
+        map(resp => resp),
+        catchError(resp => of(resp))
+      );;
   }
 
   getUpdateGameCollection(id: number): Observable<GameData>{
@@ -81,12 +91,6 @@ export class GamesService {
     }
     
     return this.http.get<GameData>(URLService, {headers});
-  }
-
-  search(gameName:string){
-    this._searching = true;
-    document.querySelector('html')!.classList.add('searching');
-    return this.http.get<GameData[]>(this._URLService + 'api/search/' + gameName);
   }
 
   getToken(){

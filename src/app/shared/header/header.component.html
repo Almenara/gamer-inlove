@@ -12,7 +12,7 @@
     </form>
     <a [routerLink]="[ '/community' ]" class="d-none d-md-flex header-btn white-btn">Community</a>
     <a *ngIf="!auth.ok" [routerLink]="[ '/sign-up' ]" class="d-none d-sm-flex header-btn black-btn">Sign Up / Log In</a>
-    <a *ngIf="auth.ok" [routerLink]="[ '/profile' ]" class="d-none d-sm-flex header-btn black-btn">My Profile</a>
+    <a *ngIf="auth.ok" [routerLink]="[ '/profile/collection' ]" class="d-none d-sm-flex header-btn black-btn">My Profile</a>
     <nav id="menu" [ngClass]="menuIsOpen? 'menu-opened':''">
       <ul id="options">
         <li id="menu-logo"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/' ]"><img src="../../../assets/images/logo-beige.svg" alt="My Game Lore"></a></li>
@@ -21,13 +21,13 @@
         <li class="option"><a (click)="toggleMenu($event)" (click)="openSearch($event)">Search</a></li>
         <li *ngIf="!auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/sign-up' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Sign Up</a></li>
         <li *ngIf="!auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/log-in' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Log In</a></li>
-        <li *ngIf="auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/profile' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">My Profile</a></li>
+        <li *ngIf="auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/profile/collection' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">My Profile</a></li>
         <li *ngIf="auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" (click)="logOut()" >Log Out</a></li>
       </ul>
     </nav>
   </nav>
 
-  <div id="search-result" (click)="($event.stopPropagation())" [ngClass]="searchResult? 'search-opened':''">
+  <div id="search-result" (scroll)="searchScroll($event)" (click)="($event.stopPropagation())" [ngClass]="searchOpened? 'search-opened':''">
     <div id="close-search" (click)="closeSearch()">
       <span></span>
       <span></span>
@@ -35,25 +35,27 @@
     <div *ngIf="users && users.length > 0">
       <h1>Users</h1>
       <div class="logo-list" draggable="true">
-        <app-search-element (delelteSearchResult)="deleteSearch()" *ngFor="let user of users" [user]="user"></app-search-element>
+        <app-search-element (delelteSearchResult)="closeSearch()" *ngFor="let user of users" [user]="user"></app-search-element>
       </div>
     </div>
     <div *ngIf="platforms && platforms.length > 0">
       <h1>Platforms</h1>
       <div class="logo-list" draggable="true">
-        <app-search-element (delelteSearchResult)="deleteSearch()" *ngFor="let platform of platforms" [platform]="platform"></app-search-element>
+        <app-search-element (delelteSearchResult)="closeSearch()" *ngFor="let platform of platforms" [platform]="platform"></app-search-element>
       </div>
     </div>
     <div *ngIf="companies && companies.length > 0">
       <h1>Companies</h1>
       <div class="logo-list" draggable="true">
-        <app-search-element (delelteSearchResult)="deleteSearch()" *ngFor="let company of companies" [company]="company"></app-search-element>
+        <app-search-element (delelteSearchResult)="closeSearch()" *ngFor="let company of companies" [company]="company"></app-search-element>
       </div>
     </div>
     <div *ngIf="games && games.length > 0">
       <h1 class="games-search-title">Games</h1>
       <div class="game-list">
-        <app-search-element (delelteSearchResult)="deleteSearch()" *ngFor="let game of games" [game]="game"></app-search-element>
+        <app-search-element (delelteSearchResult)="closeSearch()" *ngFor="let game of games" [game]="game"></app-search-element>
+        <div class="loader-more-search-content" [ngClass]="loadingMoreSearchContent? 'loading':''" >
+        </div>
       </div>
     </div>
   </div>

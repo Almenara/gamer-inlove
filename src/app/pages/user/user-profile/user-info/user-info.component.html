@@ -1,7 +1,7 @@
 <div class="d-flex flex-column">
     <h2 *ngIf="!gameCollection && !gameWishlist && !platformCollection && !platformWishlist">Nothing to show</h2>
     <div *ngIf="gameCollection && gameCollection.length">
-        <h3 class="d-flex justify-content-between align-items-center">My Game Collection <div *ngIf="gameCollection.length > 9" class="btn">See all</div></h3>
+        <h3 class="d-flex justify-content-between align-items-center">My Game Collection <a *ngIf="gameCollection.length > 9" [routerLink]="'user-game-list'" class="btn">See all</a></h3>
         <div class="game-list d-flex flex-column" *ngFor="let game of gameCollection">
             <div class="d-flex flex-column flex-sm-row flex-md-column flex-lg-row game" *ngIf="game.game && game.platform">
                 <app-cover [routerLink]="[ '/game/' + game.game.id + '-' + game.game.slug ]" *ngIf="game.game.cover" [img]="game.game.cover" [alphaChannel]="false"></app-cover>
@@ -15,6 +15,7 @@
                         <div *ngIf="!game.for_sale && user.address" class="btn mt-4 mt-sm-0 mt-md-4 mt-lg-0 me-1" (click)="openSellGameModal(game)">Sell game</div>
                         <div *ngIf="game.for_sale" class="btn success mt-4 mt-sm-0 mt-md-4 mt-lg-0 me-1" (click)="openSoldOutGameModal(game, $event)">Sold out</div>
                         <div *ngIf="game.for_sale" class="btn danger mt-4 mt-sm-0 mt-md-4 mt-lg-0 me-1" (click)="openCancelSaleGameModal(game, $event)">Cancel sale</div>
+                        <div *ngIf="!game.for_sale" class="btn erasable danger mt-4 mt-sm-0 mt-md-4 mt-lg-0 me-1" (click)="removeElement(confirm, game, 'UserGame')">Remove</div>
                         <div *ngIf="!user.address" class="btn mt-4 mt-sm-0 mt-md-4 mt-lg-0 me-1" (click)="openAddressModal()">Sell game</div>
                     </div>
                 </div>
@@ -22,7 +23,7 @@
         </div>
     </div>
     <div *ngIf="gameWishlist && gameWishlist.length">
-        <h3 *ngIf="gameWishlist && gameWishlist.length > 0" class="d-flex justify-content-between align-items-center">My Game Wishlist <div *ngIf="gameWishlist.length > 9" class="btn">See all</div></h3>
+        <h3 *ngIf="gameWishlist && gameWishlist.length > 0" class="d-flex justify-content-between align-items-center">My Game Wishlist <a *ngIf="gameWishlist.length > 9" [routerLink]="'user-game-wishlist'" class="btn">See all</a></h3>
         <div class="game-wish-list d-flex flex-column" *ngFor="let game of gameWishlist">
             <div class="d-flex flex-column flex-sm-row flex-md-column flex-lg-row game" *ngIf="game.game && game.platform">
                 <app-cover [routerLink]="[ '/game/' + game.game.id + '-' + game.game.slug ]" *ngIf="game.game.cover" [img]="game.game.cover" [alphaChannel]="false"></app-cover>
@@ -32,12 +33,15 @@
                         <span class="ms-0 ms-sm-3 ms-md-0 ms-lg-3 mt-1 mt-sm-0 mt-md-1 mt-lg-0" *ngIf="game.platform.abbreviation; else platformName">{{game.platform.abbreviation}}</span>
                         <ng-template #platformName><span class="ms-0 ms-sm-3 ms-md-0 ms-lg-3 mt-1 mt-sm-0 mt-md-1 mt-lg-0">{{game.platform.name}}</span></ng-template>
                     </div>
+                    <div class="d-flex gap-2">
+                        <div class="btn erasable danger mt-4 mt-sm-0 mt-md-4 mt-lg-0 me-1" (click)="removeElement(confirm, game, 'UserWishgame')">Remove</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div *ngIf="platformCollection && platformCollection.length">
-        <h3 class="d-flex justify-content-between align-items-center">My Platform Collection <div *ngIf="platformCollection.length > 9" class="btn">See all</div></h3>
+        <h3 class="d-flex justify-content-between align-items-center">My Platform Collection <a *ngIf="platformCollection.length > 9" [routerLink]="'user-platform-list'" class="btn">See all</a></h3>
         <div class="platform-list">
             <div *ngFor="let platform of platformCollection">
                 <div class="d-flex flex-column justify-content-between align-items-center platform h-100" *ngIf="platform && platform.platform">
@@ -49,6 +53,7 @@
                         <div *ngIf="!platform.for_sale && user.address" class="btn me-1" (click)="openSellPlatformModal(platform)">Sell it</div>
                         <div *ngIf="platform.for_sale" class="btn success w-100 me-1" (click)="openSoldOutPlatformModal(platform, $event)">Sold out</div>
                         <div *ngIf="platform.for_sale" class="btn danger w-100 me-1" (click)="openCancelSalePlatformModal(platform, $event)">Cancel sale</div>
+                        <div *ngIf="!platform.for_sale" class="btn erasable danger mt-4 mt-sm-0 mt-md-4 mt-lg-0 me-1" (click)="removeElement(confirm, platform, 'UserPlatform')">Remove</div>
                         <div *ngIf="!user.address" class="btn me-1" (click)="openAddressModal()">Sell it</div>
                     </div>
                 </div>
@@ -56,14 +61,17 @@
         </div>
     </div>
     <div *ngIf="platformWishlist && platformWishlist.length">
-        <h3 class="d-flex justify-content-between align-items-center">My Platform Wishlist <div class="btn"  *ngIf="platformWishlist.length > 9">See all</div></h3>
-        <div class="platform-wish-list">
+        <h3 class="d-flex justify-content-between align-items-center">My Platform Wishlist <a class="btn"  *ngIf="platformWishlist.length > 9" [routerLink]="'user-platform-wishlist'">See all</a></h3>
+        <div class="platform-wish-list gap-3">
             <div *ngFor="let platform of platformWishlist">
                 <div class="platform flex-column just-content-center align-items-center" *ngIf="platform && platform.platform">
                     <app-logo [routerLink]="[ '/platform/' + platform.platform.id + '-' + platform.platform.slug ]" *ngIf="platform.platform.platform_logo" [img]="platform.platform.platform_logo" [alphaChannel]="false"></app-logo>
                     <div class="text-center">
                         <h6>{{platform.platform.name}}</h6>
                     </div>
+                </div>
+                <div class="d-flex mt-auto flex-column gap-2">
+                    <div class="btn erasable danger mt-4 mt-sm-0 mt-md-4 mt-lg-0 me-1" (click)="removeElement(confirm, platform, 'UserWishplatform')">Remove</div>
                 </div>
             </div>
         </div>
@@ -72,3 +80,20 @@
 <app-address-popup *ngIf="!user.address"></app-address-popup>
 <app-sell-game-popup *ngIf="user.address"></app-sell-game-popup>
 <app-sell-platform-popup *ngIf="user.address"></app-sell-platform-popup>
+
+<ng-template #confirm let-c="close" let-confirm let-d="dismiss">
+    <div class="modal-header">
+        <h3 class="modal-title" id="sing-up-popup-label">Confirm remove</h3>
+        <div class="close" data-bs-dismiss="modal" (click)="confirm.dismiss('Cross click')" aria-label="Close">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+	<div class="modal-body mb-5">
+		<h6><p class="justify-text">{{message}}</p></h6>
+	</div>
+	<div class="modal-footer gap-2">
+		<div class="btn" (click)="confirm.dismiss('Cancel')">Cancel</div>
+		<div class="btn danger" (click)="confirmRemove()" (click)="confirm.dismiss()">Confirm</div>
+	</div>
+</ng-template>

@@ -151,7 +151,7 @@ html{
         position: relative;
         border-radius: 50px;
         background-color: $black;
-        padding: 6px 16px 14px 24px;
+        padding: 6px 13px 14px 21px;
         z-index: 1;
         display: flex;
         justify-content: center;
@@ -170,16 +170,23 @@ html{
             z-index: -1;
             top: -4px;
             right: -4px;
+            background-size: 0 0;
+            background-position: calc(100% - 8px) center;
+            background-repeat: no-repeat;
         }
         &:hover{
             background-color: $black;
-            &::before{
+            &::before{   
+                top: -4px;
+                right: -4px;
+                left: auto;
+                height: 100%;
                 background-color: $yellow;
             }
         }
         &:active{
             background-color: $black!important;
-            padding: 10px 20px;
+            padding:  10px 17px 10px 17px;
             &::before{
                 background-color: $violet;
                 top: 0;
@@ -365,6 +372,26 @@ html{
                 }
             }
         }
+
+        &.erasable:not(.check-btn){
+            &:hover{
+                padding: 6px 40px 14px 20px;
+                &::before{
+                    background-size: 30px 30px;
+                    background-image: url(../src/assets/images/delete.svg);
+                    background-color: $red;
+                }
+            }
+            &:active{
+                background-size: 0 0;
+                padding: 10px 44px 10px 16px;
+                &::before{
+                    background-size: 0 0;
+                    background-position: calc(100% - 22px) center;
+                    background-color: $red!important;
+                }
+            }
+        }
     }
 
     
@@ -504,6 +531,7 @@ html{
                 font-family: "Rozha One", serif;
                 font-size: 2.5rem;
                 margin-left: 8px;
+                border: none!important;
             }
             .close{
                 cursor: pointer;

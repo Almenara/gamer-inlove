@@ -10,6 +10,7 @@ import { AddToWishlistComponent } from './platform/add-to-wishlist/add-to-wishli
 import { EditComponent } from './platform/edit/edit.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { InfoComponent } from './platform/info/info.component';
+import { ForSaleListComponent } from './platform/for-sale-list/for-sale-list.component';
 
 
 
@@ -19,7 +20,8 @@ import { InfoComponent } from './platform/info/info.component';
     AddToCollectComponent,
     AddToWishlistComponent,
     EditComponent,
-    InfoComponent
+    InfoComponent,
+    ForSaleListComponent
   ],
   imports: [
     RouterModule,
