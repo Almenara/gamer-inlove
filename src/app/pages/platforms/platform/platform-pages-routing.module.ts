@@ -7,6 +7,7 @@ import { AddToCollectComponent } from './add-to-collect/add-to-collect.component
 import { AddToWishlistComponent } from './add-to-wishlist/add-to-wishlist.component';
 import { EditComponent } from './edit/edit.component';
 import { InfoComponent } from './info/info.component';
+import { ForSaleListComponent } from './for-sale-list/for-sale-list.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path: '',
         component: InfoComponent,
+      },
+      {
+        path: 'for-sale-list',
+        component: ForSaleListComponent,
       },
       {
         path: 'add-to-collection',

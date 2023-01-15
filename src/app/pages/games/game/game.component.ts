@@ -57,7 +57,6 @@ export class GameComponent implements OnInit{
 
       this.gamesService.getGame(this.id).subscribe({
         next:(resp)=>{
-          this.gamesService.gameData = resp;
           this.game = resp.game;
           if(resp.collection){
             this.userCollectionGame = resp.collection;

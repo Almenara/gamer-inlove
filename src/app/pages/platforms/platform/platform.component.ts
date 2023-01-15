@@ -27,23 +27,14 @@ export class PlatformComponent implements OnInit{
 
   public platform!: Platform;
 
-  public userWishlistPlatform: UserWishplatform[] = [];
-
-  public userCollectionPlatform: UserPlatform[] = [];
-
-  get auth() {
-    return this.authService.auth
-  }
 
   constructor(
     private router: Router,
-    private authService: AuthService,
     private route: ActivatedRoute, 
-    private platformsService: PlatformsService,
-    private usersService: UsersService,
-  ){
-  }
+    private platformsService: PlatformsService){ }
+
   ngOnInit(){
+    
     this.route.paramMap.subscribe((params: ParamMap) => {
      
       this.getRandomPageColors();
@@ -54,14 +45,7 @@ export class PlatformComponent implements OnInit{
 
       this.platformsService.getPlatform(this.id).subscribe({
         next:(resp)=>{
-          this.platformsService.platformData = resp;
           this.platform = resp.platform;
-          if(resp.collection){
-            this.userCollectionPlatform = resp.collection;
-          }
-          if(resp.wishlist){
-            this.userWishlistPlatform = resp.wishlist;
-          }
         },
         error:(error)=>{
           console.log(error);
@@ -70,7 +54,7 @@ export class PlatformComponent implements OnInit{
       })
 
     });
-
+    
   }
 
   getRandomPageColors() {
@@ -82,58 +66,4 @@ export class PlatformComponent implements OnInit{
 
   }
 
-  toggleToUserWishlist(event: Event){
-    let button = event.target as HTMLElement;
-    button.classList.add('checking');
-    this.usersService.toggleToPlatformWishlist(this.platform.id).subscribe({
-      next: resp => {
-        button.classList.remove('checking');
-        if(resp.delete){
-          this.platformsService.platformData.wishlist = resp.wishlist;
-          button.classList.remove('erasable');
-          button.classList.remove('checked');
-        }
-        else{
-          this.platformsService.platformData.wishlist = resp.wishlist;
-          button.classList.add('checked');
-        }
-      },
-      error: error => {
-        button.classList.remove('checking');
-        //TODO mostrar modal con mensaje de error.
-      }
-    });
-  }
-
-  toggleToUserCollection(event: Event){
-    let button = event.target as HTMLElement;
-    if(!button.classList.contains("checking")){
-      button.classList.add('checking');
-      this.usersService.toggleToPlatformCollection(this.platform.id).subscribe({
-        next: resp => {
-          button.classList.remove('checking');
-          if(resp.delete){
-            this.platformsService.platformData.collection = resp.collection;
-            button.classList.remove('erasable', 'checked');
-            button.classList.remove('checked');
-          }
-          else{
-            this.platformsService.platformData.collection = resp.collection;
-            button.classList.add('checked');
-          }
-        },
-        error: error => {
-          button.classList.remove('checking');
-          //TODO mostrar modal con mensaje de error.
-        }
-      });
-    }
-  }
-
-  addDeleteClass(event: Event){
-    let button = event.target as HTMLElement;
-    if(button.classList.contains("checked") || button.classList.contains("checking")){
-      button.classList.add('erasable')
-    }
-  }
 }

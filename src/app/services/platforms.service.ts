@@ -22,7 +22,6 @@ export class PlatformsService {
     private authService: AuthService ) { }
   
   getPlatform(id: number): Observable<PlatformData>{
-    console.log('logueado', this._auth.ok);
     let URLService = this._URLService + "api/platform/detail/" + id; 
     let headers = new HttpHeaders();
     headers = headers.append('Acept', 'application/json');
@@ -38,6 +37,7 @@ export class PlatformsService {
         tap(resp => {
           if(resp){
             this.platformData = resp;
+            console.log('cambio de datos')
           }
         }),
         map(resp => resp),
@@ -78,13 +78,13 @@ export class PlatformsService {
     return this.http.get<PlatformData[]>(this._URLService + 'api/search/' + platformName);
   }
 
-  getToken(){
-    return localStorage.getItem('auth_token');
-  }
-
   closeSearching(){
     this._searching = false;
     document.querySelector('html')!.classList.remove('searching');
+  }
+
+  getToken(){
+    return localStorage.getItem('auth_token');
   }
 
 }

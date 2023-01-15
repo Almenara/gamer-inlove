@@ -1,0 +1,70 @@
+@import '../../../../../vars';
+h3{
+    margin: 0;
+    padding: 20px 0;
+    position: sticky;
+    top:2px;
+    border-bottom: 1px solid $black;
+    z-index: 2;
+    background-color: $beige;
+    padding-top: 70px;
+    &:first-child{
+        top:52px;
+        padding-top: 20px;
+    }
+    .btn{
+        margin-right: 4px;
+        margin-top: 4px;
+        min-width: max-content;
+    }
+}
+
+.game-wish-list,
+.game-list{
+    app-cover{
+        height: 100%;
+        width: 100%;
+        max-width: 135px;
+        max-height: 200px;
+        padding: 8px 20px 0 0;
+    }
+    .game{
+        padding: 20px;
+        border: 1px solid $black;
+        border-top: 0;
+    }
+    .game-collection-info{
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        h4{
+            word-wrap: break-word;
+        }
+        span{
+            display: inline-block;
+            padding: 3px 8px;
+            border: 1px solid $black;
+            max-width: max-content;
+            border-radius: 50px;
+            font-size: 12px;
+            background-color: $beige;
+            margin-left: 20px;
+            min-width: max-content;
+        }
+    }
+}
+
+.loader-more-content{
+    height: 0;
+    overflow: hidden;
+    background-image: url(../../../../../assets/images/loading.svg);
+    background-repeat: no-repeat;
+    background-size: 20%;
+    background-position: center center;
+    background-color: $beige;
+    &.loading{
+        height: 200px;
+        border: 1px solid $black;
+        border-top: none;
+    }
+}

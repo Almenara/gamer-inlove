@@ -280,11 +280,26 @@
             gap: 1px;
             background-color: $black;
             border: 1px solid $black;
+            border-bottom: none;
             z-index: 10;
             margin-top: -1px;
             app-search-element{
                 display: flex;
             }
+        }
+        .loader-more-search-content{
+            height: 0;
+            overflow: hidden;
+            background-image: url(../../../assets/images/loading.svg);
+            background-repeat: no-repeat;
+            background-size: 20%;
+            background-position: center center;
+            background-color: $beige;
+            &.loading{
+                height: 200px;
+                border-bottom: 1px solid $black;
+            }
+
         }
         #close-search{
             cursor: pointer;

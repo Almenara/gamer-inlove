@@ -16,6 +16,10 @@ import { AddressAddComponent } from './user-profile/address-add/address-add.comp
 import { AddressPopupComponent } from './user-profile/user-info/address-popup/address-popup.component';
 import { SellGamePopupComponent } from './user-profile/user-info/sell-game-popup/sell-game-popup.component';
 import { SellPlatformPopupComponent } from './user-profile/user-info/sell-platform-popup/sell-platform-popup.component';
+import { UserGameListComponent } from './user-profile/user-game-list/user-game-list.component';
+import { UserPlatformListComponent } from './user-profile/user-platform-list/user-platform-list.component';
+import { UserPlatformWishlistComponent } from './user-profile/user-platform-wishlist/user-platform-wishlist.component';
+import { UserGameWishlistComponent } from './user-profile/user-game-wishlist/user-game-wishlist.component';
 
 
 
@@ -32,6 +36,10 @@ import { SellPlatformPopupComponent } from './user-profile/user-info/sell-platfo
     AddressPopupComponent,
     SellGamePopupComponent,
     SellPlatformPopupComponent,
+    UserGameListComponent,
+    UserPlatformListComponent,
+    UserPlatformWishlistComponent,
+    UserGameWishlistComponent,
   ],
   imports: [
     UserProfilePagesRoutingModule,

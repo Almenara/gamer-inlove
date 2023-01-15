@@ -1,0 +1,16 @@
+<ul class="seller row" *ngIf="platform.forSale">
+    <li *ngFor="let seller of platform.forSale" class="d-flex flex-column">
+        <div class="d-flex justify-content-between align-items-start">
+            <div class="d-flex flex-column justify-content-start align-items-start">
+                <h2 class="price">{{seller.price | currency}}</h2> 
+                <a [routerLink]="'/user/' + seller.user.id + '-' + seller.user.username"><h5>{{seller.user.username}}</h5></a> 
+            </div>
+            <div class="btn mt-2">Contact seller</div>
+        </div>
+        <ul>
+            <li><b>Platform status:</b> <span class="status">&nbsp;{{seller.status}}</span></li>
+            <li><b>Seller country:</b> {{seller.user.address?.country}}</li>
+            <li><b>Seller comment:</b> {{seller.comments}} </li>
+        </ul>
+    </li>
+</ul>

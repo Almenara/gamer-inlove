@@ -1,1 +1,18 @@
-<p>info works!</p>
+<ul *ngIf="auth.ok && userWishlistPlatform && userCollectionPlatform && platform" id="game-menu" class="sub-menu d-flex justify-content-around justify-content-lg-center">
+    <li (click)="toggleToUserCollection($event)" [ngClass]="{'checked erasable': userCollectionPlatform[platform.platform.id]}" (mouseout)="addDeleteClass($event)" class="platform btn check-btn">
+        I Have It
+    </li> 
+    <li (click)="toggleToUserWishlist($event)" [ngClass]="{'checked erasable': userWishlistPlatform[platform.platform.id]}" (mouseout)="addDeleteClass($event)" class="platform btn check-btn wishlist">
+        I Wish It
+    </li>   
+</ul>
+<ul *ngIf="!auth.ok" id="game-menu" class="sub-menu d-flex justify-content-around justify-content-lg-center">
+    <li [routerLink]="[ '/login' ]" class="platform btn check-btn">
+        I Have It
+    </li> 
+    <li [routerLink]="[ '/login' ]" class="platform btn check-btn wishlist">
+        I Wish It
+    </li> 
+</ul>
+<a [routerLink]="[ 'for-sale-list' ]"><h2 *ngIf="platform">{{platform.forSale?.length}} for sale</h2></a>
+
