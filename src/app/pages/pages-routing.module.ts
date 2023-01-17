@@ -61,6 +61,11 @@ const routes: Routes = [
         path: 'company/:idSlug',
         component: GameComponent,
       },
+      {
+        path: 'user/:idSlug',
+        component: UserProfileComponent,
+        loadChildren: () => import('./user/user-profile/user-pages-routing.module').then( m => m.UserProfilePagesRoutingModule)
+      },
     ]
   }
 ];

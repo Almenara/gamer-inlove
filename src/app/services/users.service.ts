@@ -99,6 +99,19 @@ export class UsersService {
     return this.http.get<UserGame>(URLService,{ headers });
 
   }
+  getUserForSale(url?: string): Observable<any>{
+    
+    const URLService = url? url : this._URLService + "/api/profile/for-sale";
+    
+    this._token = this.getToken()!;
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${this._token}`);
+
+    return this.http.get<UserGame>(URLService,{ headers });
+
+  }
   getUserWishlist(url?: string): Observable<any>{
     
     const URLService = url? url : this._URLService + "/api/profile/wishlist";
@@ -115,6 +128,19 @@ export class UsersService {
   getUserPlatformCollection(url?: string): Observable<any>{
     
     const URLService = url? url : this._URLService + "/api/profile/platform-collection";
+    
+    this._token = this.getToken()!;
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${this._token}`);
+
+    return this.http.get<UserPlatform>(URLService,{ headers });
+
+  }
+  getUserPlatformForSale(url?: string): Observable<any>{
+    
+    const URLService = url? url : this._URLService + "/api/profile/platform-for-sale";
     
     this._token = this.getToken()!;
 
@@ -142,6 +168,21 @@ export class UsersService {
   getUserCollectionAndWishlist(id?: number): Observable<any>{
     
     const URLService = this._URLService + "/api/profile/collection-and-wishlist";
+    
+    this._token = this.getToken()!;
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${this._token}`);
+    
+    //TODO entender porque esto no funciona ->   return this.http.get<[collection: UserGame, wishList: UserWishgame]>(URLService,{ headers });
+    
+    return this.http.get<any>(URLService,{ headers });
+
+  }
+  getUserAllForSale(id?: number): Observable<any>{
+    
+    const URLService = this._URLService + "/api/profile/all-for-sale";
     
     this._token = this.getToken()!;
 

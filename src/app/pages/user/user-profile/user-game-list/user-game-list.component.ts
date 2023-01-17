@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 
@@ -19,6 +20,10 @@ export class UserGameListComponent implements OnInit {
   public nextPageUrl: string = "";
   public loadingMoreContent: boolean = true;
 
+  public userType: string = "";
+  public product: string = "";
+  public filter: string = "";
+
   private _user = this.usersService.user;
 
   public forRemove!: UserGame;
@@ -32,19 +37,43 @@ export class UserGameListComponent implements OnInit {
     private usersService:UsersService,
     private modalsService:ModalsService,
     private modalService: NgbModal,
-    ){ }
+    private route: ActivatedRoute
+    ){
+      this.userType = this.route.snapshot.data['user'];
+      this.product = this.route.snapshot.data['product'];
+      this.filter = this.route.snapshot.data['filter'];
+     }
 
   ngOnInit(): void {
-    this.usersService.getUserCollection().subscribe({
-      next: resp => {
-        console.log(resp);
-        this.gameCollection = resp.data;
-        this.nextPageUrl = resp.next_page_url;
-      },
-      error: error => {
-        console.log(error);
-      }
-    })
+    switch(this.product + "|" + this.filter){
+      case "game|collection":
+        this.usersService.getUserCollection().subscribe({
+          next: resp => {
+            this.gameCollection = resp.data;
+            this.nextPageUrl = resp.next_page_url;
+          },
+          error: error => {
+            //TODO arlerta
+            console.log(error);
+          }
+        })
+        break;
+      case "game|wishlist":
+        this.usersService.getUserWishlist().subscribe({
+          next: resp => {
+            this.gameCollection = resp.data;
+            this.nextPageUrl = resp.next_page_url;
+          },
+          error: error => {
+            //TODO arlerta
+            console.log(error);
+          }
+        })
+        break;
+      default:
+        break;
+    }
+    
   }
   openAddressModal(){
     this.modalsService.openModal('address');

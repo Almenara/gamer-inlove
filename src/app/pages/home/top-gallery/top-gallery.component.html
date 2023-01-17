@@ -2,11 +2,11 @@
     <div class="gallery-header d-flex justify-content-between align-items-center">
         <h3>{{title}}</h3>
         <div class="gap-3 d-flex flex-row justify-content-center align-items-center">
-            <div (click)="prev()" [ngClass]="indexGame == 0? 'disabled':''" class="btn gallery-btn prev-btn"><span></span></div>
-            <div (click)="next()" [ngClass]="indexGame == 9? 'disabled':''" class="btn gallery-btn next-btn"><span></span></div>
+            <div (click)="prev()" #prevButton [ngClass]="indexGame == 0? 'disabled':''" class="btn gallery-btn prev-btn"><span></span></div>
+            <div (click)="next()" #nextButton [ngClass]="indexGame == 9? 'disabled':''" class="btn gallery-btn next-btn"><span></span></div>
         </div>
     </div>
-    <div class="gallery-body d-flex">
+    <div class="gallery-body d-flex" #gallery>
         <div *ngFor="let game of rankingGames" class="game d-flex align-items-top">
             <app-cover [routerLink]="[ '/game/' + game.game.id + '-' + game.game.slug ]" *ngIf="game.game.cover" [img]="game.game.cover" [alphaChannel]="false"></app-cover>
             <div class="game-info d-flex flex-column justify-content-start">
