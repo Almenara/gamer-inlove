@@ -9,13 +9,13 @@ import { UserPlatform } from 'src/app/interfaces/user_platform';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-user-info',
-  templateUrl: './user-info.component.html',
-  styleUrls: ['./user-info.component.scss'],
+  selector: 'app-user-for-sale',
+  templateUrl: './user-for-sale.component.html',
+  styleUrls: ['./user-for-sale.component.scss'],
   providers: [NgbModalConfig, NgbModal],
 })
 @Injectable() 
-export class UserInfoComponent implements OnInit {
+export class UserForSaleComponent implements OnInit {
 
   public gameCollection!: UserGame[];
   public gameWishlist!: UserWishgame[];
@@ -40,7 +40,7 @@ export class UserInfoComponent implements OnInit {
     ){ }
 
   ngOnInit(): void {
-    this.usersService.getUserCollectionAndWishlist().subscribe({
+    this.usersService.getUserAllForSale().subscribe({
       next: resp => {
         this.gameCollection = resp.gameCollection;
         this.gameWishlist = resp.gameWishlist;
@@ -52,17 +52,8 @@ export class UserInfoComponent implements OnInit {
       }
     })
   }
-  openAddressModal(){
-    this.modalsService.openModal('address');
-  }
-  openSellGameModal(userGame:UserGame){
-    this.modalsService.openModal('sell-game', userGame);
-  }
-  openSellPlatformModal(userPlatform:UserPlatform){
-    this.modalsService.openModal('sell-platform', userPlatform);
-  }
 
-  removeElement(confirm: any, forRemove: UserGame | UserWishgame | UserPlatform | UserWishplatform, objInterface: string){
+  removeElement(confirm: any, forRemove: UserGame | UserPlatform , objInterface: string){
     this.forRemove = forRemove;
     switch (objInterface) {
       case 'UserGame' :
@@ -71,79 +62,15 @@ export class UserInfoComponent implements OnInit {
             this.message = `Are you sure you want to remove ${forRemove.game?.name} from your collection?`
         }         
         break;
-      case 'UserWishgame' :
-        this.forRemoveType = 'UserWishgame';
-        if('game' in forRemove && typeof forRemove.game === 'object'){
-            this.message = `Are you sure you want to remove ${forRemove.game?.name} from your wishlist?`
-        }     
-        break;
       case 'UserPlatform' :
         this.forRemoveType = 'UserPlatform';
         this.message = `Are you sure you want to remove ${forRemove.platform?.name} from your collection?`
-        break;
-      case 'UserWishplatform' :
-        this.forRemoveType = 'UserWishplatform';
-        this.message = `Are you sure you want to remove ${forRemove.platform?.name} from your wishlist?`
         break;
     }
     
     this.modalService.open(confirm);
   }
 
-  confirmRemove(){
-    switch (this.forRemoveType) {
-      case 'UserGame' :
-        if('game' in this.forRemove && typeof this.forRemove.game === 'object'){
-          let id = this.forRemove.game.id
-          this.usersService.toggleToGameCollection(this.forRemove.game_id, this.forRemove.platform_id).subscribe({
-            next: resp => {
-              this.gameCollection = this.gameCollection.filter( game => game.game_id != id)
-              this.modalService.dismissAll();
-            },
-            error: error => {
-              console.log(error);
-            }
-          })
-        }
-        break;
-      case 'UserWishgame' :
-        if('game' in this.forRemove && typeof this.forRemove.game === 'object'){
-          let id = this.forRemove.game.id
-          this.usersService.toggleToGameWishlist(this.forRemove.game_id, this.forRemove.platform_id).subscribe({
-            next: resp => {
-              this.gameWishlist = this.gameWishlist.filter( game => game.game_id != id)
-              this.modalService.dismissAll();
-            },
-            error: error => {
-              console.log(error);
-            }
-          })
-        }
-        break;
-      case 'UserPlatform' :
-        this.usersService.toggleToPlatformCollection(this.forRemove.platform_id).subscribe({
-          next: resp => {
-            this.platformCollection = this.platformCollection.filter( platform => platform.platform_id != this.forRemove.platform_id)
-            this.modalService.dismissAll();
-          },
-          error: error => {
-            console.log(error);
-          }
-        })
-        break;
-      case 'UserWishplatform' :
-        this.usersService.toggleToPlatformWishlist(this.forRemove.platform_id).subscribe({
-          next: resp => {
-            this.platformWishlist = this.platformWishlist.filter( platform => platform.platform_id != this.forRemove.platform_id)
-            this.modalService.dismissAll();
-          },
-          error: error => {
-            console.log(error);
-          }
-        })
-        break;
-    }
-  }
 
   openCancelSaleGameModal(userGame:UserGame, event: Event){
     //TODO añadir modal de confirmación
