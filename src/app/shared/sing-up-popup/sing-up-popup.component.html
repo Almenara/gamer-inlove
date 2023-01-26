@@ -13,9 +13,12 @@
                 <input formControlName="surname" type="text" name="surname" placeholder="Surname">
                 <input formControlName="username" type="text" name="username" placeholder="User name">
                 <input formControlName="email" type="email" name="email" placeholder="email">
-                <input type="email" name="repeatemail" placeholder="Repeat email">
+                <input formControlName="repeatemail" type="email" name="repeatemail" placeholder="Repeat email">
                 <input formControlName="password" type="password" name="password" placeholder="Password">
-                <input type="password" name="repeatpassword" placeholder="Repeat Password">
+                <input formControlName="repeatpassword" type="password" name="repeatpassword" placeholder="Repeat Password">
+            </div>
+            <div *ngIf="errorMessages" class="d-flex mt-4 flex-column">
+                <span *ngFor="let errorMessage of errorMessages" class="form-error">{{ errorMessage }}</span>
             </div>
         </div>
         <div class="modal-footer d-flex justify-content-between">

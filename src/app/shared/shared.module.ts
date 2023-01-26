@@ -9,6 +9,7 @@ import { LogoComponent } from './logo/logo.component';
 import { SearchElementComponent } from './header/search-element/search-element.component';
 import { LoginPopupComponent } from './login-popup/login-popup.component';
 import { SingUpPopupComponent } from './sing-up-popup/sing-up-popup.component';
+import { ContactPopupComponent } from './contact-popup/contact-popup.component';
 
 
 
@@ -20,7 +21,8 @@ import { SingUpPopupComponent } from './sing-up-popup/sing-up-popup.component';
     CoverComponent,
     LogoComponent,
     LoginPopupComponent,
-    SingUpPopupComponent
+    SingUpPopupComponent,
+    ContactPopupComponent,
   ],
   imports: [
     FormsModule,
@@ -35,7 +37,8 @@ import { SingUpPopupComponent } from './sing-up-popup/sing-up-popup.component';
     CoverComponent,
     LogoComponent,
     LoginPopupComponent,
-    SingUpPopupComponent
+    SingUpPopupComponent,
+    ContactPopupComponent,
   ]
 })
 export class SharedModule { }

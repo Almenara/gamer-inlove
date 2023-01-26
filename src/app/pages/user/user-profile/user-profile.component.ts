@@ -1,6 +1,7 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { UsersService } from './../../../services/users.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { User } from 'src/app/interfaces/user';
 
 @Component({
@@ -9,8 +10,8 @@ import { User } from 'src/app/interfaces/user';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-
-  private _user!: User;
+  @Input() userGamelist!: string;
+  private _userProfile!: User;
 
   public classes:string[] = ['bg-red', 'bg-blue', 'bg-yellow', 'bg-orange'];
 
@@ -18,56 +19,51 @@ export class UserProfileComponent implements OnInit {
 
   public secondaryColor:string = "";
 
-  get user(){
-    if(this.usersService.user) this._user = this.usersService.user;
-    return this._user;
+  get auth() {
+    return this.authService.auth;
   }
-  set user(user: User){
-    if(this.usersService.user) this._user = this.usersService.user;
-    this._user = user
-  }
-  constructor( 
-    private usersService: UsersService, 
-    private route: ActivatedRoute, 
-    public router: Router ) { }
 
-  ngOnInit(): void {
+  get user(){
+    return this.authService.user;
+  }
+
+  set userProfile(user: User){
+    this._userProfile = user;
+  }
+  get userProfile(){
+    return this._userProfile
+  }
+
+  constructor( 
+      private usersService: UsersService, 
+      private authService: AuthService, 
+      private route: ActivatedRoute, 
+      public router: Router ) {
 
     let id:number = 0;
 
     this.route.paramMap.subscribe((params: ParamMap) => {
-     
+    
       this.getRandomPageColors();
 
-      const param = params.get('idSlug')
+      let param = params.get('idSlug');
 
-      
-      if(param) id = Number(param.split("-", 1));
-  
+      if(param){
+
+        id = Number(param.split("-", 1))
+
+        this.usersService.getUserById(id).subscribe({
+          next:(resp)=>{
+            this.userProfile = resp;
+          },
+          error:()=>{
+            this.router.navigate(['/404']);
+          }
+        });
+      }
     });
-    if(!id){
-      this.usersService.getProfile().subscribe({
-        next:(resp)=>{
-          this.user = this.usersService.user;
-        },
-        error:(error)=>{
-          this.router.navigate(['/login']);
-        }
-      })
-    }
-    else{
-      this.usersService.getUserById(id).subscribe({
-        next:(resp) => {
-          this.user = resp
-          console.log(id)
-          console.log(this.user)
-        },
-        error:(error)=>{
-          //TODO mensaje de error
-          console.log(error)
-        }
-      })
-    }
+  }
+  public ngOnInit(): void{  
   }
 
   getRandomPageColors() {

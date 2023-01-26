@@ -1,10 +1,16 @@
-import { ActivatedRoute } from '@angular/router';
+
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 
 import { ModalsService } from 'src/app/services/modals.service';
 import { UserGame } from 'src/app/interfaces/user_game';
 import { UsersService } from 'src/app/services/users.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/interfaces/user';
+import { UserWishgame } from 'src/app/interfaces/user_wishgame';
+import { UserWishplatform } from 'src/app/interfaces/user_wishplatform';
+import { UserPlatform } from 'src/app/interfaces/user_platform';
 
 @Component({
   selector: 'app-user-game-list',
@@ -14,41 +20,81 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class UserGameListComponent implements OnInit {
 
+
+  private _userProfile!: User;
+
   public gameCollection!: UserGame[];
+  public gameWishlist!: UserWishgame[];
+  public platformCollection!: UserWishplatform[];
+  public platformWishlist!: UserWishplatform[];
+
+  public forRemove!: UserGame | UserWishgame | UserPlatform | UserWishplatform;
+  public forRemoveType: string =  "";
+  public message: string =  "";
+
 
   @ViewChild('loader', {static: false}) private loader!: ElementRef<HTMLDivElement>;
   public nextPageUrl: string = "";
-  public loadingMoreContent: boolean = true;
+  public loadingMoreContent: boolean = false;
 
-  public userType: string = "";
   public product: string = "";
   public filter: string = "";
 
-  private _user = this.usersService.user;
+  public id:number = 0;
 
-  public forRemove!: UserGame;
-  public message: string = '';
+  public userLoggedProfile: boolean = false;
+
+  get auth() {
+    return this.authService.auth;
+  }
 
   get user(){
-    return this._user;
+    return this.authService.user;
+  }
+
+  set userPorfile(user: User){
+    this._userProfile = user;
+  }
+
+  get userProfile(){
+    return this.usersService.userProfile;
   }
 
   constructor(
-    private usersService:UsersService,
-    private modalsService:ModalsService,
+    private authService: AuthService,
+    private usersService: UsersService,
+    private modalsService: ModalsService,
     private modalService: NgbModal,
     private route: ActivatedRoute
     ){
-      this.userType = this.route.snapshot.data['user'];
       this.product = this.route.snapshot.data['product'];
       this.filter = this.route.snapshot.data['filter'];
-     }
+      
+      this.route.paramMap.subscribe((params: ParamMap) => {
+      
+        let param = params.get('idSlug');
+
+        if(param){
+          this.userLoggedProfile = false;
+          this.id = Number(param.split("-", 1))
+        }
+        else{
+          this.userLoggedProfile = true;
+        }
+        this.getProductList(this.id);
+
+      });
+    }
 
   ngOnInit(): void {
+  }
+
+  getProductList(id: number){
     switch(this.product + "|" + this.filter){
       case "game|collection":
-        this.usersService.getUserCollection().subscribe({
+        this.usersService.getUserCollection(null, id).subscribe({
           next: resp => {
+            console.log(resp)
             this.gameCollection = resp.data;
             this.nextPageUrl = resp.next_page_url;
           },
@@ -59,7 +105,20 @@ export class UserGameListComponent implements OnInit {
         })
         break;
       case "game|wishlist":
-        this.usersService.getUserWishlist().subscribe({
+        this.usersService.getUserWishlist(null, id).subscribe({
+          next: resp => {
+            console.log(resp)
+            this.gameCollection = resp.data;
+            this.nextPageUrl = resp.next_page_url;
+          },
+          error: error => {
+            //TODO arlerta
+            console.log(error);
+          }
+        })
+        break;
+      case "game|for-sale":
+        this.usersService.getUserForSale(null, id).subscribe({
           next: resp => {
             this.gameCollection = resp.data;
             this.nextPageUrl = resp.next_page_url;
@@ -73,14 +132,16 @@ export class UserGameListComponent implements OnInit {
       default:
         break;
     }
-    
   }
+
   openAddressModal(){
     this.modalsService.openModal('address');
   }
+
   openSellGameModal(userGame:UserGame){
     this.modalsService.openModal('sell-game', userGame);
   }
+
   openCancelSaleGameModal(userGame:UserGame, event: Event){
     //TODO añadir modal de confirmación
     let button = event.target as HTMLElement;
@@ -96,6 +157,7 @@ export class UserGameListComponent implements OnInit {
       }
     });
   }
+
   openSoldOutGameModal(userGame:UserGame, event: Event){
     //TODO añadir modal de confirmación
     let button = event.target as HTMLElement;
@@ -112,6 +174,15 @@ export class UserGameListComponent implements OnInit {
       }
     });
   }
+
+  openContactModal(userGame:UserGame){
+    this.modalsService.openModal('contact', userGame);
+  }
+  
+  openLoginModal(){
+    this.modalsService.openModal('log-in');
+  }
+
   nextPage(){
     this.loadingMoreContent = false;
     if(this.nextPageUrl && this.nextPageUrl != ""){
@@ -126,25 +197,93 @@ export class UserGameListComponent implements OnInit {
       })
     }
   }
-  removeElement(confirm: any, forRemove: UserGame){
+  removeElement(confirm: any, forRemove: UserGame | UserWishgame | UserPlatform | UserWishplatform, objInterface: string){
     this.forRemove = forRemove;
-    this.message = `Are you sure you want to remove ${forRemove.game?.name} from your collection?`
+    switch (objInterface) {
+      case 'UserGame' :
+        this.forRemoveType = 'UserGame';
+        if('game' in forRemove && typeof forRemove.game === 'object'){
+            this.message = `Are you sure you want to remove ${forRemove.game?.name} from your collection?`
+        }         
+        break;
+      case 'UserWishgame' :
+        this.forRemoveType = 'UserWishgame';
+        if('game' in forRemove && typeof forRemove.game === 'object'){
+            this.message = `Are you sure you want to remove ${forRemove.game?.name} from your wishlist?`
+        }     
+        break;
+      case 'UserPlatform' :
+        this.forRemoveType = 'UserPlatform';
+        this.message = `Are you sure you want to remove ${forRemove.platform?.name} from your collection?`
+        break;
+      case 'UserWishplatform' :
+        this.forRemoveType = 'UserWishplatform';
+        this.message = `Are you sure you want to remove ${forRemove.platform?.name} from your wishlist?`
+        break;
+    }
+    
     this.modalService.open(confirm);
   }
+
   confirmRemove(){
-    if('game' in this.forRemove && typeof this.forRemove.game === 'object'){
-      let id = this.forRemove.game.id
-      this.usersService.toggleToGameCollection(this.forRemove.game_id, this.forRemove.platform_id).subscribe({
-        next: resp => {
-          this.gameCollection = this.gameCollection.filter( game => game.game_id != id)
-          this.modalService.dismissAll();
-        },
-        error: error => {
-          console.log(error);
+    switch (this.forRemoveType) {
+
+      case 'UserGame' :
+        if('game' in this.forRemove && typeof this.forRemove.game === 'object'){
+          let id = this.forRemove.game.id
+          this.usersService.toggleToGameCollection(this.forRemove.game_id, this.forRemove.platform_id).subscribe({
+            next: resp => {
+              this.gameCollection = this.gameCollection.filter( game => game.game_id != id)
+              this.modalService.dismissAll();
+            },
+            error: error => {
+              console.log(error);
+            }
+          })
         }
-      })
+        break;
+
+      case 'UserWishgame' :
+        if('game' in this.forRemove && typeof this.forRemove.game === 'object'){
+          let id = this.forRemove.game.id
+          this.usersService.toggleToGameWishlist(this.forRemove.game_id, this.forRemove.platform_id).subscribe({
+            next: resp => {
+              this.gameWishlist = this.gameWishlist.filter( game => game.game_id != id)
+              this.modalService.dismissAll();
+            },
+            error: error => {
+              console.log(error);
+            }
+          })
+        }
+        break;
+
+      case 'UserPlatform' :
+        this.usersService.toggleToPlatformCollection(this.forRemove.platform_id).subscribe({
+          next: resp => {
+            this.platformCollection = this.platformCollection.filter( platform => platform.platform_id != this.forRemove.platform_id)
+            this.modalService.dismissAll();
+          },
+          error: error => {
+            console.log(error);
+          }
+        })
+        break;
+
+      case 'UserWishplatform' :
+        this.usersService.toggleToPlatformWishlist(this.forRemove.platform_id).subscribe({
+          next: resp => {
+            this.platformWishlist = this.platformWishlist.filter( platform => platform.platform_id != this.forRemove.platform_id)
+            this.modalService.dismissAll();
+          },
+          error: error => {
+            console.log(error);
+          }
+        })
+        break;
     }
   }
+
   @HostListener('document.scroll', ['$event'])
   loadNextPage(event: Event):void {
     if (this.loader && this.loadingMoreContent){
@@ -153,4 +292,5 @@ export class UserGameListComponent implements OnInit {
       if(topShown) this.nextPage();
     }
   }
+
 }

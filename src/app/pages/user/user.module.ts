@@ -18,11 +18,6 @@ import { SellGamePopupComponent } from './user-profile/user-info/sell-game-popup
 import { SellPlatformPopupComponent } from './user-profile/user-info/sell-platform-popup/sell-platform-popup.component';
 import { UserGameListComponent } from './user-profile/user-game-list/user-game-list.component';
 import { UserPlatformListComponent } from './user-profile/user-platform-list/user-platform-list.component';
-import { UserPlatformWishlistComponent } from './user-profile/user-platform-wishlist/user-platform-wishlist.component';
-import { UserGameWishlistComponent } from './user-profile/user-game-wishlist/user-game-wishlist.component';
-import { UserForSaleComponent } from './user-profile/user-for-sale/user-for-sale.component';
-import { UserGameForSaleComponent } from './user-profile/user-game-for-sale/user-game-for-sale.component';
-import { UserPlatformForSaleComponent } from './user-profile/user-platform-for-sale/user-platform-for-sale.component';
 
 
 
@@ -41,11 +36,6 @@ import { UserPlatformForSaleComponent } from './user-profile/user-platform-for-s
     SellPlatformPopupComponent,
     UserGameListComponent,
     UserPlatformListComponent,
-    UserPlatformWishlistComponent,
-    UserGameWishlistComponent,
-    UserForSaleComponent,
-    UserGameForSaleComponent,
-    UserPlatformForSaleComponent,
   ],
   imports: [
     UserProfilePagesRoutingModule,

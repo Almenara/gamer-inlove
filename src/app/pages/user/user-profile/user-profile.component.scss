@@ -4,6 +4,30 @@
         flex: 1;
         background-color: $yellow;
         padding: 20px;
+        h1{
+
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            -webkit-hyphens: auto;
+            hyphens: auto;
+            max-width: 99vw;
+            @media (min-width: 768px) {
+                max-width: 49vw;
+            }
+
+        }
+        #profile-info{
+            @media (min-width: 768px) {
+                position: sticky;
+                top: 31px;
+            }
+            &.profile{
+                @media (min-width: 768px) {
+                    position: sticky;
+                    top: -86px;
+                }
+            }
+        }
         #user-menu{
             width: 100%;
             margin: 20px 0 -21px;
@@ -13,7 +37,7 @@
             top: 52px;
             
             .sub-menu-option{
-                margin: 0 -20px;
+                margin: 0 -20px -1px;
                 border-top: 1px solid $black;
                 &:last-child{
                     border-bottom: 1px solid $black;
@@ -68,7 +92,7 @@
             }
         }
     }
-    #user-info{
+    #userGamelist{
         flex: 1;
         background-color: $beige;
         padding: 0 20px 20px;
