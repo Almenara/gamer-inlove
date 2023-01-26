@@ -8,7 +8,7 @@ export interface UserPlatform {
     delivery_price: number;
     for_sale:       number;
     price:          number;
-    status:         number | string;
+    status:         string;
     comments:       null | string;
     created_at:     Date;
     updated_at:     Date;

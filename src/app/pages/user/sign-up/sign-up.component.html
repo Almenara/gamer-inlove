@@ -6,14 +6,17 @@
                 <input formControlName="surname" type="text" name="surname" placeholder="Surname">
                 <input formControlName="username" type="text" name="username" placeholder="User name">
                 <input formControlName="email" type="email" name="email" placeholder="email">
-                <input type="email" name="repeatemail" placeholder="Repeat email">
+                <input formControlName="repeatemail" type="email" name="repeatemail" placeholder="Repeat email">
                 <input formControlName="password" type="password" name="password" placeholder="Password">
-                <input type="password" name="repeatpassword" placeholder="Repeat Password">
+                <input formControlName="repeatpassword" type="password" name="repeatpassword" placeholder="Repeat Password">
+                <div *ngIf="errorMessages" class="d-flex flex-column">
+                    <span *ngFor="let errorMessage of errorMessages" class="form-error">{{ errorMessage }}</span>
+                </div>
                 <button type="submit" class="mt-4" [disabled]="!signUpForm.valid" (click)="register()">Register</button>
             </form>
         </div>
         <div id="title" class="d-flex order-0 order-md-1">
-            <h1>Sign<br/>In</h1>
+            <h1>Sign Up</h1>
         </div>
     </div>
 </div>

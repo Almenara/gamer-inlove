@@ -1,8 +1,10 @@
 import { Address } from 'src/app/interfaces/user';
-import { Observable, tap, map, catchError, of } from 'rxjs';
+import { Observable, tap} from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { environment } from 'src/environments/environment';
 import { User } from '../interfaces/user';
 import { UserGame } from '../interfaces/user_game';
 import { UserPlatform } from '../interfaces/user_platform';
@@ -13,18 +15,36 @@ import { UserWishplatform } from '../interfaces/user_wishplatform';
 })
 export class UsersService {
 
-  private _URLService:string = 'http://backendgamers.com';
+  private _URLService:string = environment.baseUrl;
 
   private _token!:string;
 
-  public user!:User;
+  private _user!:User;
+
+  private _userProfile!:User;
+  
+  get user(){
+    return this._user;
+  }
+  
+  set user(user: User){
+    this._user = user;
+  }
+  get userProfile(){
+    return this._userProfile;
+  }
+  
+  set userProfile(user: User){
+    this._userProfile = user;
+  }
 
   
 
   constructor(
     private http: HttpClient, 
     public router: Router 
-  ) { }
+  ) { 
+  }
   getToken() {
     return localStorage.getItem('auth_token');
   }
@@ -53,8 +73,10 @@ export class UsersService {
         if(resp){
           this.user.address = resp.data;
         }
-      }));;
+      })
+    );
   }
+
   getProfile(): Observable<User>{
     
     const URLService = this._URLService + "/api/profile";
@@ -86,22 +108,11 @@ export class UsersService {
     return this.http.get<User>(URLService,{ headers });
   }
 
-  getUserCollection(url?: string): Observable<any>{
+  getUserCollection(url?: null | string, idUser?: null|number): Observable<any>{
     
-    const URLService = url? url : this._URLService + "/api/profile/collection";
-    
-    this._token = this.getToken()!;
-
-    let headers = new HttpHeaders();
-    headers = headers.append('Acept', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${this._token}`);
-
-    return this.http.get<UserGame>(URLService,{ headers });
-
-  }
-  getUserForSale(url?: string): Observable<any>{
-    
-    const URLService = url? url : this._URLService + "/api/profile/for-sale";
+    let URLService = url? url : this._URLService + "/api/profile/collection";
+    if(idUser)
+      URLService = url? url : this._URLService + `/api/user/${idUser}/collection`;
     
     this._token = this.getToken()!;
 
@@ -112,9 +123,26 @@ export class UsersService {
     return this.http.get<UserGame>(URLService,{ headers });
 
   }
-  getUserWishlist(url?: string): Observable<any>{
+  getUserForSale(url?: null | string, idUser?: null|number): Observable<any>{
     
-    const URLService = url? url : this._URLService + "/api/profile/wishlist";
+    let URLService = url? url : this._URLService + "/api/profile/for-sale";
+    if(idUser)
+      URLService = url? url : this._URLService + `/api/user/${idUser}/for-sale`;
+
+    this._token = this.getToken()!;
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${this._token}`);
+
+    return this.http.get<UserGame>(URLService,{ headers });
+
+  }
+  getUserWishlist(url?: null | string, idUser?: null|number): Observable<any>{
+    
+    let URLService = url? url : this._URLService + "/api/profile/wishlist";
+    if(idUser)
+      URLService = url? url : this._URLService + `/api/user/${idUser}/wishlist`;
     
     this._token = this.getToken()!;
 
@@ -167,7 +195,8 @@ export class UsersService {
 
   getUserCollectionAndWishlist(id?: number): Observable<any>{
     
-    const URLService = this._URLService + "/api/profile/collection-and-wishlist";
+    let URLService = this._URLService + "/api/profile/collection-and-wishlist";
+    if(id) URLService = this._URLService + `/api/user/${id}/collection-and-wishlist`;
     
     this._token = this.getToken()!;
 
@@ -182,7 +211,8 @@ export class UsersService {
   }
   getUserAllForSale(id?: number): Observable<any>{
     
-    const URLService = this._URLService + "/api/profile/all-for-sale";
+    let URLService = this._URLService + "/api/profile/all-for-sale";
+    if(id) URLService = this._URLService + `/api/user/${id}/all-for-sale`;
     
     this._token = this.getToken()!;
 
@@ -202,7 +232,13 @@ export class UsersService {
     let headers = new HttpHeaders();
     headers = headers.append('Acept', 'application/json');
 
-    return this.http.get<any>(URLService,{ headers });
+    return this.http.get<any>(URLService,{ headers }).pipe(
+      tap(resp => {
+        if(resp){
+          this.userProfile = resp;
+        }
+      })
+    );
 
   }
 

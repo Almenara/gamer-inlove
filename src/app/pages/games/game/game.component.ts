@@ -1,10 +1,9 @@
-import { ModalsService } from './../../../services/modals.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { GamesService } from 'src/app/services/games.service';
-
+import { ModalsService } from 'src/app/services/modals.service';
 import { Game } from 'src/app/interfaces/game';
 import { UserGame } from 'src/app/interfaces/user_game';
 
@@ -51,8 +50,8 @@ export class GameComponent implements OnInit{
      
       this.getRandomPageColors();
 
-      const param = params.get('idSlug')
-     
+      const param = params.get('idSlug');
+      
       if(param) this.id = Number(param.split("-", 1));
 
       this.gamesService.getGame(this.id).subscribe({

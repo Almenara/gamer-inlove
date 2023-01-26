@@ -1,0 +1,20 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h3 class="modal-title" id="contact-popup-label">Contact</h3>
+        <div class="close" data-bs-dismiss="modal" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <form [formGroup]="contactForm" class="d-flex flex-column just-content-center">
+        <div class="modal-body">
+            <div id="contact-form" class="d-flex flex-column justify-content-start">
+                <label for="name">Show your real name?</label><input value="1" type="checkbox" name="name" id="name">
+                <textarea formControlName="message" type="text" name="message" placeholder="Hi! I wanna buy your game..."></textarea>
+            </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-between">
+            <button type="submit" class="mt-4" [disabled]="!contactForm.valid" (click)="sendMessage()">Send</button>
+        </div>
+    </form>
+</ng-template>

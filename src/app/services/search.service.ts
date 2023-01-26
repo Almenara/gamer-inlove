@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { environment } from 'src/environments/environment';
 import { GameData } from '../interfaces/game_data';
 
 @Injectable({
@@ -7,7 +9,7 @@ import { GameData } from '../interfaces/game_data';
 })
 export class SearchService {
 
-  private _URLService: string = "http://backendgamers.com/"
+  private _URLService: string = environment.baseUrl;
 
   private _searching:Boolean = false;
 
@@ -18,7 +20,7 @@ export class SearchService {
     search(query:string){
       this._searching = true;
       document.querySelector('html')!.classList.add('searching');
-      return this.http.get<GameData[]>(this._URLService + 'api/search/' + query);
+      return this.http.get<GameData[]>(this._URLService + '/api/search/' + query);
     }
     nextPage(urlNext:string){
       this._searching = true;

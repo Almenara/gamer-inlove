@@ -4,7 +4,9 @@ export interface User {
     surname?:       string;
     username:       string;
     email?:         string;
+    repeatemail?:   string;
     password?:      string;
+    repeatpassword?:string;
     image:          string | null | undefined;
     is_shop:        boolean;
     address?:       Address;

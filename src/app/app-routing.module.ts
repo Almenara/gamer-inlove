@@ -12,10 +12,10 @@ const routes: Routes = [
     path: '404',
     component: ErrorComponent
   },
-  {
+  /*{
     path: '**',
     redirectTo: '404',
-  }
+  }*/
 ];
 
 @NgModule({

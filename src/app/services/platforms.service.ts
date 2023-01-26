@@ -1,7 +1,9 @@
-import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, of, tap, catchError } from 'rxjs';
+
+import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/services/auth.service';
 import { PlatformData } from '../interfaces/platform_data';
 
 @Injectable({
@@ -9,7 +11,7 @@ import { PlatformData } from '../interfaces/platform_data';
 })
 export class PlatformsService {
 
-  private _URLService: string = "http://backendgamers.com/"
+  private _URLService: string = environment.baseUrl;
 
   private _searching: Boolean = false;
 
@@ -22,14 +24,14 @@ export class PlatformsService {
     private authService: AuthService ) { }
   
   getPlatform(id: number): Observable<PlatformData>{
-    let URLService = this._URLService + "api/platform/detail/" + id; 
+    let URLService = this._URLService + "/api/platform/detail/" + id; 
     let headers = new HttpHeaders();
     headers = headers.append('Acept', 'application/json');
     const body = { id }
 
     if(this._auth.ok){
       headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
-      URLService = this._URLService + "api/platform/detailWithUserCollectionAndWishlistData/" + id; 
+      URLService = this._URLService + "/api/platform/detailWithUserCollectionAndWishlistData/" + id; 
     }
     
     return this.http.get<PlatformData>(URLService, {headers})
@@ -46,27 +48,27 @@ export class PlatformsService {
   }
 
   getUpdatePlatformCollection(id: number): Observable<PlatformData>{
-    let URLService = this._URLService + "api/platform/detail/" + id; 
+    let URLService = this._URLService + "/api/platform/detail/" + id; 
     let headers = new HttpHeaders();
     headers = headers.append('Acept', 'application/json');
     const body = { id }
 
     if(this._auth.ok){
       headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
-      URLService = this._URLService + "api/platform/UserCollectionData/" + id; 
+      URLService = this._URLService + "/api/platform/UserCollectionData/" + id; 
     }
     
     return this.http.get<PlatformData>(URLService, {headers});
   }
   getUpdatePlatformWishlist(id: number): Observable<PlatformData>{
-    let URLService = this._URLService + "api/platform/detail/" + id; 
+    let URLService = this._URLService + "/api/platform/detail/" + id; 
     let headers = new HttpHeaders();
     headers = headers.append('Acept', 'application/json');
     const body = { id }
 
     if(this._auth.ok){
       headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
-      URLService = this._URLService + "api/platform/UserWishlistData/" + id; 
+      URLService = this._URLService + "/api/platform/UserWishlistData/" + id; 
     }
     
     return this.http.get<PlatformData>(URLService, {headers});

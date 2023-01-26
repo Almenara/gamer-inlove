@@ -1,9 +1,11 @@
+import { Platform } from 'src/app/interfaces/platform';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 import { ModalsService } from 'src/app/services/modals.service';
 import { UsersService } from 'src/app/services/users.service';
 import { UserPlatform } from 'src/app/interfaces/user_platform';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-platform-list',
@@ -21,6 +23,10 @@ export class UserPlatformListComponent implements OnInit {
 
   private _user = this.usersService.user;
 
+  public userType: string = "";
+  public product: string = "";
+  public filter: string = "";
+
   public forRemove!: UserPlatform;
   public message: string = '';
 
@@ -32,19 +38,44 @@ export class UserPlatformListComponent implements OnInit {
     private usersService:UsersService,
     private modalsService:ModalsService,
     private modalService: NgbModal,
-    ){ }
+    private route: ActivatedRoute
+    ){ 
+      this.userType = this.route.snapshot.data['user'];
+      this.product = this.route.snapshot.data['product'];
+      this.filter = this.route.snapshot.data['filter'];
+  }
 
   ngOnInit(): void {
-    this.usersService.getUserPlatformCollection().subscribe({
-      next: resp => {
-        console.log(resp);
-        this.platformCollection = resp.data;
-        this.nextPageUrl = resp.next_page_url;
-      },
-      error: error => {
-        console.log(error);
-      }
-    })
+
+    switch(this.product + "|" + this.filter){
+
+      case "platform|collection":
+        this.usersService.getUserPlatformCollection().subscribe({
+          next: resp => {
+            this.platformCollection = resp.data;
+            this.nextPageUrl = resp.next_page_url;
+          },
+          error: error => {
+            console.log(error);
+          }
+        })
+        break;
+
+      case "platform|wishlist":
+        this.usersService.getUserPlatformWishlist().subscribe({
+          next: resp => {
+            this.platformCollection = resp.data;
+            this.nextPageUrl = resp.next_page_url;
+          },
+          error: error => {
+            console.log(error);
+          }
+        })
+        break;
+
+      default:
+        break;
+    }
   }
   openAddressModal(){
     this.modalsService.openModal('address');
@@ -106,22 +137,30 @@ export class UserPlatformListComponent implements OnInit {
     }
   }
 
-
   removeElement(confirm: any, forRemove: UserPlatform){
     this.forRemove = forRemove;
-    this.message = `Are you sure you want to remove ${forRemove.platform?.name} from your collection?`
+    this.message = `Are you sure you want to remove ${forRemove.platform?.name} from your collection?`;
     this.modalService.open(confirm);
   }
 
   confirmRemove(){
     this.usersService.toggleToPlatformCollection(this.forRemove.platform_id).subscribe({
       next: resp => {
-        this.platformCollection = this.platformCollection.filter( platform => platform.platform_id != this.forRemove.platform_id)
+        this.platformCollection = this.platformCollection.filter( platform => platform.platform_id != this.forRemove.platform_id);
         this.modalService.dismissAll();
       },
       error: error => {
         console.log(error);
       }
     })
+  }
+
+  openContactModal(platform:UserPlatform){
+    alert('contact')
+    //this.modalsService.openModal('log-in');
+  }
+
+  openLoginModal(){
+    this.modalsService.openModal('log-in');
   }
 }

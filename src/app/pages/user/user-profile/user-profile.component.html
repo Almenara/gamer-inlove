@@ -1,38 +1,45 @@
-<div class="row" *ngIf="user">
-    <div id="user" class="main-section-page d-flex flex-column flex-md-row">
-        <div id="title" class="d-flex flex-column">
-            <h1>{{user.name}}<br/>{{user.surname}}</h1>
-            <h2>{{user.username}}</h2>
-            <div id="profile-info" class="d-flex flex-column align-items-start justify-content-start">
-            <ul class="user-edit">
-                <li *ngIf="user.address" class="sub-menu-edit">
-                    <a [routerLink]="[ 'address-edit' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Edit your address</a>
-                </li>
-                <li *ngIf="!user.address" class="sub-menu-edit">
-                    <a [routerLink]="[ 'address-add' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Add your address</a>
-                </li>
-                <li class="sub-menu-edit">
-                    <a [routerLink]="[ 'edit' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Edit data</a>
-                </li>
-                <li class="sub-menu-edit">
-                    <a [routerLink]="[ 'password-edit' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Change Password</a>
-                </li>
-            </ul>
-            <ul id="user-menu" class="sub-menu d-flex flex-column">
-                <li class="sub-menu-option">
-                    <a [routerLink]="[ '/profile/collection' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">Collection & Wishlist</a>
-                </li>
-                <li class="sub-menu-option">
-                    <a [routerLink]="[ '/profile/for-sale' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">For sale</a>
-                </li>
-                <li class="sub-menu-option">
-                    <a [routerLink]="[ '/profile/contributions' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">Contributions</a>
-                </li>
-            </ul>
+<ng-container *ngIf="user?.id || userProfile?.id">
+    <div class="row">
+        <div id="user" class="main-section-page d-flex flex-column flex-md-row">
+            <div id="title" class="d-flex flex-column" lang="en">
+                <h1 *ngIf="(!userProfile) || userProfile?.id == user?.id">{{user.name}}<br/>{{user.surname}}</h1>
+                <h2 *ngIf="(!userProfile) || userProfile?.id == user?.id">{{user.username}}</h2>
+                <h1 *ngIf="userProfile">{{userProfile.username}}</h1>
+                <h2 *ngIf="userProfile">{{userProfile.address?.country}}</h2>
+                <div id="profile-info" [ngClass]="{'profile': user}" class="d-flex flex-column align-items-start justify-content-start">
+                    <ul *ngIf="(!userProfile) || userProfile?.id == user?.id" class="user-edit">
+                        <li *ngIf="user?.address" class="sub-menu-edit">
+                            <a [routerLink]="[ 'address-edit' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Edit your address</a>
+                        </li>
+                        <li *ngIf="!user?.address" class="sub-menu-edit">
+                            <a [routerLink]="[ 'address-add' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Add your address</a>
+                        </li>
+                        <li class="sub-menu-edit">
+                            <a [routerLink]="[ 'edit' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Edit data</a>
+                        </li>
+                        <li class="sub-menu-edit">
+                            <a [routerLink]="[ 'password-edit' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Change Password</a>
+                        </li>
+                    </ul>
+                    <ul id="user-menu" class="sub-menu d-flex flex-column">
+                        <li class="sub-menu-option">
+                            <a [routerLink]="[ 'collection' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">Collection</a>
+                        </li>
+                        <li class="sub-menu-option">
+                            <a [routerLink]="[ 'for-sale' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">For sale</a>
+                        </li>
+                        <li class="sub-menu-option">
+                            <a [routerLink]="[ 'wishlist' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">Wishlist</a>
+                        </li>
+                        <li class="sub-menu-option">
+                            <a [routerLink]="[ 'contributions' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">Contributions</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="userGamelist" class="d-flex flex-column justify-content-start">
+                <router-outlet></router-outlet>
             </div>
         </div>
-        <div id="user-info" class="d-flex flex-column justify-content-start">
-            <router-outlet></router-outlet>
-        </div>
     </div>
-</div>
+</ng-container>

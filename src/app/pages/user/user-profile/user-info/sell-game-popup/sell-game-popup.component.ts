@@ -60,7 +60,6 @@ export class SellGamePopupComponent implements OnInit {
 
   open(userGame:UserGame){
     this.userGame = userGame;
-    console.log(userGame)
     this.gamesService.getGame(userGame.game_id).subscribe({
       next: resp=>{
         this.game = resp.game;
