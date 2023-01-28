@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -20,22 +21,25 @@ export class ContactPopupComponent implements OnInit {
 
   @ViewChild('content') modalContent!:HTMLElement; 
 
-  public user: User = this.usersService.user;
+  public user!: User;
   public game!: Game;
   public userGame!: UserGame;
 
   public contactForm: FormGroup = this.fb.group({
-    name:     ['1'],
-    message:  ['', [Validators.required, Validators.minLength(5)]],
+    message:  ['', [Validators.required, Validators.minLength(1)]],
   })
 
   constructor( 
     private fb: FormBuilder, 
     private usersService: UsersService,
+    private authService: AuthService,
     private messagesService: MessagesService,
     private modalsService: ModalsService,
     private contactModalService: NgbModal) {
-      this.modalsService.modals['contact'] = this;
+      this.modalsService.modals['contact'] = this; 
+      this.authService.userDataSubject.subscribe(data => {
+        this.user = data;
+      });
   } 
 
   ngOnInit(): void {
@@ -51,7 +55,6 @@ export class ContactPopupComponent implements OnInit {
   }
 
   sendMessage(){
-    this.user = this.usersService.user
     let message:Message = {
       sender_user_id:         this.user.id,
       receiving_user_id:      this.userGame.user_id,
@@ -62,7 +65,7 @@ export class ContactPopupComponent implements OnInit {
     }
     this.messagesService.sendMessage(message).subscribe({
       next:(resp)=>{
-        console.log(resp);
+        this.close();
       },
       error:(error)=>{
         //TODO notificacion

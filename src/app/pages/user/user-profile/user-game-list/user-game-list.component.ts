@@ -94,7 +94,6 @@ export class UserGameListComponent implements OnInit {
       case "game|collection":
         this.usersService.getUserCollection(null, id).subscribe({
           next: resp => {
-            console.log(resp)
             this.gameCollection = resp.data;
             this.nextPageUrl = resp.next_page_url;
           },
@@ -107,7 +106,6 @@ export class UserGameListComponent implements OnInit {
       case "game|wishlist":
         this.usersService.getUserWishlist(null, id).subscribe({
           next: resp => {
-            console.log(resp)
             this.gameCollection = resp.data;
             this.nextPageUrl = resp.next_page_url;
           },

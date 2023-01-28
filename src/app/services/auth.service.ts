@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, tap } from 'rxjs';
+import { catchError, map, Observable, of, Subject, tap } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { Auth } from '../interfaces/auth';
@@ -16,9 +16,12 @@ export class AuthService {
   private _user!: User;
   private _auth: Auth = { ok: false }; 
   private _token!:string;
+
+  userDataSubject = new Subject<User>();
   
-  get user(){
+  get user(){      
     return this._user;
+
   }
 
   set user(user: User){
@@ -47,7 +50,6 @@ export class AuthService {
       this.validateToken()
     }
     if(!this.user){
-      console.log('hola')
       this.getProfile();
     }
   }
@@ -72,20 +74,25 @@ export class AuthService {
       );
 
   }
+  getCacheUser(): Subject<User>{
+   return this.userDataSubject;
+  }
+  getUserNotifications(){
+    
+  }
   getProfile(){
     if(this.auth.ok){
-      const URLService = this._URLService + "/api/profile";
-      
-      this.token = this.getToken()!;
-
-      let headers = new HttpHeaders();
-      headers = headers.append('Acept', 'application/json');
-      headers = headers.append('Authorization', `Bearer ${this._token}`);
-
-      this.http.get<User>(URLService,{ headers }).subscribe({
-        next:(resp)=>{this.user = resp},
-        error:(error)=>{ console.log(error) }
-      })
+      if (!this.user?.id) {
+        const URLService = this._URLService + "/api/profile";
+        let headers = new HttpHeaders();
+        
+        headers = headers.append('Acept', 'application/json');
+        headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
+        this.http.get<User>(URLService,{headers}).subscribe(data => {
+          this.user = data;
+          this.userDataSubject.next(this.user);
+        });
+      }
     }
   }
 
@@ -97,6 +104,18 @@ export class AuthService {
     this.auth = { ok: false }
     localStorage.removeItem('auth_token');
     this.router.navigate(['/']);
+    this.user = {
+      id : undefined,
+      name : undefined,
+      surname : undefined,
+      username : "",
+      email : undefined,
+      address : undefined,
+      image : undefined,
+      is_shop: false,
+      user_notifications:[]
+
+    };
   }
 
   validateToken(){

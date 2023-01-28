@@ -1,5 +1,6 @@
+import { OpenMenuService } from './services/open-menu.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +8,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'gamer-inlove';
+  title = 'My Game Lore - Compelete your videogame collection!';
   
   get auth() {
-    return this.authService.auth
+    return this.authService.auth;
   }
-
-  constructor(private authService: AuthService){
+  constructor(
+    private authService: AuthService
+    ){
 
   }
 }

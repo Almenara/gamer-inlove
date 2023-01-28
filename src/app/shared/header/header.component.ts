@@ -1,5 +1,5 @@
 import { SearchService } from './../../services/search.service';
-import { Component, ElementRef, HostListener, OnInit, SimpleChange, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 
 import { User } from './../../interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -8,6 +8,7 @@ import { GamesService } from './../../services/games.service';
 import { Platform } from 'src/app/interfaces/platform';
 import { Game } from 'src/app/interfaces/game';
 import { Company } from 'src/app/interfaces/company';
+import { UserNotification } from 'src/app/interfaces/user_notification';
 
 @Component({
   selector: 'app-header',
@@ -24,6 +25,12 @@ export class HeaderComponent implements OnInit {
   public companies!: Company[];
   public users!: User[];
 
+  public user!: User;
+  public user_notifications!: UserNotification[];
+  public newNotifications: boolean = false;
+  public noSeenNotifications: boolean = true;
+  public notificationListIsOpen: boolean = this.openMenuService.notificationsIsOpen;
+
   public query: string = "";
   public nextPageUrl: string = "";
   public loadingMoreSearchContent: boolean = false;
@@ -39,13 +46,31 @@ export class HeaderComponent implements OnInit {
     private openMenuService: OpenMenuService,
     private authService: AuthService,
     private searchService: SearchService
-  ) { }
+  ) {     
+    this.authService.userDataSubject.subscribe(data => {
+      this.user = data,
+      this.user_notifications = this.user.user_notifications ? this.user.user_notifications : []
+      console.log(this.user)
+      if(this.user_notifications.length > 0){
+        this.notificationAlert();
+      }
+    });
+  }
 
+  @HostListener('document:click', ['$event'])
+  clickout(event:Event) {
+    this.openMenuService.closeMenu();
+    this.openMenuService.closeMenu();
+  }
   get menuIsOpen() {
     return this.openMenuService.menuIsOpen;
   }
 
   ngOnInit(): void {
+  }
+
+  stopPropagation(event: Event) {
+    event.stopPropagation();
   }
 
   toggleMenu(event: Event) {
@@ -112,5 +137,13 @@ export class HeaderComponent implements OnInit {
         })
       }
     }
+  }
+  notificationAlert(){
+    if(this.user_notifications.map( not => { not.seen })) this.noSeenNotifications = false;
+    this.newNotifications = true;
+    
+  }
+  openNotificationList(){
+    this.notificationListIsOpen = this.openMenuService.toggleNotificationList()
   }
 }

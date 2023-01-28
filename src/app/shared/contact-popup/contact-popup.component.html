@@ -7,9 +7,14 @@
         </div>
     </div>
     <form [formGroup]="contactForm" class="d-flex flex-column just-content-center">
+        <div id="gameInfo">
+            <h5 class="d-flex justify-content-between">Buy: <span>{{userGame.game?.name}}</span></h5>
+            <h5 class="d-flex justify-content-between">Platform: <span>{{userGame.platform?.name}}</span></h5>
+            <h5 class="d-flex justify-content-between">Status: <span>{{userGame.status}}</span></h5>
+            <h5 class="d-flex justify-content-between">Price: <span>{{userGame.price | currency}}</span></h5>
+        </div>
         <div class="modal-body">
             <div id="contact-form" class="d-flex flex-column justify-content-start">
-                <label for="name">Show your real name?</label><input value="1" type="checkbox" name="name" id="name">
                 <textarea formControlName="message" type="text" name="message" placeholder="Hi! I wanna buy your game..."></textarea>
             </div>
         </div>

@@ -18,7 +18,7 @@ export class LoginPopupComponent implements OnInit {
 
   public logInForm: FormGroup = this.fb.group({
     email:        ['', [Validators.required, Validators.email]],
-    password:     ['', [Validators.required, Validators.minLength(6)]],
+    password:     ['', [Validators.required]],
   })
   
   public loginError:boolean   = false;
