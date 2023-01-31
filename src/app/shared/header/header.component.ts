@@ -50,7 +50,6 @@ export class HeaderComponent implements OnInit {
     this.authService.userDataSubject.subscribe(data => {
       this.user = data,
       this.user_notifications = this.user.user_notifications ? this.user.user_notifications : []
-      console.log(this.user)
       if(this.user_notifications.length > 0){
         this.notificationAlert();
       }
@@ -60,7 +59,7 @@ export class HeaderComponent implements OnInit {
   @HostListener('document:click', ['$event'])
   clickout(event:Event) {
     this.openMenuService.closeMenu();
-    this.openMenuService.closeMenu();
+    this.notificationListIsOpen = this.openMenuService.closeNotificationList();
   }
   get menuIsOpen() {
     return this.openMenuService.menuIsOpen;
@@ -76,6 +75,7 @@ export class HeaderComponent implements OnInit {
   toggleMenu(event: Event) {
     event.stopPropagation();
     this.openMenuService.toggleMenu()
+    this.notificationListIsOpen = this.openMenuService.closeNotificationList();
   }
 
   openSearch(event: Event) {
@@ -86,6 +86,7 @@ export class HeaderComponent implements OnInit {
       document.querySelector('html')!.classList.add('searching');
       this.searchOpened = true;
     }
+    this.notificationListIsOpen = this.openMenuService.closeNotificationList();
   }
   search() {
     this.query = this.input.nativeElement.value;
@@ -143,7 +144,9 @@ export class HeaderComponent implements OnInit {
     this.newNotifications = true;
     
   }
-  openNotificationList(){
-    this.notificationListIsOpen = this.openMenuService.toggleNotificationList()
+  openNotificationList(event: Event){
+    event.stopPropagation();
+    this.notificationListIsOpen = this.openMenuService.toggleNotificationList();
+    this.closeSearch();
   }
 }

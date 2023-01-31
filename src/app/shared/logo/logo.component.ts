@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-logo',
@@ -7,24 +8,34 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class LogoComponent implements OnInit {
 
-  @Input() public img: string = "";
+  @Input() public img: string | null = "";
   @Input() public name: string ="";
+  @Input() public edit: boolean = false;
   @Input() public alphaChannel: boolean = false;
+  @Input() public user: boolean = false;
+  
+  public avatarURL:string = environment.baseUrl + environment.avatarPath;
+
+  public initial: string = "";
 
   constructor() { }
 
   ngOnInit(): void {
-    if (!this.img || this.img == ""){
-      this.img = "../../../../assets/images/default.png"
+    if (this.name && this.name != ""){
+      this.initial = this.name.charAt(0);
+    }
+    if(this.user && this.img){
+      this.img = this.avatarURL + this.img;
     }
     else{
-      if (!this.img.includes('.')){
-          this.img = `${this.img}.png`;
-      }
-      if (!this.img.includes('http')){
-        this.img = `https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${this.img}`;
+      if(this.img != "" && this.img != null ){
+        if (!this.img.includes('.')){
+            this.img = `${this.img}.png`;
+        }
+        if (!this.img.includes('http')){
+          this.img = `https://images.igdb.com/igdb/image/upload/t_logo_med/${this.img}`;
+        }
       }
     }
   }
-
 }

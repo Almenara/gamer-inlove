@@ -4,6 +4,10 @@
         flex: 1;
         background-color: $beige;
         padding: 20px;
+        app-logo{
+            width: 108px;
+            border-radius: 45px;
+        }
     }
     #title{
         flex: 1;

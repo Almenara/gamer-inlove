@@ -12,19 +12,19 @@
     </div>
 </a>
 <a *ngIf="platform" (click)="closeSearch()" class="d-flex flex-column justify-content-center align-items-center platform-data" [routerLink]="[ '/platform/',  platform.id + '-' + platform.slug ]">
-    <app-logo [img]="platform.platform_logo? platform.platform_logo : ''" [alphaChannel]="false"></app-logo>
+    <app-logo [name]="platform.name" [img]="platform.platform_logo ? platform.platform_logo : ''" [alphaChannel]="false"></app-logo>
     <div class="platform-info">
         <h6>{{platform.name}}</h6>
     </div>
 </a>
 <a *ngIf="user" (click)="closeSearch()" class="d-flex flex-column justify-content-center align-items-center platform-data" [routerLink]="[ '/user/',  user.id + '-' + user.username ,'collection']">
-    <app-logo [img]="user.image? user.image : ''" [alphaChannel]="false"></app-logo>
+    <app-logo [name]="user.username" [img]="user.avatar? user.avatar : ''" [user]="true" [alphaChannel]="false"></app-logo>
     <div class="platform-info">
         <h6>{{user.username}}</h6>
     </div>
 </a>
 <a *ngIf="company" (click)="closeSearch()" class="d-flex flex-column justify-content-center align-items-center platform-data" [routerLink]="[ '/company/',  company.id + '-' + company.slug ]">
-    <app-logo [img]="company.logo? company.logo : ''" [alphaChannel]="false"></app-logo>
+    <app-logo [name]="company.name" [img]="company.logo? company.logo : ''" [alphaChannel]="false"></app-logo>
     <div class="platform-info">
         <h6>{{company.name}}</h6>
     </div>

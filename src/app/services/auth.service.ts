@@ -111,7 +111,7 @@ export class AuthService {
       username : "",
       email : undefined,
       address : undefined,
-      image : undefined,
+      avatar : undefined,
       is_shop: false,
       user_notifications:[]
 

@@ -1,4 +1,4 @@
 <div class="logo">
-    <span [ngStyle]="{ 'background-image': 'url(' + img + ')'}"></span>
-    <!--{{ currentGame.name | uppercase }}-->                    
+    <span *ngIf="img" [ngClass]="{'user': user}" [ngStyle]="{ 'background-image': 'url(' + img + ')'}"><span class="editTag" *ngIf="edit">Edit</span></span>
+    <span class="initialCharacter" [ngClass]="{'edit': edit}" *ngIf="initial && !img">{{initial}}<span class="editTag" *ngIf="edit">Edit</span></span>
 </div>

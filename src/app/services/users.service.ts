@@ -250,7 +250,10 @@ export class UsersService {
     headers = headers.append('Acept', 'application/json');
     headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
     
-    return this.http.put<User>(URLService,user,{headers});
+    return this.http.put<any>(URLService,user,{headers}).pipe(
+      tap(resp => {
+        this.user = resp.user;
+      }));
   }
 
   editPassword(password: string, newpassword: string, id: number){

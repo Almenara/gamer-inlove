@@ -9,7 +9,7 @@ export interface User {
     repeatemail?:           string;
     password?:              string;
     repeatpassword?:        string;
-    image:                  string | null | undefined;
+    avatar:                 any;
     is_shop:                boolean;
     address?:               Address;
     shops?:                 Shop[];

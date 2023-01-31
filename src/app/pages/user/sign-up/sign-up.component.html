@@ -2,6 +2,8 @@
     <div id="sign-in" class="main-section-page d-flex flex-column flex-md-row">
         <div id="sign-in-form" class="d-flex flex-column justify-content-start order-1 order-md-0">
             <form [formGroup]="signUpForm" class="d-flex flex-column just-content-center mt-5 mb-5">
+                <input formControlName="avatar" type="file" id="avatar" class="d-none" name="avatar" accept="image/png, image/jpeg" (change)="addedImage($event)" #avatar>
+                <app-logo (click)="changeImage()" [name]="'A'" [edit]="true" [user]="true" [img]="img? img : null" [alphaChannel]="false" class="w-max pt-2 mt-2"></app-logo>
                 <input formControlName="name" type="text" name="name" placeholder="Name">
                 <input formControlName="surname" type="text" name="surname" placeholder="Surname">
                 <input formControlName="username" type="text" name="username" placeholder="User name">

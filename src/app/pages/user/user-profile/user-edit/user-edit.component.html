@@ -1,12 +1,14 @@
 <div *ngIf="user" id="user-in-form" class="d-flex flex-column justify-content-start order-1 order-md-0 mt-5 mb-5">
     <h2 class="text-center mb-4">Edit your profile data</h2>
-    <form [formGroup]="editUserForm" class="d-flex flex-column just-content-center">
-        <input formControlName="name" type="text" name="name" placeholder="Name">
+    <form [formGroup]="editUserForm" class="d-flex flex-column just-content-center" enctype="multipart/form-data">
+        <input formControlName="avatar" type="file" id="avatar" class="d-none" name="image" accept="image/png, image/jpeg" (change)="addedImage($event)" #avatar>
+        <app-logo (click)="changeImage()" [name]="user.username" [edit]="true" [user]="true" [img]="img ? img : user.avatar ? user.avatar : null" [alphaChannel]="false" class="w-max pt-2 mt-2"></app-logo>
+        <input formControlName="name" type="text" name="name" placeholder="Name" class="mt-4">
         <input formControlName="surname" type="text" name="surname" placeholder="Surname">
         <input formControlName="username" type="text" name="username" placeholder="User name">
         <input formControlName="email" type="email" name="email" placeholder="email">
-        <!--input type="email" name="repeatemail" placeholder="Repeat email"-->
-        <input formControlName="password" type="password" name="password" placeholder="Password">
+        <input formControlName="repeatemail" type="email" name="repeatemail" placeholder="Repeat email">
+        <input formControlName="password" type="password" name="password" class="mt-4" placeholder="Password">
         <button type="submit" class="mt-4" [disabled]="!editUserForm.valid" (click)="upload()">Edit</button>
     </form>
 </div>

@@ -33,5 +33,9 @@ export class OpenMenuService {
     document.querySelector('html')!.classList.remove('menu-opened')
     return false
   }
+  closeNotificationList(){
+    this._notificationsIsOpen = false;
+    return this._notificationsIsOpen;
+  }
 
 }
