@@ -18,10 +18,10 @@ export interface User {
 }
 export interface Address{
     id?:            number;
-    address:        string;
-    city:           string;
-    country:        string;
-    zip_code:       string;
+    address?:        string;
+    city?:           string;
+    country:         string;
+    zip_code?:       string;
 }
 export interface Shop{
     id?:            number;

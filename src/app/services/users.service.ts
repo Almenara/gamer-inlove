@@ -9,6 +9,7 @@ import { User } from '../interfaces/user';
 import { UserGame } from '../interfaces/user_game';
 import { UserPlatform } from '../interfaces/user_platform';
 import { UserWishplatform } from '../interfaces/user_wishplatform';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,7 @@ export class UsersService {
 
   constructor(
     private http: HttpClient, 
+    private authService: AuthService,
     public router: Router 
   ) { 
   }
@@ -71,7 +73,10 @@ export class UsersService {
     return this.http.post<any>(URLService, address, { headers }).pipe(
       tap(resp => {
         if(resp){
-          this.user.address = resp.data;
+          if(!this.user)
+            this.user = this.authService.user;
+            this.user.address = resp.data;
+            this.authService.user = this.user;
         }
       })
     );

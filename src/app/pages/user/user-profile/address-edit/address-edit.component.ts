@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Address, User } from 'src/app/interfaces/user';
 import { UsersService } from 'src/app/services/users.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-address-edit',
@@ -12,13 +13,7 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class AddressEditComponent {
 
-  private _user!: User;
-  get user(){
-    return this._user;
-  }
-  set user(user: User){
-    this._user = user;
-  }
+  public user: User = this.usersService.userProfile;
   
   public editUserAddressForm!: FormGroup;
 
@@ -27,19 +22,23 @@ export class AddressEditComponent {
     private usersService: UsersService,
     private authService: AuthService,
     private router: Router ){
-    this.authService.userDataSubject.subscribe(data => {
-      this.user = data;
-    });
-    if(!this.user.address) this.router.navigate(['/profile/address-add']);
-    else{
+      
+      this.authService.userDataSubject.subscribe(data => {
+        this.user = data;
+      });
+      
+      if(!this.user){
+        authService.getProfile();
+        this.user = authService.user;
+      }
+
       this.editUserAddressForm = this.fb.group({
-          address:  [this.user.address.address, [Validators.required]],
-          city:     [this.user.address.city,    [Validators.required]],
-          country:  [this.user.address.country, [Validators.required]],
-          zip_code: [this.user.address.zip_code,[Validators.required]],
+        address:  [this.user.address?.address, [Validators.required]],
+        city:     [this.user.address?.city,    [Validators.required]],
+        country:  [this.user.address?.country, [Validators.required]],
+        zip_code: [this.user.address?.zip_code,[Validators.required]],
       })
-    }
-  }
+  } 
   upload() {
     let address:Address = {
       address: this.editUserAddressForm.value.address,
@@ -50,6 +49,9 @@ export class AddressEditComponent {
     this.usersService.editAddress(address).subscribe({
       next: resp => {
         console.log(resp)
+        /*let user = this.user;
+        user.address = resp.data.address;
+        this.authService.user.address = resp.data.address;*/
       },
       error: error => console.log(error)
     });
