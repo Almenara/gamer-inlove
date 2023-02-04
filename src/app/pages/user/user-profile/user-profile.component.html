@@ -31,9 +31,12 @@
                         <li class="sub-menu-option">
                             <a [routerLink]="[ 'wishlist' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">Wishlist</a>
                         </li>
-                        <li class="sub-menu-option">
-                            <a [routerLink]="[ 'contributions' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">Contributions</a>
+                        <li *ngIf="(!userProfile) || userProfile?.id == user?.id" class="sub-menu-option">
+                            <a [routerLink]="[ 'conversations' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">Conversations</a>
                         </li>
+                        <!--li class="sub-menu-option">
+                            <a [routerLink]="[ 'contributions' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">Contributions</a>
+                        </li-->
                     </ul>
                 </div>
             </div>

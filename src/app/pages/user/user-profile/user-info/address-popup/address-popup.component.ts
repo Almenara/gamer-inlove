@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalsService } from 'src/app/services/modals.service';
 import { Address } from 'src/app/interfaces/user';
 import { UsersService } from 'src/app/services/users.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-address-popup',
@@ -21,6 +22,7 @@ export class AddressPopupComponent implements OnInit {
   constructor( 
     private fb: FormBuilder, 
     private usersService: UsersService,
+    private authService: AuthService,
     private modalsService: ModalsService,
     private addressModalService: NgbModal){
 
@@ -43,6 +45,8 @@ export class AddressPopupComponent implements OnInit {
     }
     this.usersService.addAddress(address).subscribe({
       next: resp => {
+        this.usersService.user.address = resp.data;
+        this.authService.user.address = resp.data;
         this.close();
       },
       error: error => console.log(error)

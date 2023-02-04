@@ -11,16 +11,32 @@
       <button name="search" type="submit"><span class="d-none">Search</span></button>
     </form>
     <a [routerLink]="[ '/community' ]" class="d-none d-md-flex header-btn white-btn">Community</a>
-    <a *ngIf="!auth.ok" [routerLink]="[ '/sign-up' ]" class="d-none d-sm-flex header-btn black-btn">Sign Up / Log In</a>
-    <a *ngIf="auth.ok" [routerLink]="[ '/profile/collection' ]" class="d-none d-sm-flex header-btn black-btn">My Profile</a>
-    <nav id="menu" [ngClass]="menuIsOpen? 'menu-opened':''">
+    <a *ngIf="!auth.ok" [routerLink]="[ '/log-in' ]" [routerLink]="[ '/log-in' ]" [routerLinkActive]="['active']" class="d-none d-sm-flex header-btn black-btn">Log In</a>
+    <a *ngIf="!auth.ok" [routerLink]="[ '/sign-up' ]" [routerLink]="[ '/sign-up' ]" [routerLinkActive]="['active']" class="d-none d-sm-flex header-btn black-btn">Sign Up</a>
+    <a *ngIf="auth.ok" [routerLink]="[ '/profile/collection' ]" [routerLink]="[ '/profile' ]" [routerLinkActive]="['active']" class="d-none d-sm-flex header-btn black-btn">My Profile</a>
+    <div *ngIf="hasNotifications">
+      <div id="notificationsBtn" (click)="openNotificationList($event)" [class.opened]="notificationListIsOpen" [ngClass]="{'newNotifications': newNotifications}" class="notifications d-sm-flex header-btn black-btn" #notificationsBtn>
+        <div id="notificationsIcon">
+          <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 64.6 64.6" xml:space="preserve">
+            <g>
+              <path class="bellIcon" d="M55.4,54.3L55.4,54.3l-46.1,0l0,0c2.5-6.9,4.5-14.2,4.5-21.6v-7.5c0-10.2,8.3-18.5,18.5-18.5h0
+                c10.2,0,18.5,8.3,18.5,18.5v7.5C50.8,40.1,52.9,47.4,55.4,54.3z"/>
+            </g>
+            <path class="bellIcon" d="M21.8,56.3c1.5,4.4,5.6,7.5,10.5,7.5c4.9,0,9-3.2,10.5-7.5H21.8z"/>
+            <path class="bellIcon" d="M32.3,4.9L32.3,4.9c1.7,0,3.3,0.2,4.8,0.7c0-0.1,0-0.3,0-0.4c0-2.7-2.2-4.9-4.9-4.9c-2.7,0-4.9,2.2-4.9,4.9
+              c0,0.1,0,0.3,0,0.4C28.9,5.1,30.6,4.9,32.3,4.9z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <nav id="menu" [ngClass]="menuIsOpen? 'menu-opened':''" (click)="stopPropagation($event)">
       <ul id="options">
         <li id="menu-logo"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/' ]"><img src="../../../assets/images/logo-beige.svg" alt="My Game Lore"></a></li>
         <li class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
+        <li *ngIf="!auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/log-in' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Log In</a></li>
+        <li *ngIf="!auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/sign-up' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Sign Up</a></li>
         <li class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/community' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Community</a></li>
         <li class="option"><a (click)="toggleMenu($event)" (click)="openSearch($event)">Search</a></li>
-        <li *ngIf="!auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/sign-up' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Sign Up</a></li>
-        <li *ngIf="!auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/log-in' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Log In</a></li>
         <li *ngIf="auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/profile/collection' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">My Profile</a></li>
         <li *ngIf="auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" (click)="logOut()" >Log Out</a></li>
       </ul>
@@ -58,5 +74,11 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div id="notificationList" (click)="stopPropagation($event)" [ngClass]="{'opened': notificationListIsOpen}" *ngIf="auth.ok && user_notifications && user_notifications.length > 0" #notificationList>
+  <div *ngIf="user_notifications" class="d-flex flex-column">
+    <app-notification (click)="openNotificationList($event)" *ngFor="let notification of user_notifications" [notification]="notification" [ngClass]="{'new': !notification.seen}"></app-notification>
   </div>
 </div>

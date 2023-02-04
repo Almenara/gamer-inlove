@@ -11,8 +11,72 @@
         img{
             max-width: 75vw;
             @media (min-width: 768px){
-                max-width: 35vw;
+                max-width: 528px;
             }
+        }
+        #mainIllustration{
+            align-self: center;
+            background-image: url("../../../../assets/images/illustrations/homeMain.svg");
+            background-position: center center;
+            background-repeat: no-repeat;
+            max-width: 700px;
+            flex: 1;
+            gap: 11vw;
+            min-height: 58vw;
+            margin-top: 50px;
+            margin-bottom: 4vw;
+            width: 90vw;
+            @media (min-width: 768px){
+                width: 44vw;
+                gap: 1vw;
+                min-height: auto;
+                max-height: 700px;
+            }
+            @media (min-width: 1400px){
+                gap: 0;
+                max-width: none;
+                max-height: none;
+                height: 600px;
+                width: 616px;
+                margin-top: 60px;
+                margin-bottom: 50px;
+            }
+            h2{
+                font-family: 'Rozha One', serif;
+                font-size: 5.8vw;
+                line-height: 5vw;
+                margin-bottom: 0;
+                margin-right: 2.6vw;
+                @media (min-width: 768px){
+                    font-size: 2.8vw;
+                    line-height: 2.5vw;
+                    margin-right: 1vw;
+                }
+                @media (min-width: 1400px){
+                    width: 616px;
+                    gap: 30px;
+                    font-size: 40px;
+                    line-height: 32px;
+                }
+            }
+            h2:last-child{
+                margin-top: 8vw;
+                font-size: 6.5vw;
+                line-height: 5vw;
+                margin-left: 3vw;
+                @media (min-width: 768px){
+                    font-size: 3vw;
+                    line-height: 2vw;
+                    margin-left: 1vw;
+                }
+                @media (min-width: 1400px){
+                    width: 616px;
+                    gap: 30px;
+                    font-size: 45px;
+                    line-height: 32px;
+                }
+            }
+            
         }
     }
     #main-gallery{

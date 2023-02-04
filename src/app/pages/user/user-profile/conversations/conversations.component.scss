@@ -1,0 +1,143 @@
+@import '../../../../../vars';
+h3{
+    margin: 0;
+    padding: 20px 0;
+    position: sticky;
+    top:2px;
+    border-bottom: 1px solid $black;
+    z-index: 2;
+    background-color: $beige;
+    padding-top: 70px;
+    &:first-child{
+        top:52px;
+        padding-top: 20px;
+    }
+    .btn{
+        margin-right: 4px;
+        margin-top: 4px;
+        min-width: max-content;
+    }
+}
+#conversations{
+    overflow: hidden;
+    position: relative;
+    left: 0;
+    &.showChat{
+        #conversationsList{
+            left: -100vw;
+        }
+        #chat{
+            left: -100vw;
+        }
+    }
+    #conversationsList{
+        left: 0;
+        position: relative;
+        width: calc(100vw - 42px);
+        min-width: calc(100vw - 42px);
+        .conversation{
+            padding: 20px;
+            border: 1px solid $black;
+            border-top: 0;
+            app-cover{
+                width: 112px;
+                height: 130px;
+                min-width: 112px;
+                min-height: 130px;
+                padding: 8px 20px 0 0;
+                @media (min-width: 576px) {
+                    width: 135px;
+                    height: 170px;
+                    min-width: 135px;
+                    min-height: 170px;
+                    padding: 8px 20px 0 0;
+                }
+                @media (min-width: 768px) {
+                    width: 112px;
+                    height: 130px;
+                    min-width: 112px;
+                    min-height: 130px;
+                    padding: 8px 20px 0 0;
+                }
+                @media (min-width: 1200px) {
+                    width: 135px;
+                    height: 170px;
+                    min-width: 135px;
+                    min-height: 170px;
+                    padding: 8px 20px 0 0;
+                }
+            }
+        }
+        .game-collection-info{
+            flex-direction: row;
+            h4{
+                word-wrap: break-word;
+                margin-bottom: 0.5rem;
+                font-weight: 600;
+                line-height: 1;
+                font-size:1rem;
+                @media (min-width: 576px) {
+                    margin-bottom: 0.5rem;
+                    font-weight: 600;
+                    line-height: 1.2;
+                    font-size: 1.5rem;
+                }
+                @media (min-width: 768px) {
+                    margin-bottom: 0.5rem;
+                    font-weight: 600;
+                    line-height: 1;
+                    font-size:1rem;
+                }
+                @media (min-width: 1200px) {
+                    margin-bottom: 0.5rem;
+                    font-weight: 600;
+                    line-height: 1.2;
+                    font-size: 1.5rem;
+                }
+            }
+            span{
+                display: inline-block;
+                padding: 3px 8px;
+                border: 1px solid #36363C;
+                max-width: max-content;
+                border-radius: 50px;
+                font-size: 12px;
+                background-color: #FDF9F3;
+                margin-left: 20px;
+                min-width: max-content;
+                font-weight: 400;
+                line-height: 12px;
+                @media (min-width: 576px) {
+                    line-height: 20px;
+                }
+                @media (min-width: 768px) {
+                    line-height: 12px;
+                }
+                @media (min-width: 1200px) {
+                    line-height: 20px;
+                }
+            }
+        }
+    }
+    #chat{
+        position: relative;
+        width: calc(100vw - 42px);
+        min-width: calc(100vw - 42px);
+        position: relative;
+        left: 40px;
+    }
+    .loader-more-content{
+        height: 0;
+        overflow: hidden;
+        background-image: url(../../../../../assets/images/loading.svg);
+        background-repeat: no-repeat;
+        background-size: 20%;
+        background-position: center center;
+        background-color: $beige;
+        &.loading{
+            height: 200px;
+            border: 1px solid $black;
+            border-top: none;
+        }
+    }
+}

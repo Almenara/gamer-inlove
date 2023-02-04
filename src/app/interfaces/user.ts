@@ -1,24 +1,27 @@
+import { UserNotification } from "./user_notification";
+
 export interface User {
-    id:             undefined | number;
-    name?:          string;
-    surname?:       string;
-    username:       string;
-    email?:         string;
-    repeatemail?:   string;
-    password?:      string;
-    repeatpassword?:string;
-    image:          string | null | undefined;
-    is_shop:        boolean;
-    address?:       Address;
-    shops?:         Shop[];
-    ecommerces?:    Ecommerce[];
+    id:                     undefined | number;
+    name?:                  string;
+    surname?:               string;
+    username:               string;
+    email?:                 string;
+    repeatemail?:           string;
+    password?:              string;
+    repeatpassword?:        string;
+    avatar:                 any;
+    is_shop:                boolean;
+    address?:               Address;
+    shops?:                 Shop[];
+    ecommerces?:            Ecommerce[];
+    user_notifications?:    UserNotification[]; 
 }
 export interface Address{
     id?:            number;
-    address:        string;
-    city:           string;
-    country:        string;
-    zip_code:       string;
+    address?:        string;
+    city?:           string;
+    country:         string;
+    zip_code?:       string;
 }
 export interface Shop{
     id?:            number;

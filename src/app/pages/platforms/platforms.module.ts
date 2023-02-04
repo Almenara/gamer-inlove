@@ -8,7 +8,6 @@ import { PlatformComponent } from './platform/platform.component';
 import { AddToCollectComponent } from './platform/add-to-collect/add-to-collect.component';
 import { AddToWishlistComponent } from './platform/add-to-wishlist/add-to-wishlist.component';
 import { EditComponent } from './platform/edit/edit.component';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { InfoComponent } from './platform/info/info.component';
 import { ForSaleListComponent } from './platform/for-sale-list/for-sale-list.component';
 
@@ -29,7 +28,6 @@ import { ForSaleListComponent } from './platform/for-sale-list/for-sale-list.com
     FormsModule,
     ReactiveFormsModule,
     PlatformPagesRoutingModule,
-    SharedModule
   ],
   exports: [
     AddToCollectComponent,

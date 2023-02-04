@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://backendgamers.com' //'http://ig.albertoalmenara.com'
+  baseUrl: 'http://backendgamers.com', //'http://ig.albertoalmenara.com'
+  avatarPath: '/storage/images/avatars/' //'http://ig.albertoalmenara.com'
 };
 
 /*

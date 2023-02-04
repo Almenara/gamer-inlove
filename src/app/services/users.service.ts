@@ -9,6 +9,7 @@ import { User } from '../interfaces/user';
 import { UserGame } from '../interfaces/user_game';
 import { UserPlatform } from '../interfaces/user_platform';
 import { UserWishplatform } from '../interfaces/user_wishplatform';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -42,9 +43,11 @@ export class UsersService {
 
   constructor(
     private http: HttpClient, 
+    private authService: AuthService,
     public router: Router 
   ) { 
   }
+
   getToken() {
     return localStorage.getItem('auth_token');
   }
@@ -58,7 +61,6 @@ export class UsersService {
 
   }
 
-
   addAddress(address: Address){
     const URLService = this._URLService + "/api/address/add" ;
 
@@ -71,7 +73,10 @@ export class UsersService {
     return this.http.post<any>(URLService, address, { headers }).pipe(
       tap(resp => {
         if(resp){
-          this.user.address = resp.data;
+          if(!this.user)
+            this.user = this.authService.user;
+            this.user.address = resp.data;
+            this.authService.user = this.user;
         }
       })
     );
@@ -123,6 +128,7 @@ export class UsersService {
     return this.http.get<UserGame>(URLService,{ headers });
 
   }
+  
   getUserForSale(url?: null | string, idUser?: null|number): Observable<any>{
     
     let URLService = url? url : this._URLService + "/api/profile/for-sale";
@@ -250,7 +256,10 @@ export class UsersService {
     headers = headers.append('Acept', 'application/json');
     headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
     
-    return this.http.put<User>(URLService,user,{headers});
+    return this.http.put<any>(URLService,user,{headers}).pipe(
+      tap(resp => {
+        this.user = resp.user;
+      }));
   }
 
   editPassword(password: string, newpassword: string, id: number){

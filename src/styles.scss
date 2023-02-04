@@ -3,7 +3,7 @@
 @import 'vars';
 
 html{
-    &::after{
+    &::before{
         content: "";
         display: block;
         border: 1px solid $black;
@@ -37,6 +37,10 @@ html{
             font-size: 4vw;
             line-height: 3.5vw;
         }
+    }
+
+    h2,h4,h5,h6{
+        font-family: "Inconsolata", sans-serif;
     }
     .bg-yellow{
         background-color: $yellow;
@@ -87,6 +91,7 @@ html{
             border-right: 1px solid $black;
             gap: 20px;
             padding: 20px 8px;
+            background-color: $beige;
             @media (min-width: 768px) {
                 gap: 50px;
                 padding: 50px 38px;
@@ -181,6 +186,9 @@ html{
         padding: 6px 13px 14px 21px;
         z-index: 1;
         display: flex;
+        font-family: "Inconsolata", sans-serif;
+        font-weight: 300;
+        font-size: 20px;
         justify-content: center;
         align-items: center;
         border: none;
@@ -466,6 +474,7 @@ html{
         border-radius: 50px;
         background-color: $violet;
         border: 1px solid $black;
+        color: $black;
         padding: 7px 20px;
         min-width: 200px;
         max-width: max-content;

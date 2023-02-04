@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -15,6 +15,12 @@ import { ModalsService } from 'src/app/services/modals.service';
 export class SingUpPopupComponent implements OnInit {
 
   @ViewChild('content') modalContent!:HTMLElement; 
+
+  @ViewChild('avatar') avatar!: ElementRef;
+
+  public img!: string | null;
+
+  public avatarImageB64: string | null = null;
 
   public signUpForm: FormGroup = this.fb.group({
     email:    ['', [Validators.required, Validators.email]],
@@ -36,6 +42,13 @@ export class SingUpPopupComponent implements OnInit {
       this.modalsService.modals['sing-up'] = this;
    } 
 
+  handleReaderLoaded(file: Blob | File) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.avatarImageB64 = reader.result as string;
+    };
+  }
   ngOnInit(): void {
   }
 
@@ -47,6 +60,23 @@ export class SingUpPopupComponent implements OnInit {
     this.loginModalService.dismissAll()
   }
 
+  changeImage(){
+    this.avatar.nativeElement.click();
+  }
+  addedImage(event: Event){
+    const e = event.target as HTMLInputElement;
+    const inputImg = e.files
+    if (inputImg) {
+      if(inputImg[0].size > 1100000)
+      //TODO SISTEMA DE ALERTAS
+        alert('Please image no more than 1MB.')
+      else{
+        this.img = URL.createObjectURL(inputImg[0])
+        
+        this.handleReaderLoaded(inputImg[0]);
+      }
+    }
+  }
   register(){
     this.errorMessages = [];
     let user:User = {
@@ -58,7 +88,7 @@ export class SingUpPopupComponent implements OnInit {
       username: this.signUpForm.value.username,
       password: this.signUpForm.value.password,
       repeatpassword: this.signUpForm.value.repeatpassword,
-      image: undefined,
+      avatar: this.avatarImageB64,
       is_shop: false
     }
     this.usersService.postRegister(user).subscribe({

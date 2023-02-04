@@ -1,3 +1,22 @@
+@import '../../../vars';
 #contact-form{
     gap: 10px;
+
+}
+#gameInfo{
+    margin: 20px 0;
+    h5{
+        padding: 20px 15px;
+        border-top: 1px solid $black;
+        margin: 0;
+        &:last-child{
+            border-bottom: 1px solid $black;
+        }
+        span{
+            text-align: right;
+        }
+    }
+    &:last-child{
+        border-bottom: 1px solid $black;
+    }
 }

@@ -10,8 +10,8 @@ import { SearchElementComponent } from './header/search-element/search-element.c
 import { LoginPopupComponent } from './login-popup/login-popup.component';
 import { SingUpPopupComponent } from './sing-up-popup/sing-up-popup.component';
 import { ContactPopupComponent } from './contact-popup/contact-popup.component';
-
-
+import { AddressPopupComponent } from '../pages/user/user-profile/user-info/address-popup/address-popup.component';
+import { NotificationComponent } from './header/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +23,8 @@ import { ContactPopupComponent } from './contact-popup/contact-popup.component';
     LoginPopupComponent,
     SingUpPopupComponent,
     ContactPopupComponent,
+    AddressPopupComponent,
+    NotificationComponent,
   ],
   imports: [
     FormsModule,
@@ -39,6 +41,7 @@ import { ContactPopupComponent } from './contact-popup/contact-popup.component';
     LoginPopupComponent,
     SingUpPopupComponent,
     ContactPopupComponent,
+    AddressPopupComponent,
   ]
 })
 export class SharedModule { }

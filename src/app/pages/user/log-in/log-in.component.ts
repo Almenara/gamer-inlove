@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LogInComponent implements OnInit {
   public logInForm: FormGroup = this.fb.group({
     email:        ['', [Validators.required, Validators.email]],
-    password:     ['', [Validators.required, Validators.minLength(6)]],
+    password:     ['', [Validators.required]],
   })
   public loginError:boolean   = false;
   public errorMessage:string  = "";
@@ -21,6 +21,7 @@ export class LogInComponent implements OnInit {
   ngOnInit(): void {
 
   }
+  
   login(){
     
     this.errorMessage = "";

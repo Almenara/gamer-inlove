@@ -8,7 +8,6 @@ import { GameComponent } from './game/game.component';
 import { AddToCollectComponent } from './game/add-to-collect/add-to-collect.component';
 import { AddToWishlistComponent } from './game/add-to-wishlist/add-to-wishlist.component';
 import { EditComponent } from './game/edit/edit.component';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { InfoComponent } from './game/info/info.component';
 
 
@@ -23,7 +22,6 @@ import { InfoComponent } from './game/info/info.component';
   ],
   imports: [
     GamePagesRoutingModule,
-    SharedModule,
     CommonModule,
     FormsModule,
     RouterModule,
