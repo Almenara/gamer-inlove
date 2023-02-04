@@ -41,7 +41,8 @@ export class HeaderComponent implements OnInit {
     return this.authService.auth
   }
 
-  @ViewChild("searchInput") public input!: ElementRef;
+  @ViewChild('searchInput') public input!: ElementRef;
+  @ViewChild('notificationList') public notificationPopup!: ElementRef;
 
   constructor(
     private gamesService: GamesService,
@@ -145,18 +146,29 @@ export class HeaderComponent implements OnInit {
     }
   }
   openNotificationList(event: Event){
+    this.notificationPopup.nativeElement.classList.add('loading')
     event.stopPropagation();
     this.notificationListIsOpen = this.openMenuService.toggleNotificationList();
     this.closeSearch();
-    if(this.notificationListIsOpen && this.newNotifications){
+    
+    if(this.notificationListIsOpen) this.user_notifications = [];
+    
+    if(this.notificationListIsOpen && this.hasNotifications){
       this.notificationsService.getAllUserNotifications().subscribe({
         next: resp =>{
           this.user_notifications = resp;
+          this.notificationPopup.nativeElement.classList.remove('loading');
         },
         error: error => console.log(error)
       })
     }
     this.newNotifications = false;
     this.notificationsService.newNotificationAlertActive = false;
+  }
+  removeAllNotifications(){
+    this.notificationListIsOpen = this.openMenuService.toggleNotificationList();
+  }
+  removeNotification(id: number){
+    alert(id)
   }
 }

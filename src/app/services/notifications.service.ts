@@ -11,7 +11,7 @@ import { UserNotification } from '../interfaces/user_notification';
   providedIn: 'root'
 })
 export class NotificationsService {
-  private intervalTime = interval(3000);
+  private intervalTime = interval(120000);
   public newNotificationAlertActive: boolean = false;
   public hasNotifications = new Subject<boolean>();
   public newNotifications = new Subject<boolean>();

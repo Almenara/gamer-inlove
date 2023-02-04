@@ -77,8 +77,13 @@
   </div>
 </div>
 
-<div id="notificationList" (click)="stopPropagation($event)" [ngClass]="{'opened': notificationListIsOpen}" *ngIf="auth.ok && user_notifications && user_notifications.length > 0" #notificationList>
-  <div *ngIf="user_notifications" class="d-flex flex-column">
-    <app-notification (click)="openNotificationList($event)" *ngFor="let notification of user_notifications" [notification]="notification" [ngClass]="{'new': !notification.seen}"></app-notification>
+<div id="notificationList" class="d-flex align-items-stretch loading" (click)="stopPropagation($event)" [ngClass]="{'opened': notificationListIsOpen}" #notificationList>
+  <div *ngIf="user_notifications?.length" class="d-flex flex-column flex-fill" id="notificationsContainer" #notificationsContainer>
+    <div class="btn danger erasable align-self-end" (click)="removeAllNotifications()">Remove all</div>
+    <ul class="mt-4" [ngClass]="{'noNews': !newNotifications}">
+      <li *ngFor="let notification of user_notifications" [ngClass]="{'new': !notification.seen}">
+        <app-notification class="notification" (click)="openNotificationList($event)" (click)="removeNotification(notification.id)" [notification]="notification" [ngClass]="{'new': !notification.seen}"></app-notification>
+      </li>
+    </ul>
   </div>
 </div>
