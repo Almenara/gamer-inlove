@@ -14,7 +14,7 @@
     <a *ngIf="!auth.ok" [routerLink]="[ '/log-in' ]" [routerLink]="[ '/log-in' ]" [routerLinkActive]="['active']" class="d-none d-sm-flex header-btn black-btn">Log In</a>
     <a *ngIf="!auth.ok" [routerLink]="[ '/sign-up' ]" [routerLink]="[ '/sign-up' ]" [routerLinkActive]="['active']" class="d-none d-sm-flex header-btn black-btn">Sign Up</a>
     <a *ngIf="auth.ok" [routerLink]="[ '/profile/collection' ]" [routerLink]="[ '/profile' ]" [routerLinkActive]="['active']" class="d-none d-sm-flex header-btn black-btn">My Profile</a>
-    <div *ngIf="auth.ok && user_notifications && user_notifications.length > 0">
+    <div *ngIf="hasNotifications">
       <div id="notificationsBtn" (click)="openNotificationList($event)" [class.opened]="notificationListIsOpen" [ngClass]="{'newNotifications': newNotifications}" class="notifications d-sm-flex header-btn black-btn" #notificationsBtn>
         <div id="notificationsIcon">
           <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 64.6 64.6" xml:space="preserve">
@@ -78,7 +78,7 @@
 </div>
 
 <div id="notificationList" (click)="stopPropagation($event)" [ngClass]="{'opened': notificationListIsOpen}" *ngIf="auth.ok && user_notifications && user_notifications.length > 0" #notificationList>
-  <ul [ngClass]="{'noSeen': noSeenNotifications}">
-    <li *ngFor="let notif of user_notifications" [ngClass]="{'new': !notif.seen}"><a [href]="">{{notif.reason}}</a></li>
-  </ul>
+  <div *ngIf="user_notifications" class="d-flex flex-column">
+    <app-notification (click)="openNotificationList($event)" *ngFor="let notification of user_notifications" [notification]="notification" [ngClass]="{'new': !notification.seen}"></app-notification>
+  </div>
 </div>

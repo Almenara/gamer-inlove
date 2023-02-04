@@ -177,12 +177,7 @@
                 width: 51px;
                 padding: 0 12px;
                 border-left: solid 1px $black;
-                
-            }
-            &.newNotifications{
                 #notificationsIcon{
-                    animation: bell 1000ms ease-in-out forwards;
-                    animation-delay: 500ms;
                     &::before{
                         content: "";
                         position: absolute;
@@ -193,9 +188,17 @@
                         border: 1px solid $black;
                         z-index: 1;
                         top:10px;
-                        animation: dot-notfication 250ms ease-in-out forwards;
                         transform: scale(0);
                         animation-delay: 1500ms;
+                    }
+                }
+            }
+            &.newNotifications{
+                #notificationsIcon{
+                    animation: bell 1000ms ease-in-out forwards;
+                    animation-delay: 500ms;
+                    &::before{
+                        animation: dot-notfication 250ms ease-in-out forwards;
                     }
                 }
             }

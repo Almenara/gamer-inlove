@@ -9,6 +9,7 @@ import { Platform } from 'src/app/interfaces/platform';
 import { Game } from 'src/app/interfaces/game';
 import { Company } from 'src/app/interfaces/company';
 import { UserNotification } from 'src/app/interfaces/user_notification';
+import { NotificationsService } from 'src/app/services/notifications.service';
 
 @Component({
   selector: 'app-header',
@@ -26,8 +27,9 @@ export class HeaderComponent implements OnInit {
   public users!: User[];
 
   public user!: User;
-  public user_notifications!: UserNotification[];
+  public user_notifications!: UserNotification[] | null;
   public newNotifications: boolean = false;
+  public hasNotifications: boolean = false;
   public noSeenNotifications: boolean = true;
   public notificationListIsOpen: boolean = this.openMenuService.notificationsIsOpen;
 
@@ -45,15 +47,17 @@ export class HeaderComponent implements OnInit {
     private gamesService: GamesService,
     private openMenuService: OpenMenuService,
     private authService: AuthService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private notificationsService: NotificationsService
   ) {     
-    this.authService.userDataSubject.subscribe(data => {
-      this.user = data,
-      this.user_notifications = this.user.user_notifications ? this.user.user_notifications : []
-      if(this.user_notifications.length > 0){
-        this.notificationAlert();
-      }
-    });
+      this.notificationsService.getHasNotifications().subscribe(hasNotifications =>{
+        this.hasNotifications = hasNotifications;
+        console.log('has',hasNotifications)
+      }) 
+      this.notificationsService.getNewNotifications().subscribe(newNotifications =>{
+        this.newNotifications = newNotifications
+        console.log('new',newNotifications)
+      })
   }
 
   @HostListener('document:click', ['$event'])
@@ -66,6 +70,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.authService.auth.ok) this.notificationsService.refreshNotifications()
   }
 
   stopPropagation(event: Event) {
@@ -139,14 +144,19 @@ export class HeaderComponent implements OnInit {
       }
     }
   }
-  notificationAlert(){
-    if(this.user_notifications.map( not => { not.seen })) this.noSeenNotifications = false;
-    this.newNotifications = true;
-    
-  }
   openNotificationList(event: Event){
     event.stopPropagation();
     this.notificationListIsOpen = this.openMenuService.toggleNotificationList();
     this.closeSearch();
+    if(this.notificationListIsOpen && this.newNotifications){
+      this.notificationsService.getAllUserNotifications().subscribe({
+        next: resp =>{
+          this.user_notifications = resp;
+        },
+        error: error => console.log(error)
+      })
+    }
+    this.newNotifications = false;
+    this.notificationsService.newNotificationAlertActive = false;
   }
 }

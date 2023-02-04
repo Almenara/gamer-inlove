@@ -8,6 +8,8 @@ import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserGameListComponent } from './user-game-list/user-game-list.component';
 import { AddressAddComponent } from './address-add/address-add.component';
 import { AddressEditComponent } from './address-edit/address-edit.component';
+import { ConversationsComponent } from './conversations/conversations.component';
+import { ChatComponent } from './conversations/chat/chat.component';
 //import { UserPlatformListComponent } from './user-platform-list/user-platform-list.component';
 
 
@@ -50,6 +52,14 @@ const routes: Routes = [
         path: 'for-sale',
         component: UserGameListComponent,
         data: { product: 'game', filter: 'for-sale' }
+      },
+      {
+        path: 'conversations',
+        component: ConversationsComponent,
+      },
+      {
+        path: 'conversations/:idConversation',
+        component: ConversationsComponent,
       },
      /* {
         path: 'for-sale/user-game-list',

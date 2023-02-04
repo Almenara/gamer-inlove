@@ -17,7 +17,9 @@ export class AuthService {
   private _auth: Auth = { ok: false }; 
   private _token!:string;
 
-  userDataSubject = new Subject<User>();
+  public authOkSubject = new Subject<boolean>();
+
+  public userDataSubject = new Subject<User>();
   
   get user(){      
     return this._user;
@@ -46,8 +48,10 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {
     if(localStorage.getItem('auth_token')){
-      this._auth = { ok: true }
-      this.validateToken()
+      this._auth = { ok: true };
+      this.authOkSubject;
+      this.putAuthOkSubject(this.auth.ok);
+      this.validateToken();
     }
     if(!this.user){
       this.getProfile();
@@ -56,7 +60,7 @@ export class AuthService {
 
   login(email:string, password: string){
     
-    const URLService = this._URLService + "/api/login";
+    const URLService = environment.baseUrl + "/api/login";
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     const body = { email, password }
 
@@ -66,6 +70,7 @@ export class AuthService {
           if(resp.ok){
             this.auth = resp;
             localStorage.setItem('auth_token', this._auth.data?.accessToken!);
+            this.putAuthOkSubject(this.auth.ok);
             this.getProfile();
           }
         }),
@@ -74,34 +79,10 @@ export class AuthService {
       );
 
   }
-  getCacheUser(): Subject<User>{
-   return this.userDataSubject;
-  }
-  getUserNotifications(){
-    
-  }
-  getProfile(){
-    if(this.auth.ok){
-      if (!this.user?.id) {
-        const URLService = this._URLService + "/api/profile";
-        let headers = new HttpHeaders();
-        
-        headers = headers.append('Acept', 'application/json');
-        headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
-        this.http.get<User>(URLService,{headers}).subscribe(data => {
-          this.user = data;
-          this.userDataSubject.next(this.user);
-        });
-      }
-    }
-  }
-
-  getToken() {
-    return localStorage.getItem('auth_token');
-  }
   
   logout() {
     this.auth = { ok: false }
+    this.putAuthOkSubject(this.auth.ok);
     localStorage.removeItem('auth_token');
     this.router.navigate(['/']);
     this.user = {
@@ -118,11 +99,38 @@ export class AuthService {
     };
   }
 
+  putAuthOkSubject(status: boolean){
+    this.authOkSubject.next(status)
+  }
+  getCacheUser(): Subject<User>{
+   return this.userDataSubject;
+  }
+
+  getProfile(){
+    if(this.auth.ok){
+      if (!this.user?.id) {
+        const URLService = environment.baseUrl + "/api/profile";
+        let headers = new HttpHeaders();
+        
+        headers = headers.append('Acept', 'application/json');
+        headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
+        this.http.get<User>(URLService,{headers}).subscribe(data => {
+          this.user = data;
+          this.userDataSubject.next(this.user);
+        });
+      }
+    }
+  }
+
+  getToken() {
+    return localStorage.getItem('auth_token');
+  }
+
   validateToken(){
     if(localStorage.getItem('auth_token') && !this._auth.data){
       this.auth = { ok: true }
     
-      const URLService = this._URLService + "/api/renew-token";
+      const URLService = environment.baseUrl + "/api/renew-token";
       let headers = new HttpHeaders();
       
       headers = headers.append('Acept', 'application/json');

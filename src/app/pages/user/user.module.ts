@@ -17,6 +17,8 @@ import { SellGamePopupComponent } from './user-profile/user-game-list/sell-game-
 import { SellPlatformPopupComponent } from './user-profile/user-game-list/sell-platform-popup/sell-platform-popup.component';
 import { UserGameListComponent } from './user-profile/user-game-list/user-game-list.component';
 import { UserPlatformListComponent } from './user-profile/user-platform-list/user-platform-list.component';
+import { ConversationsComponent } from './user-profile/conversations/conversations.component';
+import { ChatComponent } from './user-profile/conversations/chat/chat.component';
 
 
 
@@ -34,6 +36,8 @@ import { UserPlatformListComponent } from './user-profile/user-platform-list/use
     SellPlatformPopupComponent,
     UserGameListComponent,
     UserPlatformListComponent,
+    ConversationsComponent,
+    ChatComponent,
   ],
   imports: [
     UserProfilePagesRoutingModule,

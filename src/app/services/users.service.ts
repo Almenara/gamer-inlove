@@ -47,6 +47,7 @@ export class UsersService {
     public router: Router 
   ) { 
   }
+
   getToken() {
     return localStorage.getItem('auth_token');
   }
@@ -59,7 +60,6 @@ export class UsersService {
     return this.http.post<User>(URLService,{user},{headers});
 
   }
-
 
   addAddress(address: Address){
     const URLService = this._URLService + "/api/address/add" ;
@@ -128,6 +128,7 @@ export class UsersService {
     return this.http.get<UserGame>(URLService,{ headers });
 
   }
+  
   getUserForSale(url?: null | string, idUser?: null|number): Observable<any>{
     
     let URLService = url? url : this._URLService + "/api/profile/for-sale";
