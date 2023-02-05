@@ -21,7 +21,7 @@ export class MessagesService {
   }
   sendMessage(message:Message){
       
-    const URLService = message.conversation ? this._URLService + "/api/message/postMessage"+ message.conversation :  this._URLService + "/api/message/postMessage/1" ;
+    const URLService = message.conversation_id ? this._URLService + "/api/message/post_message/"+ message.conversation_id :  this._URLService + "/api/message/post_message" ;
 
     this._token = this.getToken()!;
 

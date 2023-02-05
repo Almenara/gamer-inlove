@@ -4,7 +4,7 @@
             <h2 *ngIf="!seller_conversations || seller_conversations.length == 0">no conversartions selling</h2>
 
             <h3 class="d-flex justify-content-between align-items-center">Selling</h3>
-            <div class="conversation-list d-flex flex-column" *ngFor="let conversation of seller_conversations" (click)="showChat(conversation.id)">
+            <div class="conversation-list d-flex flex-column" *ngFor="let conversation of seller_conversations">
                 <div class="conversation">
                     <div class="d-flex" *ngIf="conversation.game.cover">
                         <app-cover [routerLink]="[ '/profile/conversations/' + conversation.id ]" [img]="conversation.game.cover ? conversation.game.cover : ''" [alphaChannel]="false"></app-cover>
@@ -21,7 +21,7 @@
             <h2 *ngIf="!buyer_conversations || buyer_conversations.length == 0">no conversation buying</h2>
 
             <h3 class="d-flex justify-content-between align-items-center">Buying</h3>
-            <div class="conversation-list d-flex flex-column" *ngFor="let conversation of buyer_conversations" (click)="showChat(conversation.id)">
+            <div class="conversation-list d-flex flex-column" *ngFor="let conversation of buyer_conversations">
                 <div class="conversation">
                     <div class="d-flex" *ngIf="conversation.game.cover">
                         <app-cover [routerLink]="[ '/profile/conversations/' + conversation.id ]" [img]="conversation.game.cover ? conversation.game.cover : ''" [alphaChannel]="false"></app-cover>
@@ -34,9 +34,5 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div id="chat" #chat>
-        <div (click)="hideChat()"><h2>< Back</h2></div>
-        <app-chat></app-chat>
     </div>
 </div>

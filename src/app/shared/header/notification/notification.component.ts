@@ -11,10 +11,9 @@ import { NotificationsService } from 'src/app/services/notifications.service';
 export class NotificationComponent implements OnInit {
   @Input() notification!: UserNotification;
   public text: string = "";
-  private link: string | null = null;
+  public link: string | null = null;
   constructor(private notificationsService: NotificationsService){
   }
-  //'New items for sale','Conversation request','New message'
   ngOnInit(): void {
     switch(this.notification.reason) { 
       case "New items for sale": { 
