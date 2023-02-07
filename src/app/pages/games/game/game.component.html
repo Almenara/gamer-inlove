@@ -3,11 +3,11 @@
         <div id="title" [class]="bgColor" class="d-flex flex-column order-md-1 text-md-end">
             <h1 *ngIf="game">{{game.name}}</h1>
             <h2 *ngIf="game.first_release_date" class="mt-3">{{game.first_release_date | date }}</h2>
-            <p class="mt-5 text-justify brake-word">
+            <div class="mt-5 text-justify brake-word">
                 <img *ngIf="game.cover" [src]="'https://images.igdb.com/igdb/image/upload/t_cover_big_2x/' + game.cover + '.jpg'" class="float-start float-md-end" alt="Cover {{game.name}}">
-                <span *ngIf="!game.storyline && game.summary">{{game.summary}}</span>
-                <span *ngIf="game.storyline">{{game.storyline}}</span>
-            </p>
+                <p *ngIf="!game.storyline && game.summary">{{game.summary}}</p>
+                <p *ngIf="game.storyline">{{game.storyline}}</p>
+            </div>
             <div *ngIf="game.platforms" class="mt-4">
                 <h3>Platform<ng-container *ngIf="game.platforms.length > 1">s</ng-container>:</h3>
                 

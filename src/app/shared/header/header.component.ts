@@ -56,16 +56,14 @@ export class HeaderComponent implements OnInit {
         console.log('has',hasNotifications)
       }) 
       this.notificationsService.getNewNotifications().subscribe(newNotifications =>{
-        this.newNotifications = newNotifications
+        console.log(this.noSeenNotifications)
+        this.newNotifications = newNotifications;
+        this.noSeenNotifications = newNotifications;
         console.log('new',newNotifications)
       })
   }
 
-  @HostListener('document:click', ['$event'])
-  clickout(event:Event) {
-    this.openMenuService.closeMenu();
-    this.notificationListIsOpen = this.openMenuService.closeNotificationList();
-  }
+
   get menuIsOpen() {
     return this.openMenuService.menuIsOpen;
   }
@@ -73,6 +71,43 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     if(this.authService.auth.ok) this.notificationsService.refreshNotifications()
   }
+
+
+  @HostListener('document:click', ['$event'])
+  clickout(event:Event) {
+    this.closeSearch();
+    this.notificationListIsOpen = this.openMenuService.closeNotificationList();
+  }
+
+  @HostListener('document:keydown.escape', ['$event']) 
+  onKeydownHandler(event: KeyboardEvent) {
+
+    if(this.openMenuService.menuIsOpen)
+      this.openMenuService.closeMenu();
+    
+    else if(this.searchOpened)
+      this.searchOpened = !this.searchOpened;
+  
+  }
+
+  @HostListener('scroll', ['$event'])
+  searchScroll(event: Event):void {
+    let element = event.target as HTMLElement;
+    if (element.offsetHeight + element.scrollTop >= element.scrollHeight) {
+      if(this.nextPageUrl && this.nextPageUrl != "" && !this.loadingMoreSearchContent){
+        this.loadingMoreSearchContent = true;
+        this.searchService.nextPage(this.nextPageUrl).subscribe(rest => {
+          {
+            this.searchResult = rest;
+            this.searchResult.games.data.map((game: any) => this.games.push(game));
+            this.nextPageUrl = this.searchResult.games.next_page_url
+            this.loadingMoreSearchContent = false;
+          }
+        })
+      }
+    }
+  }
+
 
   stopPropagation(event: Event) {
     event.stopPropagation();
@@ -94,6 +129,7 @@ export class HeaderComponent implements OnInit {
     }
     this.notificationListIsOpen = this.openMenuService.closeNotificationList();
   }
+
   search() {
     this.query = this.input.nativeElement.value;
     if(this.query != ''){
@@ -116,9 +152,11 @@ export class HeaderComponent implements OnInit {
       })
     }
   }
+
   closeMenu() {
     this.openMenuService.closeMenu()
   }
+
   closeSearch() {
     this.gamesService.closeSearching();
     this.searchOpened = false;
@@ -127,24 +165,8 @@ export class HeaderComponent implements OnInit {
   logOut() {
     this.authService.logout()
   }
-  @HostListener('scroll', ['$event'])
-  searchScroll(event: Event):void {
-    let element = event.target as HTMLElement;
-    if (element.offsetHeight + element.scrollTop >= element.scrollHeight) {
-      if(this.nextPageUrl && this.nextPageUrl != ""){
-        this.loadingMoreSearchContent = true;
-        this.searchService.nextPage(this.nextPageUrl).subscribe(rest => {
-          {
-            this.searchResult = rest;
-            this.searchResult.games.data.map((game: any) => this.games.push(game));
-            console.log(rest);
-            this.nextPageUrl = this.searchResult.games.next_page_url
-            this.loadingMoreSearchContent = false;
-          }
-        })
-      }
-    }
-  }
+
+
   openNotificationList(event: Event){
     this.notificationPopup.nativeElement.classList.add('loading')
     event.stopPropagation();
@@ -165,10 +187,14 @@ export class HeaderComponent implements OnInit {
     this.newNotifications = false;
     this.notificationsService.newNotificationAlertActive = false;
   }
-  removeAllNotifications(){
+
+  deleteAllNotifications(){
     this.notificationListIsOpen = this.openMenuService.toggleNotificationList();
+    this.notificationsService.deleteAllNotifications();
   }
-  removeNotification(id: number){
-    alert(id)
+
+  deleteNotification(id: number){
+    this.notificationsService.deleteNotification(id);
   }
+
 }

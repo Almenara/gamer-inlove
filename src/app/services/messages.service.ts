@@ -29,6 +29,6 @@ export class MessagesService {
     headers = headers.append('Acept', 'application/json');
     headers = headers.append('Authorization', `Bearer ${this._token}`);
 
-    return this.http.post<Message>(URLService, message, { headers });
+    return this.http.post<any>(URLService, message, { headers });
   }
 }

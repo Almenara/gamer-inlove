@@ -1,5 +1,5 @@
 import { User } from 'src/app/interfaces/user';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Message } from 'src/app/interfaces/message';
 import { AuthService } from 'src/app/services/auth.service';
@@ -17,10 +17,13 @@ import { Conversation } from 'src/app/interfaces/conversation';
 export class ChatComponent implements OnInit {
   //@Input() public messages!: Message[];
 
+  @ViewChild('conversation') chat!: ElementRef;
+
   private id: number = 0
   public user!: User;
   public conversation!: Conversation;
   public messages: Message[] = [];
+  private destroy = false;
 
   public contactForm: FormGroup = this.fb.group({
     message:  ['', [Validators.required, Validators.minLength(1)]],
@@ -56,26 +59,27 @@ export class ChatComponent implements OnInit {
 
       this.conversationsService.getConversation(this.id).subscribe({
         next: resp => { 
-          console.log('oninit', resp)
           this.conversation = resp
         }
       })
-
-      this.conversationsService.getChat(this.id).subscribe({
-        next:(resp)=>{
-          this.messages = resp.data;
-        },
-        error:(error)=>{
-          console.log(error);
-          this.router.navigate(['/404']);
-        }
-      })
-
+      
     });
-    
+    this.refreshMessages();    
+  }
+  refreshMessages(){
+    this.conversationsService.getChat(this.id).subscribe({
+      next:(resp)=>{
+        this.messages = resp.data;
+        if(!this.destroy) setTimeout(()=>{this.refreshMessages()}, 10000)
+        this.chat.nativeElement.scrollTo(0, this.chat.nativeElement.scrollHeight);
+      },
+      error:(error)=>{
+        console.log(error);
+        this.router.navigate(['/404']);
+    }});     
   }
   sendMessage(){
-    console.log(this.conversation)
+    
     let message:Message = {
       conversation_id:        this.id,
       conversation:           this.conversation,
@@ -86,14 +90,26 @@ export class ChatComponent implements OnInit {
       malicious_message:      false,
       message:                this.contactForm.value.message,
     }
+    this.contactForm.reset();
     this.messagesService.sendMessage(message).subscribe({
       next:(resp)=>{
-        console.log(resp);
+        this.messages.push(resp.data);
+        this.conversationsService.getChat(this.id).subscribe({
+          next:(resp)=>{
+            this.messages = resp.data;
+          },
+          error:(error)=>{
+            console.log(error);
+            this.router.navigate(['/404']);
+        }});
       },
       error:(error)=>{
         //TODO notificacion
         console.log(error);
       }
     });
+  }
+  ngOnDestroy(): void {
+    this.destroy = true;
   }
 }

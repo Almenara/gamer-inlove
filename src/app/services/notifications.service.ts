@@ -100,6 +100,26 @@ export class NotificationsService {
   
       return this.http.get<UserNotification[]>(URLService,{ headers })
   }
+
+  deleteAllNotifications(){
+    const URLService = environment.baseUrl + "/api/notification/delete-all-notifications";
+    
+    let headers = new HttpHeaders();
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
+
+    this.http.delete<any>(URLService,{ headers }).subscribe();
+  }
+  deleteNotification(id:number){
+    
+    const URLService = environment.baseUrl + "/api/notification/delete-notification/" + id;
+    
+    let headers = new HttpHeaders();
+    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
+
+    this.http.delete<any>(URLService,{ headers }).subscribe();
+  }
   
   ngOnDestroy() {
     //this.intervalSubscription.unsubscribe();

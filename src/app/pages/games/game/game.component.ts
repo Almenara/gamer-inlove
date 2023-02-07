@@ -66,7 +66,6 @@ export class GameComponent implements OnInit{
           this.router.navigate(['/404']);
         }
       })
-
     });
   }
 

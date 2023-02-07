@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Observable, tap, map, catchError, of } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class GamesService {
+export class GamesService{
 
   private _URLService: string = environment.baseUrl;
 
@@ -22,13 +22,14 @@ export class GamesService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService ) { }
-  
+    private authService: AuthService 
+    ) { 
+      this.authService.authOkSubject.subscribe( ok => this._auth.ok = ok ? true : false )
+  }
 
   getGames(): Observable<GameData[]>{
     return this.http.get<GameData[]>(this._URLService + '/api/get10games');
   }
-
   getPopularGamesNow(): Observable<RankingGames[]>{
     return this.http.get<RankingGames[]>(this._URLService + '/api/games/get-popular-now');
   }
@@ -46,8 +47,7 @@ export class GamesService {
     let URLService = this._URLService + "/api/game/detail/" + id; 
     let headers = new HttpHeaders();
     headers = headers.append('Acept', 'application/json');
-    const body = { id }
-
+    console.log('game', this._auth);
     if(this._auth.ok){
       headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
       URLService = this._URLService + "/api/game/detailWithUserCollectionAndWishlistData/" + id; 

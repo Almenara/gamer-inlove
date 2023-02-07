@@ -17,14 +17,14 @@ export class SignUpComponent implements OnInit {
   public avatarImageB64: string | null = null;
 
   public signUpForm: FormGroup = this.fb.group({
-    email:          ['fernando@gmail.com', [Validators.required, Validators.email]],
-    repeatemail:    ['fernando@gmail.com', [Validators.required, Validators.email]],
-    name:           ['Fernando', [Validators.required, Validators.minLength(3)]],
+    email:          ['', [Validators.required, Validators.email]],
+    repeatemail:    ['', [Validators.required, Validators.email]],
+    name:           ['', [Validators.required, Validators.minLength(3)]],
     avatar:         [],
-    surname:        ['Martín', [Validators.required, Validators.minLength(3)]],
-    username:       ['Fertín', [Validators.required, Validators.minLength(3)]],
-    password:       ['123123', [Validators.required, Validators.minLength(6)]],
-    repeatpassword: ['123123', [Validators.required, Validators.minLength(6)]],
+    surname:        ['', [Validators.required, Validators.minLength(3)]],
+    username:       ['', [Validators.required, Validators.minLength(3)]],
+    password:       ['', [Validators.required, Validators.minLength(6)]],
+    repeatpassword: ['', [Validators.required, Validators.minLength(6)]],
   })
 
   public errorMessages:any[] = [];

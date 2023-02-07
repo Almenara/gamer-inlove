@@ -34,7 +34,7 @@ export class NotificationComponent implements OnInit {
         break; 
       } 
       case "New message": { 
-        this.text = `${this.notification.reason} from ${this.notification.from_user.username}`;
+        this.text = `${this.notification.reason} from ${this.notification.from_user.username} for ${this.notification.product?.name}`;
         this.link = `/profile/conversations/${this.notification.conversation_id}`
         break; 
       }

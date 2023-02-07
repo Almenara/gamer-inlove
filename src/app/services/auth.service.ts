@@ -23,7 +23,6 @@ export class AuthService {
   
   get user(){      
     return this._user;
-
   }
 
   set user(user: User){

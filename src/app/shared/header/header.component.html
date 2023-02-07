@@ -5,15 +5,14 @@
       <span></span>
       <span></span>
     </div>
-    <div id="logo"></div>
     <form id="search" role="search" class="header-btn white-btn d-flex justify-content-end" (ngSubmit)="search()" (click)="openSearch($event)" [ngClass]="searchOpened? 'search-opened':''">
       <input type="text" id="searchInput" onfocus="this.select()" [ngClass]="searchOpened? 'search-opened':''" #searchInput>
       <button name="search" type="submit"><span class="d-none">Search</span></button>
     </form>
-    <a [routerLink]="[ '/community' ]" class="d-none d-md-flex header-btn white-btn">Community</a>
-    <a *ngIf="!auth.ok" [routerLink]="[ '/log-in' ]" [routerLink]="[ '/log-in' ]" [routerLinkActive]="['active']" class="d-none d-sm-flex header-btn black-btn">Log In</a>
-    <a *ngIf="!auth.ok" [routerLink]="[ '/sign-up' ]" [routerLink]="[ '/sign-up' ]" [routerLinkActive]="['active']" class="d-none d-sm-flex header-btn black-btn">Sign Up</a>
-    <a *ngIf="auth.ok" [routerLink]="[ '/profile/collection' ]" [routerLink]="[ '/profile' ]" [routerLinkActive]="['active']" class="d-none d-sm-flex header-btn black-btn">My Profile</a>
+    <a [routerLink]="[ '/community' ]" [routerLinkActive]="['active']" class="d-none d-md-flex header-btn white-btn">Community</a>
+    <a *ngIf="!auth.ok" [routerLink]="[ '/log-in' ]" [routerLinkActive]="['active']" class="d-none d-sm-flex header-btn black-btn">Log In</a>
+    <a *ngIf="!auth.ok" [routerLink]="[ '/sign-up' ]" [routerLinkActive]="['active']" class="d-none d-sm-flex header-btn black-btn">Sign Up</a>
+    <a *ngIf="auth.ok" [routerLink]="[ '/profile/collection' ]" [routerLinkActive]="['active']" class="d-none d-sm-flex header-btn black-btn">My Profile</a>
     <div *ngIf="hasNotifications">
       <div id="notificationsBtn" (click)="openNotificationList($event)" [class.opened]="notificationListIsOpen" [ngClass]="{'newNotifications': newNotifications}" class="notifications d-sm-flex header-btn black-btn" #notificationsBtn>
         <div id="notificationsIcon">
@@ -37,7 +36,7 @@
         <li *ngIf="!auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/sign-up' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Sign Up</a></li>
         <li class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/community' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Community</a></li>
         <li class="option"><a (click)="toggleMenu($event)" (click)="openSearch($event)">Search</a></li>
-        <li *ngIf="auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/profile/collection' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">My Profile</a></li>
+        <li *ngIf="auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/profile' ]" [routerLinkActive]="['active']">My Profile</a></li>
         <li *ngIf="auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" (click)="logOut()" >Log Out</a></li>
       </ul>
     </nav>
@@ -79,10 +78,10 @@
 
 <div id="notificationList" class="d-flex align-items-stretch loading" (click)="stopPropagation($event)" [ngClass]="{'opened': notificationListIsOpen}" #notificationList>
   <div *ngIf="user_notifications?.length" class="d-flex flex-column flex-fill" id="notificationsContainer" #notificationsContainer>
-    <div class="btn danger erasable align-self-end" (click)="removeAllNotifications()">Remove all</div>
-    <ul class="mt-4" [ngClass]="{'noNews': !newNotifications}">
+    <div class="btn danger erasable align-self-end" (click)="deleteAllNotifications()">Remove all</div>
+    <ul class="mt-3">
       <li *ngFor="let notification of user_notifications" [ngClass]="{'new': !notification.seen}">
-        <app-notification class="notification" (click)="openNotificationList($event)" (click)="removeNotification(notification.id)" [notification]="notification" [ngClass]="{'new': !notification.seen}"></app-notification>
+        <app-notification class="notification" (click)="openNotificationList($event)" (click)="deleteNotification(notification.id)" [notification]="notification" [ngClass]="{'new': !notification.seen}"></app-notification>
       </li>
     </ul>
   </div>
