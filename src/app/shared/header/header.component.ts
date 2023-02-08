@@ -53,13 +53,10 @@ export class HeaderComponent implements OnInit {
   ) {     
       this.notificationsService.getHasNotifications().subscribe(hasNotifications =>{
         this.hasNotifications = hasNotifications;
-        console.log('has',hasNotifications)
       }) 
       this.notificationsService.getNewNotifications().subscribe(newNotifications =>{
-        console.log(this.noSeenNotifications)
         this.newNotifications = newNotifications;
         this.noSeenNotifications = newNotifications;
-        console.log('new',newNotifications)
       })
   }
 
@@ -191,10 +188,17 @@ export class HeaderComponent implements OnInit {
   deleteAllNotifications(){
     this.notificationListIsOpen = this.openMenuService.toggleNotificationList();
     this.notificationsService.deleteAllNotifications();
+    this.hasNotifications = false;
+    this.newNotifications = false;
   }
 
   deleteNotification(id: number){
     this.notificationsService.deleteNotification(id);
+    if(this.user_notifications?.length == 1){
+      this.hasNotifications = false;
+      this.newNotifications = false;
+      this.user_notifications = null;
+    }
   }
 
 }

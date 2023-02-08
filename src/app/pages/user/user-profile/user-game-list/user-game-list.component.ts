@@ -56,9 +56,6 @@ export class UserGameListComponent implements OnInit {
     this._userProfile = user;
   }
 
-  get userProfile(){
-    return this.usersService.userProfile;
-  }
 
   constructor(
     private authService: AuthService,

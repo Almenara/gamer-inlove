@@ -13,7 +13,7 @@ import { Subject } from 'rxjs';
 })
 export class AddressEditComponent {
 
-  public user: User = this.usersService.userProfile;
+  public user: User = this.authService.user;
   
   public editUserAddressForm!: FormGroup;
 
@@ -27,11 +27,6 @@ export class AddressEditComponent {
         this.user = data;
       });
       
-      if(!this.user){
-        authService.getProfile();
-        this.user = authService.user;
-      }
-
       this.editUserAddressForm = this.fb.group({
         address:  [this.user.address?.address, [Validators.required]],
         city:     [this.user.address?.city,    [Validators.required]],

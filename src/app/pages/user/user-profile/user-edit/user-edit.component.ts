@@ -1,8 +1,9 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { UsersService } from './../../../../services/users.service';
-import { Form, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { User } from 'src/app/interfaces/user';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -11,7 +12,10 @@ import { User } from 'src/app/interfaces/user';
 })
 export class UserEditComponent {
 
-  private _user: User = this.usersService.user;
+  private _user!: User ;
+
+  
+
   get user(){
     return this._user
   }
@@ -30,40 +34,35 @@ export class UserEditComponent {
   constructor( 
     private fb: FormBuilder, 
     private usersService: UsersService,
+    private authService:AuthService,
     private router : Router  ){
 
-    if(!this.user){
-      
+      this.usersService.getUserProfile().subscribe({
+        next: (user) => this.user = user
+      });
+
       this.usersService.getProfile().subscribe({next: resp => {
-        
+
+        this.user = resp;
+
         this.editUserForm  = this.fb.group({
-          email:      [resp.email, [Validators.required, Validators.email]],
-          repeatemail:[resp.email, [Validators.required, Validators.email]],
-          name:       [resp.name, [Validators.required, Validators.minLength(3)]],
-          surname:    [resp.surname, [Validators.required]],
-          username:   [resp.username, [Validators.required, Validators.minLength(3)]],
+          email:      [this.user.email,     [Validators.required, Validators.email]],
+          repeatemail:[this.user.email,     [Validators.required, Validators.email]],
+          name:       [this.user.name,      [Validators.required, Validators.minLength(3)]],
+          surname:    [this.user.surname,   [Validators.required]],
+          username:   [this.user.username,  [Validators.required, Validators.minLength(3)]],
           avatar:     [],
           password:   ['', [Validators.required]],
         })
-
-        this._user = resp;
-
+  
       }});
-    }
-    else{
-      this.editUserForm  = this.fb.group({
-          email:      [this._user.email, [Validators.required, Validators.email]],
-          repeatemail:[this._user.email, [Validators.required, Validators.email]],
-          name:       [this._user.name, [Validators.required, Validators.minLength(3)]],
-          surname:    [this._user.surname, [Validators.required]],
-          username:   [this._user.username, [Validators.required, Validators.minLength(3)]],
-          avatar:     [],
-          password:   ['', [Validators.required]],
-      })
-    }
+
   }
   
   ngOnInit(): void {
+
+   
+
   }
 
   changeImage(){
@@ -106,6 +105,7 @@ export class UserEditComponent {
     }
     this.usersService.editUser(user).subscribe({
       next: () => {
+        //TODO ENSAJE DE CAMBIOS HECHOS CORRECTAMENTE
         this.router.navigate(['/profile/collection'])
       },
       error: error => console.log(error)
