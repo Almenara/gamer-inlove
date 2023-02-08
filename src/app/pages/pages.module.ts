@@ -3,7 +3,6 @@ import { GamesModule } from './games/games.module';
 import { UserModule } from './user/user.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PagesRoutingModule } from './pages-routing.module';
 
@@ -21,7 +20,6 @@ import { TopGalleryComponent } from './home/top-gallery/top-gallery.component';
   imports: [
     PagesRoutingModule,
     CommonModule,
-    FormsModule, 
     UserModule,
     GamesModule,
     PlatformsModule,

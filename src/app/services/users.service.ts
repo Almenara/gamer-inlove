@@ -1,9 +1,9 @@
-import { Address } from 'src/app/interfaces/user';
-import { Observable, tap} from 'rxjs';
+import { Observable, tap, Subject, Subscription } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Address } from 'src/app/interfaces/user';
 import { environment } from 'src/environments/environment';
 import { User } from '../interfaces/user';
 import { UserGame } from '../interfaces/user_game';
@@ -18,12 +18,17 @@ export class UsersService {
 
   private _URLService:string = environment.baseUrl;
 
+  public userDataSubject:Subscription = this.authService.getCacheUser().subscribe();
+
+  private userProfileSubject = new Subject<User>();
+
   private _token!:string;
 
   private _user!:User;
 
-  private _userProfile!:User;
+//  private _userProfile!:User;
   
+
   get user(){
     return this._user;
   }
@@ -31,12 +36,9 @@ export class UsersService {
   set user(user: User){
     this._user = user;
   }
-  get userProfile(){
-    return this._userProfile;
-  }
-  
-  set userProfile(user: User){
-    this._userProfile = user;
+
+  getUserProfile(): Subject<User>{
+    return this.userProfileSubject;
   }
 
   
@@ -96,6 +98,7 @@ export class UsersService {
       tap(resp => {
         if(resp){
           this.user = resp;
+          this.userProfileSubject.next(resp);
         }
       }));
 
@@ -231,17 +234,18 @@ export class UsersService {
     return this.http.get<any>(URLService,{ headers });
 
   }
-  getUserById(id: number): Observable<any>{
+  getUserById(id: number): Observable<User>{
     
     const URLService = this._URLService + `/api/user/${id}`;
 
     let headers = new HttpHeaders();
     headers = headers.append('Acept', 'application/json');
 
-    return this.http.get<any>(URLService,{ headers }).pipe(
+    return this.http.get<User>(URLService,{ headers }).pipe(
       tap(resp => {
         if(resp){
-          this.userProfile = resp;
+          this.user = resp;
+          this.userProfileSubject.next(resp);
         }
       })
     );
@@ -259,6 +263,8 @@ export class UsersService {
     return this.http.put<any>(URLService,user,{headers}).pipe(
       tap(resp => {
         this.user = resp.user;
+        this.userProfileSubject.next(resp.user);
+        this.authService.userDataSubject.next(resp.user);
       }));
   }
 
@@ -285,7 +291,13 @@ export class UsersService {
     headers = headers.append('Acept', 'application/json');
     headers = headers.append('Authorization', `Bearer ${this._token}`);
 
-    return this.http.put<Address>(URLService, address, { headers });
+    return this.http.put<Address>(URLService, address, { headers }).pipe(
+      tap(resp => {
+        if(resp){
+          this.user.address = resp;
+          this.userProfileSubject.next(this.user);
+        }
+      }));
   }
 
   putGameForSale(userGame:UserGame){

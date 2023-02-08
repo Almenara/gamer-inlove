@@ -13,6 +13,7 @@ export class UserProfileComponent implements OnInit {
   @Input() userGamelist!: string;
 
   private _userProfile!: User;
+  private _user!: User;
 
   public classes:string[] = ['bg-red', 'bg-blue', 'bg-yellow', 'bg-orange'];
 
@@ -25,7 +26,10 @@ export class UserProfileComponent implements OnInit {
   }
 
   get user(){
-    return this.authService.user;
+    return this._user;
+  }
+  set user(user: User){
+    this._user = user;
   }
 
   set userProfile(user: User){
@@ -37,6 +41,7 @@ export class UserProfileComponent implements OnInit {
   isActive = false;
 
   ngOnInit() {
+    console.log(this.authService);
     this.route.url.subscribe(url => {
       console.log(url);
       this.isActive = this.router.url.match(/^.*\/conversations\/\d+$/) !== null;
@@ -49,9 +54,13 @@ export class UserProfileComponent implements OnInit {
       private route: ActivatedRoute, 
       public router: Router ) {
 
-    let id:number = 0;
+      this.authService.getCacheUser().subscribe({
+        next: user => this.user = user
+      });
 
-    this.route.paramMap.subscribe((params: ParamMap) => {
+      let id:number = 0;
+
+      this.route.paramMap.subscribe((params: ParamMap) => {
     
       this.getRandomPageColors();
 
@@ -60,16 +69,12 @@ export class UserProfileComponent implements OnInit {
       if(param){
 
         id = Number(param.split("-", 1))
-        
-        
-        console.log('Controlando el error de acceder a usurio desde auth', this.user);
-        if(this.auth.ok && this.user.id == id){
-          this.router.navigate(['/profile'])
-        };
-
         this.usersService.getUserById(id).subscribe({
           next:(resp)=>{
             this.userProfile = resp;
+            if(this.auth.ok && this.user.id == id){
+              this.router.navigate(['/profile'])
+            };
           },
           error:()=>{
             this.router.navigate(['/404']);
