@@ -59,7 +59,7 @@ const routes: Routes = [
       },
       {
         path: 'conversations/:idConversation',
-        component: ConversationsComponent,
+        component: ChatComponent,
       },
      /* {
         path: 'for-sale/user-game-list',

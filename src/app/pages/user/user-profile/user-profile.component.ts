@@ -11,6 +11,7 @@ import { User } from 'src/app/interfaces/user';
 })
 export class UserProfileComponent implements OnInit {
   @Input() userGamelist!: string;
+
   private _userProfile!: User;
 
   public classes:string[] = ['bg-red', 'bg-blue', 'bg-yellow', 'bg-orange'];
@@ -33,7 +34,15 @@ export class UserProfileComponent implements OnInit {
   get userProfile(){
     return this._userProfile
   }
+  isActive = false;
 
+  ngOnInit() {
+    this.route.url.subscribe(url => {
+      console.log(url);
+      this.isActive = this.router.url.match(/^.*\/conversations\/\d+$/) !== null;
+      console.log('Controlar la aparición del menu en mobile', this.isActive)
+    });
+  }
   constructor( 
       private usersService: UsersService, 
       private authService: AuthService, 
@@ -51,6 +60,12 @@ export class UserProfileComponent implements OnInit {
       if(param){
 
         id = Number(param.split("-", 1))
+        
+        
+        console.log('Controlando el error de acceder a usurio desde auth', this.user);
+        if(this.auth.ok && this.user.id == id){
+          this.router.navigate(['/profile'])
+        };
 
         this.usersService.getUserById(id).subscribe({
           next:(resp)=>{
@@ -63,9 +78,6 @@ export class UserProfileComponent implements OnInit {
       }
     });
   }
-  public ngOnInit(): void{  
-  }
-
   getRandomPageColors() {
     this.bgColor = this.classes[Math.floor(Math.random() * this.classes.length)];
     this.secondaryColor = this.classes[Math.floor(Math.random() * this.classes.length)];

@@ -469,11 +469,11 @@
         min-width: 250px;
         min-height: 250px;
         background-image: url('../../../assets/images/loading.svg');
-        background-size: 0%;
+        background-size: 0;
         background-position: center center;
         background-repeat: no-repeat;
         &.loading{
-            background-size: 70%;
+            background-size: 120px 120px;
         }
         &::after{
             animation: arrow 100ms ease-in-out forwards;
@@ -521,41 +521,44 @@
         z-index: 3;
     }
     ul{
+        display: flex;
+        flex-direction: column;
         overflow: hidden;
         padding: 0;
         margin: 0;
         list-style: none;
         z-index: 3;
         background-color: $beige;
+        gap: 10px;
         @media (min-width: 768px) { 
             background-color: $yellow;
         }
-        &.noSeen{
+        &:has(>li.new){
             li{
-                margin: 0;
-                padding: 0!important;
-                width: max-content;
+                padding: 0 0 0 20px;
             }
-
         }
         li{
             display: flex;
             align-items: center;
             margin: 0;
-            padding: 0 0 0 10px;
-            width: max-content;
+            padding: 0;
+            width: fit-content;
             position: relative;
+            line-height: 18px;
             &::before{
-                position: relative;
+                position: absolute;
                 content: "";
                 display: block;
                 background-color: transparent;
                 height: 10px;
                 width: 10px;
+                bottom: calc(50% - 5px);
+                left: 2px;
             }
             &.new{
                 &::before{
-                    position: relative;
+                    position: absolute;
                     content: "";
                     display: block;
                     background-color: $red;
@@ -563,8 +566,6 @@
                     width: 10px;
                     border-radius: 10px;
                     border: 1px solid $black;
-                    bottom: 1px;
-                    left: -6px;
                     box-shadow: -1.5px 1.5px 0 $black;
                 }
             }

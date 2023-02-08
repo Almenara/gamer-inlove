@@ -11,10 +11,9 @@ import { NotificationsService } from 'src/app/services/notifications.service';
 export class NotificationComponent implements OnInit {
   @Input() notification!: UserNotification;
   public text: string = "";
-  private link: string | null = null;
+  public link: string | null = null;
   constructor(private notificationsService: NotificationsService){
   }
-  //'New items for sale','Conversation request','New message'
   ngOnInit(): void {
     switch(this.notification.reason) { 
       case "New items for sale": { 
@@ -35,7 +34,7 @@ export class NotificationComponent implements OnInit {
         break; 
       } 
       case "New message": { 
-        this.text = `${this.notification.reason} from ${this.notification.from_user.username}`;
+        this.text = `${this.notification.reason} from ${this.notification.from_user.username} for ${this.notification.product?.name}`;
         this.link = `/profile/conversations/${this.notification.conversation_id}`
         break; 
       }

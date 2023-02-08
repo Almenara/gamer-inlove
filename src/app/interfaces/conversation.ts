@@ -7,7 +7,7 @@ export interface Conversation {
     buyer:                  User;
     seller_user_id:         number;
     seller:                 User;
-    product_id:             Game;
+    product_id:             number;
     game:                   Game;
     accepted:               boolean;
     created_at:             Date;

@@ -4,7 +4,7 @@ export interface UserNotification {
     id:                     number;
     user_id:                number;
     from_user_id:           number;
-    from_user:               User;
+    from_user:              User;
     product_id?:            number;
     product?:               Game;
     user_product_id?:       number;

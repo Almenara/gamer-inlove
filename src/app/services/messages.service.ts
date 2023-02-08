@@ -21,7 +21,7 @@ export class MessagesService {
   }
   sendMessage(message:Message){
       
-    const URLService = message.conversation ? this._URLService + "/api/message/postMessage"+ message.conversation :  this._URLService + "/api/message/postMessage/1" ;
+    const URLService = message.conversation_id ? this._URLService + "/api/message/post_message/"+ message.conversation_id :  this._URLService + "/api/message/post_message" ;
 
     this._token = this.getToken()!;
 
@@ -29,6 +29,6 @@ export class MessagesService {
     headers = headers.append('Acept', 'application/json');
     headers = headers.append('Authorization', `Bearer ${this._token}`);
 
-    return this.http.post<Message>(URLService, message, { headers });
+    return this.http.post<any>(URLService, message, { headers });
   }
 }

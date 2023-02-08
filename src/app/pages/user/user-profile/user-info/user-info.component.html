@@ -9,7 +9,7 @@
                 <div class="d-flex">
                     <app-cover [routerLink]="[ '/game/' + game.game.id + '-' + game.game.slug ]" *ngIf="game.game.cover" [img]="game.game.cover" [alphaChannel]="false"></app-cover>
                     <div class="d-flex flex-column align-items-end justify-content-start flex-fill">
-                        <div class="game-collection-info w-100 ">
+                        <div class="game-collection-info w-100">
                             <h4>
                                 <div class="d-flex flex-column align-items-end ms-sm-3 ms-md-0 ms-lg-3 mt-0 float-end">
                                     <h4 class="ms-3" *ngIf="game.for_sale">{{game.price | currency}}</h4>

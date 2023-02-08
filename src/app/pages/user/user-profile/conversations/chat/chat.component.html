@@ -1,1 +1,9 @@
-<div *ngIf="messages">hola que tal</div>
+<div id="chatContainer" class="d-flex flex-column align-items-stretch flex-fill">
+    <div id="conversation" class="d-flex flex-column h-100 flex-fill" #conversation>
+        <div *ngFor="let message of messages" class="messages" [ngClass]="{'sended': message.receiving_user_id != user.id}">{{message.message}}</div>
+    </div>
+    <form [formGroup]="contactForm" id="inputContainer" (click)="messageInput.focus()">
+        <textarea formControlName="message" rows="1" id="messageInput" class="w-100" #messageInput></textarea>
+        <button type="submit" class="btn" [disabled]="!contactForm.valid" (click)="sendMessage()">Send</button>
+    </form>
+</div>
