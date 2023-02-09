@@ -6,3 +6,17 @@ app-header{
     width: 100%;
     z-index: 1000;
 }
+app-footer.chating{
+    display: none;
+    @media (min-width: 768px) {
+        display: flex;
+    }
+}
+app-alert{
+    width: 100%;
+    position: fixed;
+    top:-100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

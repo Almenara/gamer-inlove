@@ -82,8 +82,7 @@ export class HeaderComponent implements OnInit {
     if(this.openMenuService.menuIsOpen)
       this.openMenuService.closeMenu();
     
-    else if(this.searchOpened)
-      this.searchOpened = !this.searchOpened;
+    this.closeSearch()
   
   }
 
@@ -117,11 +116,11 @@ export class HeaderComponent implements OnInit {
   }
 
   openSearch(event: Event) {
+    document.querySelector('html')!.classList.add('searching');
     event.stopPropagation();
     this.searchOpened = true;
     this.input.nativeElement.focus();
     if(this.searchResult){
-      document.querySelector('html')!.classList.add('searching');
       this.searchOpened = true;
     }
     this.notificationListIsOpen = this.openMenuService.closeNotificationList();
@@ -155,6 +154,7 @@ export class HeaderComponent implements OnInit {
   }
 
   closeSearch() {
+    document.querySelector('html')!.classList.remove('searching');
     this.gamesService.closeSearching();
     this.searchOpened = false;
   }

@@ -10,6 +10,7 @@ import { AddressAddComponent } from './address-add/address-add.component';
 import { AddressEditComponent } from './address-edit/address-edit.component';
 import { ConversationsComponent } from './conversations/conversations.component';
 import { ChatComponent } from './conversations/chat/chat.component';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 //import { UserPlatformListComponent } from './user-platform-list/user-platform-list.component';
 
 
@@ -28,26 +29,6 @@ const routes: Routes = [
         component: UserGameListComponent,
         data: { product: 'game', filter: 'wishlist' }
       },
-      /*{
-        path: 'collection/user-game-list',
-        component: UserGameListComponent,
-        data: { product: 'game', filter: 'collection' }
-      },
-      {
-        path: 'collection/user-platform-list',
-        component: UserPlatformListComponent,
-        data: { product: 'platform', filter: 'collection' }
-      },
-      {
-        path: 'collection/user-game-wishlist',
-        component: UserGameListComponent,
-        data: { product: 'game', filter: 'wishlist' }
-      },
-      {
-        path: 'collection/user-platform-wishlist',
-        component: UserPlatformListComponent,
-        data: { product: 'platform', filter: 'wishlist' }
-      },*/
       {
         path: 'for-sale',
         component: UserGameListComponent,
@@ -61,31 +42,29 @@ const routes: Routes = [
         path: 'conversations/:idConversation',
         component: ChatComponent,
       },
-     /* {
-        path: 'for-sale/user-game-list',
-        component: UserGameListComponent,
-        data: { product: 'game', filter: 'for-sale' }
-      },
-      {
-        path: 'for-sale/user-platform-list',
-        component: UserPlatformListComponent,
-        data: { product: 'platform', filter: 'for-sale' }
-      },*/
       {
         path: 'edit',
         component: UserEditComponent,
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard],
       },
       {
         path: 'password-edit',
         component: PasswordEditComponent,
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard],
       },
       {
         path: 'address-add',
         component: AddressAddComponent,
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard],
       },
       {
         path: 'address-edit',
         component: AddressEditComponent,
+        canActivate: [AuthGuard],
+        canLoad: [AuthGuard],
       },
     ]
   }

@@ -79,7 +79,10 @@ export class SignUpComponent implements OnInit {
     }
 
     this.usersService.postRegister(user).subscribe({
-      next: resp => console.log(resp), 
+      next: resp => {
+        console.log(resp);
+        //TODO mensaje de success y ¿redigir a login? 
+      }, 
       error: error => {
         Object.keys(error.error.data).map(key => (key)).forEach(field => {
           this.signUpForm.controls[field].setErrors({'incorrect': true});

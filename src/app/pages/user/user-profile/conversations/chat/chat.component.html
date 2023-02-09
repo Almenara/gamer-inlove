@@ -3,7 +3,7 @@
         <div *ngFor="let message of messages" class="messages" [ngClass]="{'sended': message.receiving_user_id != user.id}">{{message.message}}</div>
     </div>
     <form [formGroup]="contactForm" id="inputContainer" (click)="messageInput.focus()">
-        <textarea formControlName="message" rows="1" id="messageInput" class="w-100" #messageInput></textarea>
+        <textarea (keydown)="sendIfEnter($event)" formControlName="message" rows="1" id="messageInput" class="w-100" #messageInput></textarea>
         <button type="submit" class="btn" [disabled]="!contactForm.valid" (click)="sendMessage()">Send</button>
     </form>
 </div>

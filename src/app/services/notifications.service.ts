@@ -44,6 +44,12 @@ export class NotificationsService {
     });
   }
 
+  playAudioNotification(){
+    let audio = new Audio();
+    audio.src = "/assets/sounds/marioCoin.mp3";
+    audio.load();
+    audio.play();
+  }
   refreshNotifications(){
 
     //if(!this.authService.auth.ok) this.intervalSubscription.unsubscribe();
@@ -53,7 +59,6 @@ export class NotificationsService {
       this.intervalSubscription = this.intervalTime.subscribe(() => this.refreshNotifications());
 
     }
-
     if(!this.newNotificationAlertActive){
 
       const URLService = environment.baseUrl + "/api/notification/are-there-news";
@@ -74,6 +79,7 @@ export class NotificationsService {
             }
 
             if(resp.newNotifications > 0){
+              this.playAudioNotification();
               this.newNotificationAlertActive = true;
               this.newNotifications.next(true);
             }

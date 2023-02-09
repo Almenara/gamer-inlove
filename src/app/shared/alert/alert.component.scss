@@ -1,0 +1,105 @@
+
+@import '../../../vars';
+.alert{
+    width: calc(100% - 16px);
+    max-width: 560px;
+    position: absolute;
+    display: flex;
+    align-self: center;
+    top: 170px;
+    border: 1px solid $black;
+    border-radius: 30px;
+    box-shadow: 0 0 0 0 $black;
+    color: $black;
+    animation: animation-alert 800ms ease-in-out forwards;
+    &.fade,
+    &.fade:not(.show){
+        opacity: 1!important;
+        animation: animation-alert-fade 300ms ease-in-out forwards!important;
+    }
+    &.show{
+        opacity: 1!important;
+        top: 0px!important;
+    }
+    &.alert-success{
+        background-color: $green;
+    }
+    @keyframes animation-alert {
+    0% {
+        top: 0px;
+    }
+    70% {
+        top: 180px;
+    }
+    100% {
+        top: 170px;
+    }
+    }
+    @keyframes animation-alert-fade {
+        0% {
+            top: 170px;
+        }
+        100% {
+            top: 0px;
+        }
+    }
+    @media (min-width: 576px){
+        box-shadow: -8px 8px 0 0 $black;
+    }
+    span.text{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: calc(100% - 50px);
+    }
+    .close-alert{
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        cursor: pointer;
+        height: 50px;
+        padding: 5px;
+        width: 50px;
+        border: 1px solid $black;
+        background-color: transparent;
+        border-radius: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        span{
+            display: block;
+            height: 6px;
+            background-color: $black;
+            opacity: 0;
+            &:first-child{
+                opacity: 1;
+                transform: rotate(45deg) translate(11px, 12px);
+            }
+            &:last-child{
+                opacity: 1;
+                transform: rotate(-45deg) translate(11px, -11px);
+            }
+        }
+        &:hover{
+            background-color: $black;
+            span{
+                background-color: $beige;
+            }
+        }
+    }
+    &.alert-success{
+        .close-alert{
+            &:hover{
+                background-color: $black;
+                span{
+                    background-color: $green;
+                }
+            }
+        }
+    }
+} 
+
+.alert-dismissible{
+
+}
+

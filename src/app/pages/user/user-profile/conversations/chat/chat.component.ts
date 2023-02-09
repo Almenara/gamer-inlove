@@ -1,6 +1,7 @@
+import { DeviceDetectorService } from './../../../../../services/device-detector.service';
 import { User } from 'src/app/interfaces/user';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, Event, ParamMap, Router } from '@angular/router';
 import { Message } from 'src/app/interfaces/message';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConversationsService } from 'src/app/services/conversations.service';
@@ -35,14 +36,15 @@ export class ChatComponent implements OnInit {
       private messagesService: MessagesService,
       private router: Router, 
       private route: ActivatedRoute, 
-      private authService: AuthService, 
-      private modalsService: ModalsService
+      private authService: AuthService,
+      private deviceDetectorService: DeviceDetectorService
     ){
       this.user = this.authService.user;
       this.messages = this.conversationsService.messages;
-      //this.conversation = this.conversationsService.conversation;
   }
   ngOnInit(): void {  
+    document.querySelector('html')!.classList.add('chating');
+    document.querySelector('app-footer')!.classList.add('chating');
     
     this.user = this.authService.user;
     this.messages = this.conversationsService.messages;
@@ -109,7 +111,14 @@ export class ChatComponent implements OnInit {
       }
     });
   }
+  sendIfEnter(event: KeyboardEvent){
+    if(this.deviceDetectorService.isDesktop()){
+       if(event.isTrusted && event.key === 'Enter') this.sendMessage();
+    }
+  }
   ngOnDestroy(): void {
     this.destroy = true;
+    document.querySelector('html')!.classList.remove('chating');
+    document.querySelector('app-footer')!.classList.remove('chating');
   }
 }

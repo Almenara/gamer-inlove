@@ -20,41 +20,11 @@ const routes: Routes = [
         component: UserGameListComponent,
         data: { product: 'game', filter: 'wishlist' }
       },
-      /*{
-        path: 'collection/user-game-list',
-        component: UserGameListComponent,
-        data: { product: 'game', filter: 'collection' }
-      },
-      {
-        path: 'collection/user-platform-list',
-        component: UserPlatformListComponent,
-        data: { product: 'platform', filter: 'collection' }
-      },
-      {
-        path: 'collection/user-game-wishlist',
-        component: UserGameListComponent,
-        data: { product: 'game', filter: 'wishlist' }
-      },
-      {
-        path: 'collection/user-platform-wishlist',
-        component: UserPlatformListComponent,
-        data: { product: 'platform', filter: 'wishlist' }
-      },*/
       {
         path: 'for-sale',
         component: UserGameListComponent,
         data: { product: 'game', filter: 'for-sale' }
       },
-      /*{
-        path: 'for-sale/user-game-list',
-        component: UserGameListComponent,
-        data: { product: 'game', filter: 'for-sale' }
-      },
-      {
-        path: 'for-sale/user-platform-list',
-        component: UserPlatformListComponent,
-        data: { product: 'platform', filter: 'for-sale' }
-      },*/
     ]
   }
 ];

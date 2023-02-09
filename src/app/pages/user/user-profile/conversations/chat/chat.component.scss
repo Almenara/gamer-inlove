@@ -6,12 +6,15 @@
         overflow-x: auto;
         gap: 10px;
         scroll-behavior: smooth;
+        margin-right: -20px;
+        padding-right: 20px;
         .messages{
             background-color: $blue;
             padding: 5px 15px;
             border-radius: 30px 30px 30px 3px;
             margin-right: 15%;
-            max-width: fit-content;
+            word-break: break-all;
+            max-width: wrap;
             &.sended{
                 align-self: flex-end;
                 margin-right: 0px;
