@@ -37,7 +37,7 @@
         <li class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/community' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Community</a></li>
         <li class="option"><div (click)="toggleMenu($event)" (click)="openSearch($event)">Search</div></li>
         <li *ngIf="auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" [routerLink]="[ '/profile' ]" [routerLinkActive]="['active']">My Profile</a></li>
-        <li *ngIf="auth.ok" class="option"><a (click)="toggleMenu($event)" (click)="closeSearch()" (click)="logOut()" >Log Out</a></li>
+        <li *ngIf="auth.ok" class="option"><div (click)="toggleMenu($event)" (click)="closeSearch()" (click)="logOut()" >Log Out</div></li>
       </ul>
     </nav>
   </nav>

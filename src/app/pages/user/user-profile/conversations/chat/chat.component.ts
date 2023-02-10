@@ -76,8 +76,7 @@ export class ChatComponent implements OnInit {
         this.chat.nativeElement.scrollTo(0, this.chat.nativeElement.scrollHeight);
       },
       error:(error)=>{
-        console.log(error);
-        this.router.navigate(['/404']);
+        //console.log(error);
     }});     
   }
   sendMessage(){

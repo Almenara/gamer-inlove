@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/interfaces/user';
 import { UsersService } from 'src/app/services/users.service';
 import { ModalsService } from 'src/app/services/modals.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-sing-up-popup',
@@ -23,13 +24,14 @@ export class SingUpPopupComponent implements OnInit {
   public avatarImageB64: string | null = null;
 
   public signUpForm: FormGroup = this.fb.group({
-    email:    ['', [Validators.required, Validators.email]],
+    email:          ['', [Validators.required, Validators.email]],
     repeatemail:    ['', [Validators.required, Validators.email]],
-    name:     ['', [Validators.required, Validators.minLength(3)]],
-    surname:  ['', [Validators.required, Validators.minLength(3)]],
-    username:  ['', [Validators.required, Validators.minLength(3)]],
-    password:    ['', [Validators.required, Validators.minLength(6)]],
-    repeatpassword:    ['', [Validators.required, Validators.minLength(6)]],
+    name:           ['', [Validators.required, Validators.minLength(3)]],
+    avatar:         [],
+    surname:        ['', [Validators.required, Validators.minLength(3)]],
+    username:       ['', [Validators.required, Validators.minLength(3)]],
+    password:       ['', [Validators.required, Validators.minLength(6)]],
+    repeatpassword: ['', [Validators.required, Validators.minLength(6)]],
   })
 
   public errorMessages:any[] = [];
@@ -38,6 +40,7 @@ export class SingUpPopupComponent implements OnInit {
     private fb: FormBuilder, 
     private usersService: UsersService,
     private modalsService: ModalsService,
+    private alertService: AlertService,
     private loginModalService: NgbModal) {
       this.modalsService.modals['sing-up'] = this;
    } 
@@ -68,8 +71,8 @@ export class SingUpPopupComponent implements OnInit {
     const inputImg = e.files
     if (inputImg) {
       if(inputImg[0].size > 1100000)
-      //TODO SISTEMA DE ALERTAS
-        alert('Please image no more than 1MB.')
+        this.alertService.warn('Images no more than 1MB, please.', { keepAfterRouteChange: true, autoClose: true });
+
       else{
         this.img = URL.createObjectURL(inputImg[0])
         
@@ -92,7 +95,10 @@ export class SingUpPopupComponent implements OnInit {
       is_shop: false
     }
     this.usersService.postRegister(user).subscribe({
-      next: resp => this.openLogInModal(),
+      next: resp => {
+        this.alertService.success('Signed successfuly! Please, log in.', { keepAfterRouteChange: true, autoClose: true });
+        this.openLogInModal()
+      },
       error: error => {
         Object.keys(error.error.data).map(key => (key)).forEach(field => {
           this.signUpForm.controls[field].setErrors({'incorrect': true});

@@ -39,7 +39,7 @@ export class LogInComponent implements OnInit {
     this.authService.login(email, password).subscribe({
       next: resp => {
         if(resp.ok){
-          this.alertService.success('Login successful!', { keepAfterRouteChange: true, autoClose: true });
+          this.alertService.success('Loged successfully!', { keepAfterRouteChange: true, autoClose: true });
           this.router.navigate(['/profile'])
         } 
         else{ 

@@ -24,6 +24,15 @@
     &.alert-success{
         background-color: $green;
     }
+    &.alert-danger{
+        background-color: $red;
+    }
+    &.alert-info{
+        background-color: $beige;
+    }
+    &.alert-warning{
+        background-color: $orange;
+    }
     @keyframes animation-alert {
     0% {
         top: 0px;
@@ -97,9 +106,34 @@
             }
         }
     }
+    &.alert-danger{
+        .close-alert{
+            &:hover{
+                background-color: $black;
+                span{
+                    background-color: $red;
+                }
+            }
+        }
+    }
+    &.alert-info{
+        .close-alert{
+            &:hover{
+                background-color: $black;
+                span{
+                    background-color: $beige;
+                }
+            }
+        }
+    }
+    &.alert-warning{
+        .close-alert{
+            &:hover{
+                background-color: $black;
+                span{
+                    background-color: $orange;
+                }
+            }
+        }
+    }
 } 
-
-.alert-dismissible{
-
-}
-
