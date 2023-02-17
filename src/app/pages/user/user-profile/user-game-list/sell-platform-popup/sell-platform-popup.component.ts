@@ -51,6 +51,7 @@ export class SellPlatformPopupComponent  implements OnInit {
     this.usersService.putPlatformForSale(this.userPlatform).subscribe({
       next: resp => {
         this.close();
+        
       },
       error: error => console.log(error)
     });

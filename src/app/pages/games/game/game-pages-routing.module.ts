@@ -16,22 +16,26 @@ const routes: Routes = [
       {
         path: '',
         component: InfoComponent,
+        data: { scrollPositionRestoration: 'disabled' },
       },
       {
         path: 'add-to-collection',
-        component: AddToCollectComponent,
+        component: AddToCollectComponent, 
+        data: { scrollPositionRestoration: 'disabled' },
         canActivate: [AuthGuard],
         canLoad: [AuthGuard],
       },
       {
         path: 'add-to-wishlist',
         component: AddToWishlistComponent,
+        data: { scrollPositionRestoration: 'disabled' },
         canActivate: [AuthGuard],
         canLoad: [AuthGuard],
       },
       {
         path: 'edit',
         component: EditComponent,       
+        data: { scrollPositionRestoration: 'disabled' },
         canActivate: [AuthGuard],
         canLoad: [AuthGuard],
       }

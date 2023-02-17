@@ -50,6 +50,7 @@ export class SellGamePopupComponent implements OnInit {
     this.usersService.putGameForSale(this.userGame).subscribe({
       next: resp => {
         this.close();
+        this.sellGameForm.reset();
       },
       error: error => console.log(error)
     });

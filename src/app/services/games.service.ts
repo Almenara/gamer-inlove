@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { Observable, tap, map, catchError, of } from 'rxjs';
+import { Observable, tap, map, catchError, of, Subject } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { GameData } from '../interfaces/game_data';
@@ -19,6 +19,7 @@ export class GamesService{
   private _auth = this.authService.auth;
 
   public gameData!: GameData;
+  public gameDataSubject = new Subject<GameData>();
 
   constructor(
     private http: HttpClient,
@@ -47,7 +48,6 @@ export class GamesService{
     let URLService = this._URLService + "/api/game/detail/" + id; 
     let headers = new HttpHeaders();
     headers = headers.append('Acept', 'application/json');
-    console.log('game', this._auth);
     if(this._auth.ok){
       headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
       URLService = this._URLService + "/api/game/detailWithUserCollectionAndWishlistData/" + id; 
@@ -58,12 +58,24 @@ export class GamesService{
         tap(resp => {
           if(resp){
             this.gameData = resp;
-            console.log('cambio de datos')
+            this.gameDataSubject.next(resp);
           }
         }),
         map(resp => resp),
         catchError(resp => of(resp))
-      );;
+      );
+  }
+
+  getNextPageGamesForSale(url:string){
+    let URLService = url; 
+    let headers = new HttpHeaders();
+    headers = headers.append('Acept', 'application/json');
+    if(this._auth.ok){
+      headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
+      URLService = url; 
+    }
+    
+    return this.http.get<any>(URLService, {headers})
   }
 
   getUpdateGameCollection(id: number): Observable<GameData>{

@@ -1,0 +1,77 @@
+@import '../../../../../vars';
+#gameInfo{
+    padding-top: 20px;
+    .stat{
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 40px;
+
+        h4{
+            margin-bottom: 20px;
+        }
+        h5{
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .separator{
+            display: block;
+            width: 100%;
+            min-width: 8px;
+            margin: 0 15px;
+            height: 8px;
+            background-color: $green;
+            border: 1px solid $black;
+            border-radius: 30px;
+        }
+
+        @media (min-width: 576px) {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 50px;
+        }
+    }
+}
+#forSaleList{
+    .gameListElement{
+        border: 1px solid $black;
+        border-top: none;
+        padding: 20px;
+        &:first-child{
+            border-top: 1px solid $black;
+        }
+        .userImage{
+            background-color: $yellow;
+            border: 1px solid $black;
+            padding: 50px;
+            background-position: center center;
+            background-size: cover;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            max-height: 100px;
+        }
+
+        .userInfo{
+            margin-top: -5px;
+            h3{
+                margin-bottom: -2px;
+            }
+        }
+    }
+
+    .loader-more-content{
+        height: 0;
+        overflow: hidden;
+        background-image: url(../../../../../assets/images/loading.svg);
+        background-repeat: no-repeat;
+        background-size: 20%;
+        background-position: center center;
+        background-color: $beige;
+        &.loading{
+            height: 200px;
+            border: 1px solid $black;
+            border-top: none;
+        }
+    }
+}

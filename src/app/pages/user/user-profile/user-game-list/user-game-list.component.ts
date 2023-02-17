@@ -27,6 +27,7 @@ export class UserGameListComponent implements OnInit {
   public gameWishlist!: UserWishgame[];
   public platformCollection!: UserWishplatform[];
   public platformWishlist!: UserWishplatform[];
+  public title = "My game collection";
 
   public forRemove!: UserGame | UserWishgame | UserPlatform | UserWishplatform;
   public forRemoveType: string =  "";
@@ -91,8 +92,10 @@ export class UserGameListComponent implements OnInit {
       case "game|collection":
         this.usersService.getUserCollection(null, id).subscribe({
           next: resp => {
+            this.title = "My game collection";
             this.gameCollection = resp.data;
             this.nextPageUrl = resp.next_page_url;
+            this.loadingMoreContent = this.nextPageUrl ? true: false;
           },
           error: error => {
             //TODO arlerta
@@ -103,8 +106,10 @@ export class UserGameListComponent implements OnInit {
       case "game|wishlist":
         this.usersService.getUserWishlist(null, id).subscribe({
           next: resp => {
+            this.title = "My Wishlist";
             this.gameCollection = resp.data;
             this.nextPageUrl = resp.next_page_url;
+            this.loadingMoreContent = this.nextPageUrl ? true: false;
           },
           error: error => {
             //TODO arlerta
@@ -115,8 +120,10 @@ export class UserGameListComponent implements OnInit {
       case "game|for-sale":
         this.usersService.getUserForSale(null, id).subscribe({
           next: resp => {
+            this.title = "My games for sale";
             this.gameCollection = resp.data;
             this.nextPageUrl = resp.next_page_url;
+            this.loadingMoreContent = this.nextPageUrl ? true: false;
           },
           error: error => {
             //TODO arlerta
@@ -279,7 +286,7 @@ export class UserGameListComponent implements OnInit {
     }
   }
 
-  @HostListener('document.scroll', ['$event'])
+  @HostListener('document:scroll', ['$event'])
   loadNextPage(event: Event):void {
     if (this.loader && this.loadingMoreContent){
       let rect = this.loader.nativeElement.getBoundingClientRect();

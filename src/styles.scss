@@ -48,6 +48,18 @@ html{
             line-height: 3.5vw;
         }
     }
+    h4{
+        font-family: "Inconsolata", sans-serif;
+        text-transform: uppercase;
+        font-weight: 800;
+        font-size: 30px;
+        line-height: 25px;
+        @media (min-width: 576px) {
+            font-weight: 900;
+            font-size: 50px;
+            line-height: 35px;
+        }
+    }
 
     h2,h4,h5,h6{
         font-family: "Inconsolata", sans-serif;
