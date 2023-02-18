@@ -1,1 +1,73 @@
-<p>info works!</p>
+<div id="gameInfo" class="d-flex flex-column">
+
+    <div class="stat">
+
+        <h4>Sales History</h4>
+
+        <div class="d-flex justify-content-between align-items-center">
+            <span>{{minPrice | currency}}</span>
+            <span class="separator"></span>
+            <span>{{averagePrice | currency}}</span>
+            <span class="separator"></span>
+            <span>{{maxPrice | currency}}</span>
+        </div>
+
+        <div *ngIf="lastSold" class="d-flex justify-content-between justify-content-sm-around justify-content-md-between justify-content-lg-around align-items-center mt-3">
+            <h5>Last Sold</h5> 
+            {{lastSold.updated_at | date}} · {{lastSold.price | currency}}
+        </div>
+
+    </div>
+    
+    <div class="stat d-flex justify-content-between">
+
+        <span *ngIf="totalForSale">For sale from {{forSaleCheaperPrice | currency}}</span> <span>{{totalForSale}} for sale</span>
+
+    </div>
+
+</div>
+
+<div id="forSaleList" *ngIf="gameForSale">
+    <div class="gameListElement d-flex flex-column " *ngFor="let game of gameForSale">
+        <div class="info d-flex w-100">
+            <div class="userImage" [ngStyle]="{ 'background-image': 'url(' + avatarURL + game.user?.avatar + ')'}"></div>
+            <div class="saleInfo d-flex flex-column w-100" *ngIf="game && game.platform">
+
+                <div class="d-flex flex-column align-items-end justify-content-between flex-fill">
+                    <div class="userInfo w-100">
+                        <h3>{{game.user?.username}}</h3>
+                        <h6>({{game.user?.address?.country}})</h6>
+                    </div>
+                    <div class="w-100">
+                        <h3 class="d-flex mb-0 justify-content-between">
+                            <span *ngIf="game.platform.abbreviation; else platformName">
+                                {{game.platform.abbreviation}}
+                            </span>
+                            <ng-template #platformName>
+                                    {{game.platform.name}}
+                            </ng-template>
+                            <div *ngIf="game.for_sale">{{game.price | currency}}</div>
+                        </h3>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <p *ngIf="game.for_sale" class="d-flex flex-column w-100 mb-0 text-start">
+            <span>Condition: <b>{{game.status | titlecase }}</b></span>
+            <span *ngIf="game.comments">Comments: {{game.comments}}</span>
+        </p>
+        <div class="float-end w-auto">
+            <div *ngIf="game.for_sale && user" class="d-flex justify-content-end gap-2 mt-4">
+                <div *ngIf="user.address" class="btn me-1" (click)="openContactModal(game)">Contact to buy</div>
+                <div *ngIf="!user.address" class="btn me-1" (click)="openAddressModal()">Contact to buy</div>
+            </div>
+            <div *ngIf="game.for_sale && !user" class="d-flex justify-content-end gap-2 mt-4">
+                <div class="btn me-1" (click)="openLoginModal()">Contact to buy</div>
+            </div>
+        </div>
+    </div>
+    <div #loader class="loader-more-content" (click)="nextPage()" [ngClass]="loadingMoreContent? 'loading':''" >
+    </div>
+</div>

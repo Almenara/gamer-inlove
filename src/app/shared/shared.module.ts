@@ -12,6 +12,7 @@ import { SingUpPopupComponent } from './sing-up-popup/sing-up-popup.component';
 import { ContactPopupComponent } from './contact-popup/contact-popup.component';
 import { AddressPopupComponent } from '../pages/user/user-profile/user-info/address-popup/address-popup.component';
 import { NotificationComponent } from './header/notification/notification.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { NotificationComponent } from './header/notification/notification.compon
     ContactPopupComponent,
     AddressPopupComponent,
     NotificationComponent,
+    AlertComponent,
   ],
   imports: [
     FormsModule,
@@ -42,6 +44,7 @@ import { NotificationComponent } from './header/notification/notification.compon
     SingUpPopupComponent,
     ContactPopupComponent,
     AddressPopupComponent,
+    AlertComponent,
   ]
 })
 export class SharedModule { }

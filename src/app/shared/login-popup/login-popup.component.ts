@@ -1,3 +1,4 @@
+import { AlertService } from 'src/app/services/alert.service';
 import { Router } from '@angular/router';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -30,6 +31,7 @@ export class LoginPopupComponent implements OnInit {
     private authService: AuthService, 
     private router: Router,
     private modalsService: ModalsService,
+    private alertService: AlertService,
     private loginModalService: NgbModal) {
       this.modalsService.modals['log-in'] = this;
   }
@@ -57,6 +59,7 @@ export class LoginPopupComponent implements OnInit {
     this.authService.login(email, password).subscribe({
       next: resp => {        
         if(resp.ok){
+          this.alertService.success('Loged successfuly!', { keepAfterRouteChange: true, autoClose: true });
           this.loginModalService.dismissAll();
           this.router.navigate(['/profile'])
         } 

@@ -101,6 +101,7 @@ export class AuthService {
   putAuthOkSubject(status: boolean){
     this.authOkSubject.next(status)
   }
+  
   getCacheUser(): Subject<User>{
    return this.userDataSubject;
   }

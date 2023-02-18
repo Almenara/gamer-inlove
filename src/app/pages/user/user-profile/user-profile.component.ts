@@ -3,13 +3,14 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { UsersService } from './../../../services/users.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from 'src/app/interfaces/user';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent {
   @Input() userGamelist!: string;
 
   private _userProfile!: User;
@@ -38,51 +39,51 @@ export class UserProfileComponent implements OnInit {
   get userProfile(){
     return this._userProfile
   }
-  isActive = false;
+  public inChat = false;
 
-  ngOnInit() {
-    console.log(this.authService);
-    this.route.url.subscribe(url => {
-      console.log(url);
-      this.isActive = this.router.url.match(/^.*\/conversations\/\d+$/) !== null;
-      console.log('Controlar la aparición del menu en mobile', this.isActive)
-    });
-  }
   constructor( 
       private usersService: UsersService, 
       private authService: AuthService, 
       private route: ActivatedRoute, 
+      private alertService: AlertService, 
       public router: Router ) {
+      
+        router.events.subscribe( url =>  this.inChat = this.router.url.match(/^.*\/conversations\/\d+$/) !== null);
+      
+        this.user = authService.user;
 
-      this.authService.getCacheUser().subscribe({
-        next: user => this.user = user
-      });
+        this.authService.getCacheUser().subscribe({
+          next: user => this.user = user
+        });
 
-      let id:number = 0;
+        let id:number = 0;
 
-      this.route.paramMap.subscribe((params: ParamMap) => {
-    
-      this.getRandomPageColors();
+        this.route.paramMap.subscribe((params: ParamMap) => {
+      
+          this.getRandomPageColors();
 
-      let param = params.get('idSlug');
+          let param = params.get('idSlug');
+          
 
-      if(param){
+          if(param){
 
-        id = Number(param.split("-", 1))
-        this.usersService.getUserById(id).subscribe({
-          next:(resp)=>{
-            this.userProfile = resp;
-            if(this.auth.ok && this.user.id == id){
-              this.router.navigate(['/profile'])
-            };
-          },
-          error:()=>{
-            this.router.navigate(['/404']);
+            id = Number(param.split("-", 1))
+            this.usersService.getUserById(id).subscribe({
+              next:(resp)=>{
+                this.userProfile = resp;
+                if(this.auth.ok && this.user.id == id){
+                  this.router.navigate(['/profile']);
+                };
+              },
+              error:()=>{
+                this.router.navigate(['/404']);
+              }
+            });
           }
         });
-      }
-    });
+
   }
+  
   getRandomPageColors() {
     this.bgColor = this.classes[Math.floor(Math.random() * this.classes.length)];
     this.secondaryColor = this.classes[Math.floor(Math.random() * this.classes.length)];
@@ -91,5 +92,4 @@ export class UserProfileComponent implements OnInit {
     }
 
   }
-
 }

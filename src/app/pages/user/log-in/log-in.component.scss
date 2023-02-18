@@ -10,8 +10,12 @@
         }
     }
     #title{
-        flex: 1;
+        flex: 0;
         background-color: $red;
         padding: 20px;
+
+        @media (min-width: 768px) {
+            flex: 1;
+        }
     }
 }

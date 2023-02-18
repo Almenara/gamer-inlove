@@ -1,7 +1,9 @@
+import { Message } from 'src/app/interfaces/message';
 import { Router } from '@angular/router';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-log-in',
@@ -16,7 +18,11 @@ export class LogInComponent implements OnInit {
   public loginError:boolean   = false;
   public errorMessage:string  = "";
 
-  constructor(private fb: FormBuilder, private authService: AuthService, public router: Router ) { }
+  constructor(
+    private fb: FormBuilder, 
+    private authService: AuthService, 
+    private alertService: AlertService,
+    public router: Router ) { }
 
   ngOnInit(): void {
 
@@ -33,12 +39,15 @@ export class LogInComponent implements OnInit {
     this.authService.login(email, password).subscribe({
       next: resp => {
         if(resp.ok){
+          this.alertService.success('Loged successfully!', { keepAfterRouteChange: true, autoClose: true });
           this.router.navigate(['/profile'])
         } 
-        else{
-          this.errorMessage = resp.error.message;
+        else{ 
+          this.alertService.error('ERROR! Please, try again later', { keepAfterRouteChange: true, autoClose: true });
         }
-      }
+      },
+      error: error => this.alertService.error(error.message, { keepAfterRouteChange: true, autoClose: true })
+      
     });
   }
 }

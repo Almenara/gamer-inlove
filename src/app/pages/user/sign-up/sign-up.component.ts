@@ -1,6 +1,8 @@
+import { Router } from '@angular/router';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/interfaces/user';
+import { AlertService } from 'src/app/services/alert.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -31,7 +33,9 @@ export class SignUpComponent implements OnInit {
 
   constructor( 
     private fb: FormBuilder, 
-    private usersService: UsersService 
+    private router: Router,
+    private usersService: UsersService,
+    private alertService: AlertService
     ) {}
 
   ngOnInit(): void {
@@ -46,8 +50,7 @@ export class SignUpComponent implements OnInit {
     const inputImg = e.files
     if (inputImg) {
       if(inputImg[0].size > 1100000)
-      //TODO SISTEMA DE ALERTAS
-        alert('Please image no more than 1MB.')
+      this.alertService.warn('Images no more than 1MB, please.');
       else{
         this.img = URL.createObjectURL(inputImg[0])
         
@@ -60,7 +63,7 @@ export class SignUpComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.avatarImageB64 = reader.result as string;
-      console.log(this.avatarImageB64)
+      //console.log(this.avatarImageB64)
     };
   }
   register(){
@@ -79,7 +82,10 @@ export class SignUpComponent implements OnInit {
     }
 
     this.usersService.postRegister(user).subscribe({
-      next: resp => console.log(resp), 
+      next: resp => {
+        this.alertService.success('Signed successfuly! Please, log in.', { keepAfterRouteChange: true, autoClose: true });
+        this.router.navigate(['/log-in'])
+      }, 
       error: error => {
         Object.keys(error.error.data).map(key => (key)).forEach(field => {
           this.signUpForm.controls[field].setErrors({'incorrect': true});
