@@ -4,6 +4,7 @@ import { PlatformsService } from 'src/app/services/platforms.service';
 import { PlatformData } from 'src/app/interfaces/platform_data';
 import { UserWishplatform } from 'src/app/interfaces/user_wishplatform';
 import { AuthService } from 'src/app/services/auth.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-add-to-collect',
@@ -30,7 +31,8 @@ export class AddToCollectComponent implements OnInit{
   constructor(
     private usersService: UsersService,
     private platformsService: PlatformsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private alertService: AlertService
     ){
       this.platform = this.platformsService.platformData;
 
@@ -62,7 +64,7 @@ export class AddToCollectComponent implements OnInit{
       },
       error: error => {
         button.classList.remove('checking');
-        //TODO mostrar modal con mensaje de error.
+        this.alertService.error('There was an error, please try again later.', { keepAfterRouteChange: true, autoClose: true });
       }
     });
   }

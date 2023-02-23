@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserWishplatform } from 'src/app/interfaces/user_wishplatform';
 import { UserPlatform } from 'src/app/interfaces/user_platform';
 import { AuthService } from 'src/app/services/auth.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-info',
@@ -28,6 +29,7 @@ export class InfoComponent implements OnInit{
     private platformsService: PlatformsService,
     private usersService: UsersService,
     private authService: AuthService,
+    private alertService: AlertService
     ){
       this.platform = this.platformsService.platformData;
       console.log(this.platform);
@@ -53,7 +55,7 @@ export class InfoComponent implements OnInit{
       },
       error: error => {
         button.classList.remove('checking');
-        //TODO mostrar modal con mensaje de error.
+        this.alertService.error('There was an error, please try again later.', { keepAfterRouteChange: true, autoClose: true });
       }
     });
   }
@@ -77,7 +79,7 @@ export class InfoComponent implements OnInit{
         },
         error: error => {
           button.classList.remove('checking');
-          //TODO mostrar modal con mensaje de error.
+          this.alertService.error('There was an error, please try again later.', { keepAfterRouteChange: true, autoClose: true });
         }
       });
     }

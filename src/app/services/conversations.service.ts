@@ -27,10 +27,10 @@ export class ConversationsService {
   set conversation(conversation: Conversation){
     this._conversation = conversation;
   }
+
   get conversation(){
     return this._conversation;
   }
-
 
   private _conversations!: Conversation[];
   set conversations(conversations: Conversation[]){
@@ -40,11 +40,11 @@ export class ConversationsService {
     return this._conversations;
   }
 
-
   private _messages!: Message[];
   set messages(messages: Message[]){
     this._messages = messages;
   }
+
   get messages(){
     return this._messages;
   }
@@ -98,7 +98,8 @@ export class ConversationsService {
     return this.http.get<any>(URLService, {headers}).pipe(
       tap(resp => {
         this.conversation = resp;
-      }));
+      })
+    );
 
   }
 

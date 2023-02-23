@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 //import { UserInfoComponent } from './user-info/user-info.component';
 import { UserGameListComponent } from './user-game-list/user-game-list.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 //import { UserPlatformListComponent } from './user-platform-list/user-platform-list.component';
 
 
@@ -10,6 +11,10 @@ const routes: Routes = [
   {
     path: '',
     children: [
+      {
+        path: '',
+        component: UserInfoComponent,
+      },
       {
         path: 'collection',
         component: UserGameListComponent,

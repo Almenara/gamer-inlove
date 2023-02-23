@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { GameData } from 'src/app/interfaces/game_data';
 import { UserWishgame } from 'src/app/interfaces/user_wishgame';
+import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { GamesService } from 'src/app/services/games.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -31,7 +32,8 @@ export class AddToWishlistComponent implements OnInit{
 
   constructor( 
     private gamesService: GamesService, 
-    private usersService: UsersService, 
+    private usersService: UsersService,
+    private alertService: AlertService, 
     public router: Router, 
     private authService: AuthService ) {
       this.game = this.gamesService.gameData;
@@ -64,7 +66,7 @@ export class AddToWishlistComponent implements OnInit{
       },
       error: error => {
         button.classList.remove('checking');
-        //TODO mostrar modal con mensaje de error.
+        this.alertService.error('There was an error, please try again later.', { keepAfterRouteChange: true, autoClose: true });
       }
     });
   }

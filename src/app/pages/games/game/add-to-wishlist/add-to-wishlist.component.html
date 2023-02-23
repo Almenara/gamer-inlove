@@ -1,8 +1,8 @@
 <div *ngIf="auth.ok && game.game.platforms" class="mt-4">
 
-    <h3>I wish having {{game.game.name}} on these platform<ng-container *ngIf="game.game.platforms.length > 1">s</ng-container>:</h3>
+    <h4 class="mb-4">I wish having {{game.game.name}} on these platform<ng-container *ngIf="game.game.platforms.length > 1">s</ng-container>:</h4>
     
-    <div *ngIf="userWishlist" class="platforms d-flex justify-content-md-start flex-wrap gap-3">
+    <div *ngIf="userWishlist" class="platforms d-flex justify-content-md-start flex-wrap gap-3 mb-5">
         <div (click)="toggleToUserWishlist(platform.id, $event)" [ngClass]="{'checked erasable': userWishlist[platform.id]}" (mouseout)="addDeleteClass($event)" *ngFor="let platform of game.game.platforms" class="platform btn check-btn wishlist">
             {{platform.name}}
         </div>      

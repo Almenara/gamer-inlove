@@ -17,7 +17,7 @@
         <h6>{{platform.name}}</h6>
     </div>
 </a>
-<a *ngIf="user" (click)="closeSearch()" class="d-flex flex-column justify-content-center align-items-center platform-data" [routerLink]="[ '/user/',  user.id + '-' + user.username ,'collection']">
+<a *ngIf="user" (click)="closeSearch()" class="d-flex flex-column justify-content-center align-items-center platform-data" [routerLink]="[ '/user/',  user.id + '-' + user.username ]">
     <app-logo [name]="user.username" [img]="user.avatar? user.avatar : ''" [user]="true" [alphaChannel]="false"></app-logo>
     <div class="platform-info">
         <h6>{{user.username}}</h6>

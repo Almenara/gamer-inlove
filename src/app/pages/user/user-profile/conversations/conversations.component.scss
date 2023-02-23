@@ -1,27 +1,18 @@
 @import '../../../../../vars';
-h3{
-    margin: 0;
-    padding: 20px 0;
-    position: sticky;
-    top:2px;
-    border-bottom: 1px solid $black;
-    z-index: 2;
-    background-color: $beige;
-    padding-top: 70px;
-    &:first-child{
-        top:52px;
-        padding-top: 20px;
-    }
-    .btn{
-        margin-right: 4px;
-        margin-top: 4px;
-        min-width: max-content;
-    }
-}
+
 #conversations{
     overflow: hidden;
     position: relative;
     left: 0;
+    h3{
+        margin: 0;
+        padding: 20px 0;
+        position: sticky;
+        top: 0px;
+        border-bottom: 1px solid #36363C;
+        z-index: 2;
+        background-color: #FDF9F3;
+    }
     &.showChat{
         #conversationsList{
             left: -100vw;
@@ -31,43 +22,59 @@ h3{
         }
     }
     #conversationsList{
-        left: 0;
-        position: relative;
-        width: calc(100vw - 42px);
-        min-width: calc(100vw - 42px);
+        min-width: 100%;
         .conversation{
-            padding: 20px;
+            cursor: pointer;
             border: 1px solid $black;
-            border-top: 0;
-            app-cover{
-                width: 112px;
-                height: 130px;
-                min-width: 112px;
-                min-height: 130px;
-                padding: 8px 20px 0 0;
-                @media (min-width: 576px) {
-                    width: 135px;
-                    height: 170px;
-                    min-width: 135px;
-                    min-height: 170px;
-                    padding: 8px 20px 0 0;
+            border-top: none;
+            padding: 20px;
+            &:hover{
+                background-color: $violet;
+            }
+            .userImage{
+                background-color: $yellow;
+                border: 1px solid $black;
+                padding: 50px;
+                background-position: center center;
+                background-size: cover;
+                margin-right: 20px;
+                margin-bottom: 20px;
+                max-height: 100px;
+            }
+            .saleInfo{
+                border-top: 1px solid $black;
+                padding-left: 8px;
+                padding-top: 8px;
+                .userInfo{
+                    margin-top: -5px;
+                    @media (min-width: 768px) {
+                        margin-top: -5px;
+                    }
+                    h3{
+                        font-size: 18px;
+                        line-height: 24px;
+                        @media (min-width: 768px) {
+                            font-size: 20px;
+                            line-height: 24px;
+                        }
+                    }
+                    .country{
+                        margin-top: -10px;
+                    }
                 }
-                @media (min-width: 768px) {
-                    width: 112px;
-                    height: 130px;
-                    min-width: 112px;
-                    min-height: 130px;
-                    padding: 8px 20px 0 0;
-                }
-                @media (min-width: 1200px) {
-                    width: 135px;
-                    height: 170px;
-                    min-width: 135px;
-                    min-height: 170px;
-                    padding: 8px 20px 0 0;
+                .price{
+                    font-weight: 700;
                 }
             }
+            app-cover{
+                min-width: 102px;
+                width: 102px;
+                height: 136px;
+                margin-left: 20px;
+            }
         }
+    
+       
         .game-collection-info{
             flex-direction: row;
             h4{
@@ -131,6 +138,29 @@ h3{
             height: 200px;
             border: 1px solid $black;
             border-top: none;
+        }
+    }
+    #buyingList{
+        .userImage{
+            margin-right: 0!important;
+            margin-left: 20px;
+            margin-bottom: 0!important;
+        }
+        app-cover{
+            margin-right: 20px;
+            margin-left: 0!important;
+        }
+
+        .saleInfo{
+            border-top: 1px solid $black;
+            padding-left: 0!important;
+            padding-right: 8px;
+        }
+
+        .conversation{
+            &:hover{
+                background-color: $blue;
+            }
         }
     }
 }

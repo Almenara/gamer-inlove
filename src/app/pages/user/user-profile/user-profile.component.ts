@@ -71,6 +71,7 @@ export class UserProfileComponent {
             this.usersService.getUserById(id).subscribe({
               next:(resp)=>{
                 this.userProfile = resp;
+                //TODO al recargar la pagina no puede leer this.user.id
                 if(this.auth.ok && this.user.id == id){
                   this.router.navigate(['/profile']);
                 };

@@ -11,6 +11,7 @@ import { User } from 'src/app/interfaces/user';
 import { UserWishgame } from 'src/app/interfaces/user_wishgame';
 import { UserWishplatform } from 'src/app/interfaces/user_wishplatform';
 import { UserPlatform } from 'src/app/interfaces/user_platform';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-user-game-list',
@@ -63,7 +64,8 @@ export class UserGameListComponent implements OnInit {
     private usersService: UsersService,
     private modalsService: ModalsService,
     private modalService: NgbModal,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private alertService: AlertService
     ){
       this.product = this.route.snapshot.data['product'];
       this.filter = this.route.snapshot.data['filter'];
@@ -98,7 +100,7 @@ export class UserGameListComponent implements OnInit {
             this.loadingMoreContent = this.nextPageUrl ? true: false;
           },
           error: error => {
-            //TODO arlerta
+            this.alertService.error('There was an error, please try again later.', { keepAfterRouteChange: true, autoClose: true });
             console.log(error);
           }
         })
@@ -112,7 +114,7 @@ export class UserGameListComponent implements OnInit {
             this.loadingMoreContent = this.nextPageUrl ? true: false;
           },
           error: error => {
-            //TODO arlerta
+            this.alertService.error('There was an error, please try again later.', { keepAfterRouteChange: true, autoClose: true });
             console.log(error);
           }
         })
@@ -126,7 +128,7 @@ export class UserGameListComponent implements OnInit {
             this.loadingMoreContent = this.nextPageUrl ? true: false;
           },
           error: error => {
-            //TODO arlerta
+            this.alertService.error('There was an error, please try again later.', { keepAfterRouteChange: true, autoClose: true });
             console.log(error);
           }
         })

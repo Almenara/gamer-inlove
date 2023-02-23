@@ -9,6 +9,8 @@ import { MessagesService } from 'src/app/services/messages.service';
 import { ModalsService } from 'src/app/services/modals.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Conversation } from 'src/app/interfaces/conversation';
+import { AlertService } from 'src/app/services/alert.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-chat',
@@ -18,7 +20,8 @@ import { Conversation } from 'src/app/interfaces/conversation';
 export class ChatComponent implements OnInit {
   //@Input() public messages!: Message[];
 
-  @ViewChild('conversation') chat!: ElementRef;
+  @ViewChild('conversationContainer') chat!: ElementRef;
+  @ViewChild('messageInput') messageInput!: ElementRef;
 
   private id: number = 0
   public user!: User;
@@ -34,10 +37,12 @@ export class ChatComponent implements OnInit {
       private fb: FormBuilder, 
       private conversationsService: ConversationsService,
       private messagesService: MessagesService,
-      private router: Router, 
       private route: ActivatedRoute, 
       private authService: AuthService,
-      private deviceDetectorService: DeviceDetectorService
+      private deviceDetectorService: DeviceDetectorService,
+      private alertService: AlertService,
+      private modalsService: ModalsService,
+      private modalService: NgbModal,
     ){
       this.user = this.authService.user;
       this.messages = this.conversationsService.messages;
@@ -49,6 +54,7 @@ export class ChatComponent implements OnInit {
     this.user = this.authService.user;
     this.messages = this.conversationsService.messages;
     this.conversation = this.conversationsService.conversation;
+
     
     this.authService.userDataSubject.subscribe(data => {
       this.user = data;
@@ -62,12 +68,13 @@ export class ChatComponent implements OnInit {
       this.conversationsService.getConversation(this.id).subscribe({
         next: resp => { 
           this.conversation = resp
+          this.chat.nativeElement.scrollTo(0, this.chat.nativeElement.scrollHeight);
         }
       })
       
     });
     this.refreshMessages();    
-  }
+   }
   refreshMessages(){
     this.conversationsService.getChat(this.id).subscribe({
       next:(resp)=>{
@@ -79,6 +86,9 @@ export class ChatComponent implements OnInit {
         //console.log(error);
     }});     
   }
+  
+  
+
   sendMessage(){
     
     let message:Message = {
@@ -91,33 +101,46 @@ export class ChatComponent implements OnInit {
       malicious_message:      false,
       message:                this.contactForm.value.message,
     }
+
+    let textArea = this.messageInput.nativeElement as HTMLInputElement
+    textArea.style.height = `28px`;
     this.contactForm.reset();
     this.messagesService.sendMessage(message).subscribe({
       next:(resp)=>{
         this.messages.push(resp.data);
-        this.conversationsService.getChat(this.id).subscribe({
-          next:(resp)=>{
-            this.messages = resp.data;
-          },
-          error:(error)=>{
-            console.log(error);
-            this.router.navigate(['/404']);
-        }});
+        this.chat.nativeElement.scrollTo(0, this.chat.nativeElement.scrollHeight);
+        this.contactForm.reset();
       },
-      error:(error)=>{
-        //TODO notificacion
-        console.log(error);
+      error:()=>{
+        this.alertService.error('There was an error, please try again later.', { keepAfterRouteChange: true, autoClose: true });
       }
     });
+
   }
   sendIfEnter(event: KeyboardEvent){
+
+    let textarea = this.messageInput.nativeElement as HTMLInputElement
+    textarea.style.height = `${textarea.scrollHeight}px`;
+
     if(this.deviceDetectorService.isDesktop()){
-       if(event.isTrusted && event.key === 'Enter') this.sendMessage();
+       if(event.isTrusted && event.key === 'Enter' && !event.shiftKey) this.sendMessage();
     }
+    
+    if ((event.key === 'Backspace' || event.key === 'Delete') && textarea.value.length === 0) {
+      const minHeight = 28;
+      const maxHeight = parseInt(textarea.style.maxHeight);
+      const contentHeight = textarea.scrollHeight - textarea.clientHeight;
+      const newHeight = Math.min(maxHeight, Math.max(minHeight, contentHeight));
+      textarea.style.height = `${newHeight}px`;
+    }
+
   }
   ngOnDestroy(): void {
     this.destroy = true;
     document.querySelector('html')!.classList.remove('chating');
     document.querySelector('app-footer')!.classList.remove('chating');
+  }
+  openConfirmSellGameModal(){
+    this.modalsService.openModal('confirmSellGame');
   }
 }

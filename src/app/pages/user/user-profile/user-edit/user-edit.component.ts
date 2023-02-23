@@ -4,6 +4,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { User } from 'src/app/interfaces/user';
 import { UsersService } from 'src/app/services/users.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -34,7 +35,7 @@ export class UserEditComponent {
   constructor( 
     private fb: FormBuilder, 
     private usersService: UsersService,
-    private authService:AuthService,
+    private alertService: AlertService,
     private router : Router  ){
 
       this.usersService.getUserProfile().subscribe({
@@ -74,8 +75,7 @@ export class UserEditComponent {
     const inputImg = e.files
     if (inputImg) {
       if(inputImg[0].size > 1100000)
-      //TODO SISTEMA DE ALERTAS
-        alert('Please image no more than 1MB.')
+      this.alertService.warn('The image must not weigh more than 1Mb', { keepAfterRouteChange: true, autoClose: true });
       else{
         this.img = URL.createObjectURL(inputImg[0])
         
@@ -105,8 +105,8 @@ export class UserEditComponent {
     }
     this.usersService.editUser(user).subscribe({
       next: () => {
-        //TODO ENSAJE DE CAMBIOS HECHOS CORRECTAMENTE
-        this.router.navigate(['/profile/collection'])
+        this.alertService.success('The changes have been made successfully!', { keepAfterRouteChange: true, autoClose: true });
+        this.router.navigate(['/profile'])
       },
       error: error => console.log(error)
     });

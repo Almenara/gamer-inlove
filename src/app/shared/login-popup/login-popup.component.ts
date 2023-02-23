@@ -61,7 +61,6 @@ export class LoginPopupComponent implements OnInit {
         if(resp.ok){
           this.alertService.success('Loged successfuly!', { keepAfterRouteChange: true, autoClose: true });
           this.loginModalService.dismissAll();
-          this.router.navigate(['/profile'])
         } 
         else{
         }

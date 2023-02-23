@@ -36,7 +36,7 @@
                 <div class="d-flex flex-column align-items-end justify-content-between flex-fill">
                     <div class="userInfo w-100">
                         <h3>{{game.user?.username}}</h3>
-                        <h6>({{game.user?.address?.country}})</h6>
+                        <h6 class="country">({{game.user?.address?.country}})</h6>
                     </div>
                     <div class="w-100">
                         <h3 class="d-flex mb-0 justify-content-between">
@@ -46,7 +46,7 @@
                             <ng-template #platformName>
                                     {{game.platform.name}}
                             </ng-template>
-                            <div *ngIf="game.for_sale">{{game.price | currency}}</div>
+                            <div class="price" *ngIf="game.for_sale">{{game.price | currency}}</div>
                         </h3>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
             <span>Condition: <b>{{game.status | titlecase }}</b></span>
             <span *ngIf="game.comments">Comments: {{game.comments}}</span>
         </p>
-        <div class="float-end w-auto">
+        <div *ngIf="user.id != game.user_id" class="float-end w-auto">
             <div *ngIf="game.for_sale && user" class="d-flex justify-content-end gap-2 mt-4">
                 <div *ngIf="user.address" class="btn me-1" (click)="openContactModal(game)">Contact to buy</div>
                 <div *ngIf="!user.address" class="btn me-1" (click)="openAddressModal()">Contact to buy</div>

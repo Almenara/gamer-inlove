@@ -10,6 +10,7 @@ import { UserGame } from '../interfaces/user_game';
 import { UserPlatform } from '../interfaces/user_platform';
 import { UserWishplatform } from '../interfaces/user_wishplatform';
 import { AuthService } from './auth.service';
+import { UserStats } from '../interfaces/user_stats';
 
 @Injectable({
   providedIn: 'root'
@@ -252,6 +253,21 @@ export class UsersService {
 
   }
 
+  getUserStats(id?:number): Observable<UserStats>{
+
+    let URLService = this._URLService + `/api/user/${id}/stats`;
+
+    let headers = new HttpHeaders();
+    headers = headers.append('Acept', 'application/json');
+    
+    if(!id){
+      URLService = this._URLService + `/api/profile/stats`; 
+      headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
+    } 
+    
+    return this.http.get<UserStats>(URLService,{ headers })
+  }
+
   editUser(user:User){
 
     const URLService = this._URLService + "/api/user/" + user.id;
@@ -260,7 +276,7 @@ export class UsersService {
     headers = headers.append('Acept', 'application/json');
     headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
     
-    return this.http.put<any>(URLService,user,{headers}).pipe(
+    return this.http.put<any>(URLService, user, { headers }).pipe(
       tap(resp => {
         this.user = resp.user;
         this.userProfileSubject.next(resp.user);
@@ -271,10 +287,12 @@ export class UsersService {
   editPassword(password: string, newpassword: string, id: number){
 
     const URLService = this._URLService + "/api/user/update-password/" + id;
+    this._token = this.getToken()!;
+  
     let headers = new HttpHeaders();
-      
     headers = headers.append('Acept', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
+    headers = headers.append('Authorization', `Bearer ${this._token}`);
+    
     const data:Object = {
       password: password,
       newpassword: newpassword
@@ -283,8 +301,8 @@ export class UsersService {
   }
 
   editAddress(address: Address){
-    const URLService = this._URLService + "/api/address/update" ;
 
+    const URLService = this._URLService + "/api/address/update";
     this._token = this.getToken()!;
 
     let headers = new HttpHeaders();
@@ -293,10 +311,8 @@ export class UsersService {
 
     return this.http.put<Address>(URLService, address, { headers }).pipe(
       tap(resp => {
-        if(resp){
-          this.user.address = resp;
-          this.userProfileSubject.next(this.user);
-        }
+        this.user.address = resp;
+        this.userProfileSubject.next(this.user);
       }));
   }
 
@@ -311,7 +327,7 @@ export class UsersService {
     return this.http.post<UserGame>(URLService, userGame, {headers});
   }
 
-  putGameSoldOut(userGame:UserGame){
+  putGameSoldOut(userGame:UserGame, price?:number, buyerUser?:User){
     
     const URLService = this._URLService + "/api/user/game-sold-out";
     let headers = new HttpHeaders();
@@ -319,7 +335,13 @@ export class UsersService {
     headers = headers.append('Acept', 'application/json');
     headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
 
-    return this.http.post<UserGame>(URLService, userGame, {headers});
+    if(buyerUser && price)
+      return this.http.post<UserGame>(URLService, {userGame, price, buyerUser}, {headers});
+    
+    else if(buyerUser )
+      return this.http.post<UserGame>(URLService, {userGame, buyerUser}, {headers});
+    
+    return this.http.post<UserGame>(URLService, {userGame}, {headers});
   }
 
   cancelGameForSale(userGame:UserGame){

@@ -1,7 +1,9 @@
+import { Router } from '@angular/router';
 import { UsersService } from './../../../../services/users.service';
 import { User } from './../../../../interfaces/user';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-password-edit',
@@ -21,15 +23,19 @@ export class PasswordEditComponent {
     password: ['', [Validators.required, Validators.minLength(6)]],
   })
 
-  constructor( private fb: FormBuilder, private usersService: UsersService ){
+  constructor( 
+    private fb: FormBuilder, 
+    private usersService: UsersService,
+    private router: Router,
+    private alertService: AlertService){
 
     if(!this.user){
       
-      this.usersService.getProfile().subscribe({next: resp => {
-        
-        this._user = resp;
-
-      }});
+      this.usersService.getProfile().subscribe({
+        next: resp => {
+          this._user = resp;
+        }
+      });
     }
   }
   
@@ -41,6 +47,12 @@ export class PasswordEditComponent {
       const newpassword = this.editPasswordForm.value.newpassword;
       const password = this.editPasswordForm.value.password;
     
-    this.usersService.editPassword(password, newpassword, id!).subscribe({next: resp => console.log(resp), error: error => console.log(error)});
+    this.usersService.editPassword(password, newpassword, id!).subscribe({
+      next: resp => {
+        this.alertService.success('Password edited successfuly!', { keepAfterRouteChange: true, autoClose: true });
+        this.router.navigate(['/profile']);
+      }, 
+      error: error => this.alertService.error('There was an error, please try again later.', { keepAfterRouteChange: true, autoClose: true })
+    });
   }
 }

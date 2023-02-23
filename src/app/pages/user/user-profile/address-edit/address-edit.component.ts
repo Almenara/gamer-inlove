@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Address, User } from 'src/app/interfaces/user';
 import { UsersService } from 'src/app/services/users.service';
 import { Subject } from 'rxjs';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-address-edit',
@@ -21,6 +22,7 @@ export class AddressEditComponent {
     private fb: FormBuilder, 
     private usersService: UsersService,
     private authService: AuthService,
+    private alertService: AlertService,
     private router: Router ){
       
       this.authService.userDataSubject.subscribe(data => {
@@ -43,12 +45,12 @@ export class AddressEditComponent {
     }
     this.usersService.editAddress(address).subscribe({
       next: resp => {
-        console.log(resp)
-        /*let user = this.user;
-        user.address = resp.data.address;
-        this.authService.user.address = resp.data.address;*/
+        this.alertService.success('Address edited successfuly!', { keepAfterRouteChange: true, autoClose: true });
+        this.router.navigate(['/profile'])
       },
-      error: error => console.log(error)
+      error: error => {
+        this.alertService.error('There was an error, please try again later.', { keepAfterRouteChange: true, autoClose: true })
+      }
     });
   }
 }

@@ -1,143 +1,50 @@
 @import '../../../../../vars';
-h3{
-    margin: 0;
-    padding: 20px 0;
-    position: sticky;
-    top:2px;
-    border-bottom: 1px solid $black;
-    z-index: 2;
-    background-color: $beige;
-    padding-top: 70px;
-    &:first-child{
-        top:52px;
-        padding-top: 20px;
-    }
-    .btn{
-        margin-right: 4px;
-        margin-top: 4px;
-        min-width: max-content;
-    }
-}
-
-.game-wish-list,
-.game-list{
-    app-cover{
-        width: 112px;
-        height: 130px;
-        min-width: 112px;
-        min-height: 130px;
-        padding: 8px 20px 0 0;
-        @media (min-width: 576px) {
-            width: 135px;
-            height: 170px;
-            min-width: 135px;
-            min-height: 170px;
-            padding: 8px 20px 0 0;
-        }
-        @media (min-width: 768px) {
-            width: 112px;
-            height: 130px;
-            min-width: 112px;
-            min-height: 130px;
-            padding: 8px 20px 0 0;
-        }
-        @media (min-width: 1200px) {
-            width: 135px;
-            height: 170px;
-            min-width: 135px;
-            min-height: 170px;
-            padding: 8px 20px 0 0;
-        }
-    }
-    .game{
-        padding: 20px;
+#UserCollectionInfo{
+    #avatar{
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        height: 200px;
+        width: 200px;
+        background-color: $orange;
+        border-radius: 100px;
         border: 1px solid $black;
-        border-top: 0;
     }
-    .game-collection-info{
-        flex-direction: row;
+    padding-top: 20px;
+    .stat{
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 40px;
+
         h4{
-            word-wrap: break-word;
-            margin-bottom: 0.5rem;
+            margin-bottom: 20px;
+        }
+        h5{
+            font-size: 20px;
             font-weight: 600;
-            line-height: 1;
-            font-size:1rem;
-            @media (min-width: 576px) {
-                margin-bottom: 0.5rem;
-                font-weight: 600;
-                line-height: 1.2;
-                font-size: 1.5rem;
-            }
-            @media (min-width: 768px) {
-                margin-bottom: 0.5rem;
-                font-weight: 600;
-                line-height: 1;
-                font-size: 1rem;
-            }
-            @media (min-width: 1200px) {
-                margin-bottom: 0.5rem;
-                font-weight: 600;
-                line-height: 1.2;
-                font-size: 1.5rem;
-            }
+            margin-bottom: 0;
+            font-family: 'Montserrat', sans-serif;
         }
-        span{
-            display: inline-block;
-            padding: 3px 8px;
-            border: 1px solid #36363C;
-            max-width: max-content;
-            border-radius: 50px;
-            font-size: 12px;
-            background-color: #FDF9F3;
-            margin-left: 20px;
-            min-width: max-content;
-            font-weight: 400;
-            line-height: 12px;
-            @media (min-width: 576px) {
-                line-height: 20px;
-            }
-            @media (min-width: 768px) {
-                line-height: 12px;
-            }
-            @media (min-width: 1200px) {
-                line-height: 20px;
-            }
+        .separator{
+            display: block;
+            width: 100%;
+            min-width: 8px;
+            margin: 0 15px;
+            height: 8px;
+            background-color: $green;
+            border: 1px solid $black;
+            border-radius: 30px;
         }
-    }
 
-    p{
-        margin-bottom: 0.5rem;
-        font-weight: 400;
-        line-height: 1.2;
-        font-size:1rem;
-        b{
+        @media (min-width: 576px) {
+            font-size: 20px;
             font-weight: 500;
+            margin-bottom: 50px;
         }
     }
-}
-
-.platform-wish-list,
-.platform-list{
-    app-logo{
-        max-width: 100px;
-    }
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    overflow-x: scroll;
-    margin: 0;
-    padding: 30px 0 15px 0;
-    border: 1px solid black;
-    border-top: none;
-    .platform{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        justify-items: center;
-        padding: 0 20px;
-        width: 180px;
-        h6{
-            margin-top: 20px;
-        }
+    app-cover{
+        margin-top: 30px;
+        width: 200px;
+        height: 265px;
     }
 }
