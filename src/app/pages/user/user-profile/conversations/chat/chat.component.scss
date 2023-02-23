@@ -1,6 +1,20 @@
 @import '../../../../../../vars';
 
 #chatContainer{
+    #conversation-title{
+        gap: 20px;
+        border-bottom: 1px solid $black;
+        width: calc(100% + 40px);
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 23px;
+        padding: 20px;
+        margin-left: -20px;
+        h6{
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+    }
     height: calc(100vh - 73px);
     #conversation{
         overflow-x: auto;
@@ -8,63 +22,56 @@
         scroll-behavior: smooth;
         margin-right: -20px;
         padding-right: 20px;
+        border-bottom: 20px solid $beige;
         .messages{
             background-color: $blue;
             padding: 5px 15px;
             border-radius: 30px 30px 30px 3px;
             margin-right: 15%;
-            word-break: break-all;
-            max-width: wrap;
+            margin-left: 0px;
+            word-wrap: normal;
+            max-width: max-content;
+            text-align: start;
             &.sended{
                 align-self: flex-end;
                 margin-right: 0px;
                 margin-left: 15%;
                 background-color: $green;
                 border-radius: 30px 30px 3px 30px;
+                text-align: end;
             }
             &:first-child{
-                margin-top: auto;
+                margin-top: 30px;
+            }
+            &:last-child{
+                margin-bottom: 30px;
             }
         }
     }
-    #inputContainer{
-        position: relative;
-        margin:20px 0 0;
-        height: fit-content;
+    form{
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: end;
         padding: 12px 11px 45px;
         border-radius: 30px;
         border: solid 1px $black;
-        &:focus-within,
-        &:active{
-            box-shadow: inset 0 0 0 2px #36363c;
-        }
-
-        @media (min-width: 768px) {
-
-            padding: 12px 11px 6px;
-        }
-
-        #messageInput,
-        #messageInput.ng-touched,
-        #messageInput.ng-invalid{
-            border-radius: 5px;
-            border: none;
-            height: fit-content;
-            height: 112px;
-            max-height: 150px;
-            padding: 0 0 0 0;
-            line-height: 28px;
-            overflow-y:scroll;
+        #inputContainer{
+            width: 100%;
+            max-height: 75px;
+            position: relative;
+            overflow-y: auto;
             overflow: -moz-scrollbars-vertical;
             scroll-margin: 20px;
             box-shadow: none;
-            &:focus{
-                box-shadow: none;
-            }
+            position: relative;
+            height: fit-content;
+            scroll-behavior: auto;
+
             &::-webkit-scrollbar {
                 -webkit-appearance: none;
                 width: 15px;
-              }
+            }
             &::-webkit-scrollbar-thumb {
                 border-radius: 50px;
                 background-color: $beige;
@@ -74,16 +81,34 @@
 
                 padding: 0 85px 0 0;
             }
+            @media (min-width: 768px) {
+
+                padding: 12px 11px 6px;
+            }
+
+            #messageInput,
+            #messageInput.ng-touched,
+            #messageInput.ng-invalid{
+                scroll-behavior: auto;
+                overflow: hidden;
+                border-radius: 5px;
+                line-height: 28px;
+                border: none;height: auto;
+                min-height: 28px;
+                max-height: 94px;
+                padding: 0;
+                &:focus{
+                    box-shadow: none;
+                }
+            }
         }
         button{
             top: auto;
-            bottom: 15px;
-            right: 15px;
-            position: absolute;
             padding: 0 16px;
             height: 28px;
             width: fit-content;
             min-width: auto;
+            margin-bottom: -30px;
             &::before{
                 height: 28px;
                 top: 0;
@@ -101,9 +126,10 @@
                     right: 0px;
                 }
             }
-            @media (min-width: 768px) {
-                right: 35px;
-            }
+        }
+        &:focus-within,
+        &:active{
+            box-shadow: inset 0 0 0 2px #36363c;
         }
     }
 }

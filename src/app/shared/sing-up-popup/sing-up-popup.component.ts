@@ -104,7 +104,7 @@ export class SingUpPopupComponent implements OnInit {
           this.signUpForm.controls[field].setErrors({'incorrect': true});
           this.signUpForm.controls[field].markAsTouched();
         });
-        //TODO modal alert errors
+        this.alertService.error('There was an error, please try again later.', { keepAfterRouteChange: true, autoClose: true });
         this.errorMessages = Object.keys(error.error.data).map(key => (error.error.data[key]));
       }
     });

@@ -1,3 +1,4 @@
+import { AlertService } from './../../services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -31,7 +32,7 @@ export class ContactPopupComponent implements OnInit {
 
   constructor( 
     private fb: FormBuilder, 
-    private usersService: UsersService,
+    private alertService: AlertService,
     private authService: AuthService,
     private messagesService: MessagesService,
     private modalsService: ModalsService,
@@ -59,6 +60,7 @@ export class ContactPopupComponent implements OnInit {
       sender_user_id:         this.user.id,
       receiving_user_id:      this.userGame.user_id,
       product_id:             this.userGame.game_id,
+      platform_id:            this.userGame.platform_id,
       seen:                   false,
       malicious_message:      false,
       message:                this.contactForm.value.message,
@@ -66,10 +68,11 @@ export class ContactPopupComponent implements OnInit {
     this.messagesService.sendMessage(message).subscribe({
       next:(resp)=>{
         this.close();
+        this.alertService.success('Message sended successfuly!', { keepAfterRouteChange: true, autoClose: true });
       },
       error:(error)=>{
-        //TODO notificacion
-        console.log(error)
+        this.close();
+        this.alertService.error('There was an error, please try again later.', { keepAfterRouteChange: true, autoClose: true });
       }
     });
   }

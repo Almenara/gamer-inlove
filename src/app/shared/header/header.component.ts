@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
   public searchOpened: boolean = false;
 
   public searchResult: any;
+  public noResults: boolean = false;
   public games!: Game[];
   public platforms!: Platform[];
   public companies!: Company[];
@@ -127,6 +128,7 @@ export class HeaderComponent implements OnInit {
   }
 
   search() {
+    this.noResults = false;
     this.query = this.input.nativeElement.value;
     if(this.query != ''){
       this.searchResult = null;
@@ -144,6 +146,10 @@ export class HeaderComponent implements OnInit {
           this.companies = this.searchResult.companies;
           this.users = this.searchResult.users;
           this.nextPageUrl = this.searchResult.games.next_page_url
+
+          if(!this.games.length && !this.platforms.length && !this.users.length && !this.companies.length)
+            this.noResults = true;
+
         }
       })
     }

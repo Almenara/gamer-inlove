@@ -11,6 +11,7 @@ import { AddressEditComponent } from './address-edit/address-edit.component';
 import { ConversationsComponent } from './conversations/conversations.component';
 import { ChatComponent } from './conversations/chat/chat.component';
 import { AuthGuard } from 'src/app/guards/auth.guard';
+import { UserInfoComponent } from './user-info/user-info.component';
 //import { UserPlatformListComponent } from './user-platform-list/user-platform-list.component';
 
 
@@ -19,6 +20,10 @@ const routes: Routes = [
     path: 'profile',
     component: UserProfileComponent, 
     children: [
+      {
+        path: '',
+        component: UserInfoComponent,
+      },
       {
         path: 'collection',
         component: UserGameListComponent,

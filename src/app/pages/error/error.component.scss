@@ -31,6 +31,9 @@ article{
                 font-size: 14vw;
                 margin-bottom: 50px;
             }
+            @media (min-width: 992px){
+                font-size: 170px;
+            }
         }
         h2{ 
             text-align: center;

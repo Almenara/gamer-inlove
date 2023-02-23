@@ -7,6 +7,7 @@ import { ModalsService } from 'src/app/services/modals.service';
 import { Address } from 'src/app/interfaces/user';
 import { UsersService } from 'src/app/services/users.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-address-popup',
@@ -24,6 +25,7 @@ export class AddressPopupComponent implements OnInit {
     private usersService: UsersService,
     private authService: AuthService,
     private modalsService: ModalsService,
+    private alertService: AlertService,
     private addressModalService: NgbModal){
 
     this.addUserAddressForm = this.fb.group({
@@ -48,8 +50,12 @@ export class AddressPopupComponent implements OnInit {
         this.usersService.user.address = resp.data;
         this.authService.user.address = resp.data;
         this.close();
+        this.alertService.success('Address added successfuly!', { keepAfterRouteChange: true, autoClose: true });
       },
-      error: error => console.log(error)
+      error: error => {
+        this.close();
+        this.alertService.error('There was an error, please try again later.', { keepAfterRouteChange: true, autoClose: true });
+      }
     });
   }
   ngOnInit(): void {

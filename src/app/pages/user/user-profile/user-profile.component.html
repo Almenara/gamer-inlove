@@ -9,33 +9,36 @@
                 <div id="profile-info" [ngClass]="{'profile': user}" class="d-flex flex-column align-items-start justify-content-start">
                     <ul *ngIf="(!userProfile) || userProfile?.id == user?.id" class="user-edit">
                         <li *ngIf="user?.address" class="sub-menu-edit">
-                            <a [routerLink]="[ 'address-edit' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Edit your address</a>
+                            <a class="sub-menu" [routerLink]="[ 'address-edit' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Edit your address</a>
                         </li>
                         <li *ngIf="!user?.address" class="sub-menu-edit">
-                            <a [routerLink]="[ 'address-add' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Add your address</a>
+                            <a class="sub-menu" [routerLink]="[ 'address-add' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Add your address</a>
                         </li>
                         <li class="sub-menu-edit">
-                            <a [routerLink]="[ 'edit' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Edit data</a>
+                            <a class="sub-menu" [routerLink]="[ 'edit' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Edit data</a>
                         </li>
                         <li class="sub-menu-edit">
-                            <a [routerLink]="[ 'password-edit' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Change Password</a>
+                            <a class="sub-menu" [routerLink]="[ 'password-edit' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Change Password</a>
                         </li>
                     </ul>
                     <ul id="user-menu" class="sub-menu d-flex flex-column">
                         <li class="sub-menu-option">
-                            <a [routerLink]="[ 'collection' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">Collection</a>
+                            <a class="sub-menu" [routerLink]="[ './' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">Profile</a>
                         </li>
                         <li class="sub-menu-option">
-                            <a [routerLink]="[ 'for-sale' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">For sale</a>
+                            <a class="sub-menu" [routerLink]="[ 'collection' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">Collection</a>
                         </li>
                         <li class="sub-menu-option">
-                            <a [routerLink]="[ 'wishlist' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">Wishlist</a>
+                            <a class="sub-menu" [routerLink]="[ 'for-sale' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">For sale</a>
+                        </li>
+                        <li class="sub-menu-option">
+                            <a class="sub-menu" [routerLink]="[ 'wishlist' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">Wishlist</a>
                         </li>
                         <li *ngIf="(!userProfile) || userProfile?.id == user?.id" class="sub-menu-option">
-                            <a [routerLink]="[ 'conversations' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">Conversations</a>
+                            <a class="sub-menu" [routerLink]="[ 'conversations' ]" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">Conversations</a>
                         </li>
                         <!--li class="sub-menu-option">
-                            <a [routerLink]="[ 'contributions' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">Contributions</a>
+                            <a class="sub-menu" [routerLink]="[ 'contributions' ]"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false }">Contributions</a>
                         </li-->
                     </ul>
                 </div>

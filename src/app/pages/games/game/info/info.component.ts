@@ -1,11 +1,14 @@
-import { ModalsService } from './../../../../services/modals.service';
-import { AuthService } from './../../../../services/auth.service';
-import { GameData } from './../../../../interfaces/game_data';
 import { Component, ElementRef, ViewChild, HostListener } from '@angular/core';
+
+import { environment } from 'src/environments/environment';
+
+import { AuthService } from 'src/app/services/auth.service';
 import { GamesService } from 'src/app/services/games.service';
+import { ModalsService } from 'src/app/services/modals.service';
+
 import { UserGame } from 'src/app/interfaces/user_game';
 import { User } from 'src/app/interfaces/user';
-import { environment } from 'src/environments/environment';
+import { GameData, GameSold } from 'src/app/interfaces/game_data';
 
 @Component({
   selector: 'app-info',
@@ -21,7 +24,7 @@ export class InfoComponent {
   public lastSoldPrice: number = 0;
   public forSaleCheaperPrice: number = 0;
   public totalForSale: number = 0;
-  public lastSold: UserGame | undefined;
+  public lastSold: GameSold | undefined;
 
   public gameForSale!: UserGame[];
 
@@ -85,6 +88,9 @@ export class InfoComponent {
         this.averagePrice = this.gameData.stats.sold.reduce((acc, curr) => {
           return acc + curr.price
         },0)/this.gameData.stats.sold.length;
+        this.lastSold = this.gameData.stats.sold.reduce((prev, curr) => {
+            return (prev.updated_at < curr.updated_at) ? prev : curr;
+        });
 
       }
 
@@ -98,9 +104,6 @@ export class InfoComponent {
             return (prev.price < curr.price) ? prev : curr;
           }).price;
 
-          this.lastSold = forSale.reduce((prev, curr) => {
-              return (prev.updated_at < curr.updated_at) ? prev : curr;
-          });
         }
       }
     }

@@ -6,6 +6,7 @@ import { GameData } from 'src/app/interfaces/game_data';
 import { AuthService } from 'src/app/services/auth.service';
 import { GamesService } from 'src/app/services/games.service';
 import { UsersService } from 'src/app/services/users.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-add-to-collect',
@@ -32,7 +33,8 @@ export class AddToCollectComponent implements OnInit{
 
   constructor( 
     private gamesService: GamesService, 
-    private usersService: UsersService, 
+    private usersService: UsersService,
+    private alertService: AlertService,
     public router: Router, 
     private authService: AuthService ) {
       this.game = this.gamesService.gameData;
@@ -65,7 +67,7 @@ export class AddToCollectComponent implements OnInit{
         },
         error: error => {
           button.classList.remove('checking');
-          //TODO mostrar modal con mensaje de error.
+          this.alertService.error('There was an error, please try again later.', { keepAfterRouteChange: true, autoClose: true });
         }
       });
     }

@@ -5,32 +5,73 @@
 
             <h3 class="d-flex justify-content-between align-items-center">Selling</h3>
             <div class="conversation-list d-flex flex-column" *ngFor="let conversation of seller_conversations">
-                <div class="conversation">
-                    <div class="d-flex" *ngIf="conversation.game.cover">
-                        <app-cover [routerLink]="[ '/profile/conversations/' + conversation.id ]" [img]="conversation.game.cover ? conversation.game.cover : ''" [alphaChannel]="false"></app-cover>
-                        <div class="d-flex flex-column align-items-end justify-content-start flex-fill">
-                            <div class="game-collection-info w-100">
-                            Buyer:  {{conversation.buyer.username}}
+                <div [routerLink]="[ '/profile/conversations/' + conversation.id ]" class="conversation">
+
+                    <div class="info d-flex align-items-between">
+                        <div class="userImage d-none d-sm-flex d-md-none d-lg-flex" [ngStyle]="{ 'background-image': 'url(' + avatarURL + conversation.buyer.avatar + ')'}"></div>
+                        <div class="w-100 d-flex flex-column justify-content-between ">
+                            <div class="userInfo">
+                                <h5>Buyer: {{conversation.buyer.username}}</h5>
+                                <h6 class="country">({{conversation.buyer.address?.country}})</h6>
+                            </div>
+                            <div class="saleInfo d-flex align-items-end justify-content-end" *ngIf="conversation.game">
+                
+                                <div class="d-flex flex-column align-items-end">
+                                    <h5 class="d-flex flex-column text-end mb-0">
+                                        <span>
+                                            {{conversation.game.name}}
+                                        </span>
+                                        <span *ngIf="conversation.platform.abbreviation; else platformName">
+                                            {{conversation.platform.abbreviation}}
+                                        </span>
+                                        <ng-template #platformName>
+                                                {{conversation.platform.name}}
+                                        </ng-template>
+                                        <div class="price mt-auto" *ngIf="conversation.user_game?.for_sale">{{conversation.user_game.price | currency}}</div>
+                                    </h5>
+                                </div>
                             </div>
                         </div>
+                        <app-cover class="align-self-end" [routerLink]="[ '/profile/conversations/' + conversation.id ]" [img]="conversation.game.cover ? conversation.game.cover : ''" [alphaChannel]="false"></app-cover>
                     </div>
+
                 </div>
             </div>
         </div>
-        <div>
+        <div id="buyingList">
             <h2 *ngIf="!buyer_conversations || buyer_conversations.length == 0">no conversation buying</h2>
 
             <h3 class="d-flex justify-content-between align-items-center">Buying</h3>
             <div class="conversation-list d-flex flex-column" *ngFor="let conversation of buyer_conversations">
-                <div class="conversation">
-                    <div class="d-flex" *ngIf="conversation.game.cover">
-                        <app-cover [routerLink]="[ '/profile/conversations/' + conversation.id ]" [img]="conversation.game.cover ? conversation.game.cover : ''" [alphaChannel]="false"></app-cover>
-                        <div class="d-flex flex-column align-items-end justify-content-start flex-fill">
-                            <div class="game-collection-info w-100">
-                            Seller:  {{conversation.buyer.username}}
+                <div [routerLink]="[ '/profile/conversations/' + conversation.id ]" class="conversation">
+
+                    <div class="info d-flex align-items-between">
+                        <app-cover class="align-self-end" [routerLink]="[ '/profile/conversations/' + conversation.id ]" [img]="conversation.game.cover ? conversation.game.cover : ''" [alphaChannel]="false"></app-cover>
+                        <div class="w-100 d-flex flex-column justify-content-between ">
+                            <div class="userInfo align-items-end text-end">
+                                <h5>Buyer: {{conversation.seller.username}}</h5>
+                                <h6 class="country">({{conversation.seller.address?.country}})</h6>
+                            </div>
+                            <div class="saleInfo d-flex align-items-end justify-content-start" *ngIf="conversation.game">
+                                <div class="d-flex flex-column">
+                                    <h5 class="d-flex flex-column mb-0">
+                                        <span>
+                                            {{conversation.game.name}}
+                                        </span>
+                                        <span *ngIf="conversation.platform.abbreviation; else platformName">
+                                            {{conversation.platform.abbreviation}}
+                                        </span>
+                                        <ng-template #platformName>
+                                            {{conversation.platform.name}}
+                                        </ng-template>
+                                        <div class="price mt-auto" *ngIf="conversation.user_game?.for_sale">{{conversation.user_game.price | currency}}</div>
+                                    </h5>
+                                </div>
                             </div>
                         </div>
+                        <div class="userImage d-none d-sm-flex d-md-none d-lg-flex" [ngStyle]="{ 'background-image': 'url(' + avatarURL + conversation.seller.avatar + ')'}"></div>
                     </div>
+
                 </div>
             </div>
         </div>

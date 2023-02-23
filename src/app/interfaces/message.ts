@@ -7,6 +7,7 @@ export interface Message {
     sender_user_id:         undefined | number;
     receiving_user_id:      number;
     product_id:             number;
+    platform_id?:           number;
     message:                Text;
     seen:                   boolean;
     malicious_message:      boolean;

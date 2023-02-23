@@ -379,6 +379,9 @@
     }
 
     #search-result{
+        background-position: bottom center;
+        background-repeat: no-repeat;
+        background-size: calc(100% - 30px);
         overflow:scroll;
         overflow-x: hidden;
         z-index: 998;
@@ -392,9 +395,19 @@
         border: 1px solid $black;
         background-color: $beige;
         pointer-events: none;
+
         &.search-opened{
             clip-path: circle(150% at 50% 26px) !important;
             pointer-events: all!important;
+        }
+        &.no-result{
+            background-image: url('../../../../src/assets/images/illustrations/search.svg');
+        }
+        @media (min-width: 576px) { 
+            background-size: 500px auto;
+        }
+        @media (min-width: 768px) { 
+            background-size: 700px auto;
         }
         h1{
             margin-bottom: 10px;
@@ -406,7 +419,10 @@
             background-color: $beige;
             z-index: 2;
             border-bottom: solid 1px $black;
-            padding: 5px 0 18px;
+            padding: 10px 0;
+            min-height: 88px;
+            display: flex;
+            align-items: center;
         }
         .logo-list{
             display: flex;
@@ -478,8 +494,27 @@
                 }
             }
         }
-    }
+        #noResult{
+            display: flex;
+            max-width: 100%;
+            align-self: top;
+            font-size: 13vw;
+            line-height: 14vw;
+            margin: auto;
 
+            @media (min-width: 576px) { 
+                max-width: 500px;
+                font-size: 70px;
+                line-height: 70px;
+                background-color: $beige;
+            }
+            @media (min-width: 768px) { 
+                max-width: 550px;
+                font-size: 80px;
+                line-height: 80px;
+            }
+        }
+    }
 }
 
 #notificationList{
