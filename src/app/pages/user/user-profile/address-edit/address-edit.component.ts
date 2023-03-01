@@ -45,7 +45,7 @@ export class AddressEditComponent {
     }
     this.usersService.editAddress(address).subscribe({
       next: resp => {
-        this.alertService.success('Address edited successfuly!', { keepAfterRouteChange: true, autoClose: true });
+        this.alertService.success('Address edited successfully!', { keepAfterRouteChange: true, autoClose: true });
         this.router.navigate(['/profile'])
       },
       error: error => {

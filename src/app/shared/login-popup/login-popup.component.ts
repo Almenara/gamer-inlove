@@ -59,7 +59,7 @@ export class LoginPopupComponent implements OnInit {
     this.authService.login(email, password).subscribe({
       next: resp => {        
         if(resp.ok){
-          this.alertService.success('Loged successfuly!', { keepAfterRouteChange: true, autoClose: true });
+          this.alertService.success('Logged successfully!', { keepAfterRouteChange: true, autoClose: true });
           this.loginModalService.dismissAll();
         } 
         else{

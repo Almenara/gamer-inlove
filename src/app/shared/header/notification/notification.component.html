@@ -1,1 +1,10 @@
-<a [routerLink]="[ '/profile/conversations', notification.conversation_id ]">{{text}}</a>
+<a *ngIf="notificationType == 1" [routerLink]="[ '/game', notification.product_id + '-' + notification.product?.slug ]" [innerHTML]="text"></a>
+
+<a *ngIf="notificationType == 2" [routerLink]="[ '/profile/conversations', notification.conversation_id ]" [innerHTML]="text"></a>
+
+<a *ngIf="notificationType == 3" [routerLink]="[ '/profile/conversations', notification.conversation_id]" [innerHTML]="text"></a>
+
+<div *ngIf="notificationType == 4" class="d-flex just-content-center align-items-center gap-3">
+    <a [routerLink]="[ '/profile/conversations', notification.conversation_id]" [innerHTML]="text"></a>
+    <div (click)="addToUserCollection(notification.conversation_id)" class="btn check-btn w-max">Add&nbsp;<span class="d-none d-md-inline">to collect</span></div>
+</div>

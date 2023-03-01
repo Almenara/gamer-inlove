@@ -1,3 +1,4 @@
+import { filter } from 'rxjs/operators';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
@@ -24,7 +25,7 @@ export class SellGamePopupComponent implements OnInit {
 
   public userGame!: UserGame;
 
-  status = {1:'New',2:'Like new',3:'External damage',4:"It doesn't work"};
+  public status: { [key: number]: string } = {1:'New',2:'Like new',3:'External damage',4:"It doesn't work"};
 
   constructor( 
     private fb: FormBuilder, 
@@ -43,10 +44,13 @@ export class SellGamePopupComponent implements OnInit {
     
   }
   gameForSale() {
-    this.userGame.price = this.sellGameForm.value.price,
-    this.userGame.status = this.sellGameForm.value.status,
-    this.userGame.for_sale = 1,
-    this.userGame.comments = this.sellGameForm.value.comments,
+    this.userGame.price = this.sellGameForm.value.price;
+    
+    let statusSelected = this.sellGameForm.value.status;
+    this.userGame.status = this.status[statusSelected]
+    
+    this.userGame.for_sale = 1;
+    this.userGame.comments = this.sellGameForm.value.comments;
     this.usersService.putGameForSale(this.userGame).subscribe({
       next: resp => {
         this.close();

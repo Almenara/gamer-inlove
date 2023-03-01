@@ -83,7 +83,7 @@ export class SignUpComponent implements OnInit {
 
     this.usersService.postRegister(user).subscribe({
       next: resp => {
-        this.alertService.success('Signed successfuly! Please, log in.', { keepAfterRouteChange: true, autoClose: true });
+        this.alertService.success('Signed successfully! Please, log in.', { keepAfterRouteChange: true, autoClose: true });
         this.router.navigate(['/log-in'])
       }, 
       error: error => {

@@ -68,7 +68,7 @@ export class ContactPopupComponent implements OnInit {
     this.messagesService.sendMessage(message).subscribe({
       next:(resp)=>{
         this.close();
-        this.alertService.success('Message sended successfuly!', { keepAfterRouteChange: true, autoClose: true });
+        this.alertService.success('Message sended successfully!', { keepAfterRouteChange: true, autoClose: true });
       },
       error:(error)=>{
         this.close();

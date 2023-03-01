@@ -49,7 +49,7 @@ export class PasswordEditComponent {
     
     this.usersService.editPassword(password, newpassword, id!).subscribe({
       next: resp => {
-        this.alertService.success('Password edited successfuly!', { keepAfterRouteChange: true, autoClose: true });
+        this.alertService.success('Password edited successfully!', { keepAfterRouteChange: true, autoClose: true });
         this.router.navigate(['/profile']);
       }, 
       error: error => this.alertService.error('There was an error, please try again later.', { keepAfterRouteChange: true, autoClose: true })

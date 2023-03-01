@@ -45,7 +45,7 @@ export class AddressAddComponent {
         let user = this.user;
         user.address = resp.data.address;
         this.authService.user.address = resp.data.address;
-        this.alertService.success('Address added successfuly!', { keepAfterRouteChange: true, autoClose: true });
+        this.alertService.success('Address added successfully!', { keepAfterRouteChange: true, autoClose: true });
         this.router.navigate(['/profile']);
       },
       error: error => this.alertService.error('There was an error, please try again later.', { keepAfterRouteChange: true, autoClose: true })

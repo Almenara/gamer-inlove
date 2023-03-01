@@ -8,6 +8,7 @@ import { User } from '../interfaces/user';
 import { Conversation } from '../interfaces/conversation';
 import { Message } from '../interfaces/message';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { GameSold } from '../interfaces/game_data';
 
 @Injectable({
   providedIn: 'root'
@@ -69,7 +70,7 @@ export class ConversationsService {
     const URLService = this._URLService + "/api/profile/conversation/get-all-active";
     let headers = new HttpHeaders();
       
-    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Accept', 'application/json');
     headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
 
     return this.http.get<any>(URLService, {headers}).pipe(
@@ -92,7 +93,7 @@ export class ConversationsService {
 
     let headers = new HttpHeaders();
       
-    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Accept', 'application/json');
     headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
 
     return this.http.get<any>(URLService, {headers}).pipe(
@@ -103,12 +104,17 @@ export class ConversationsService {
 
   }
 
+  putGameSoldOnConversation(gameSold:GameSold){
+    this._conversation.game_sale = gameSold;
+    this._conversation.user_game = undefined;
+  }
+
   getChat(id: Number){
 
     const URLService = this._URLService + "/api/profile/conversation/" + id + "/messages";
     let headers = new HttpHeaders();
       
-    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Accept', 'application/json');
     headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
 
     return this.http.get<any>(URLService, {headers}).pipe(
@@ -117,5 +123,6 @@ export class ConversationsService {
       }));
 
   }
+
 
 }

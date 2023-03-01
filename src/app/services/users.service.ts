@@ -11,6 +11,8 @@ import { UserPlatform } from '../interfaces/user_platform';
 import { UserWishplatform } from '../interfaces/user_wishplatform';
 import { AuthService } from './auth.service';
 import { UserStats } from '../interfaces/user_stats';
+import { GameSold } from '../interfaces/game_data';
+import { Conversation } from '../interfaces/conversation';
 
 @Injectable({
   providedIn: 'root'
@@ -327,7 +329,7 @@ export class UsersService {
     return this.http.post<UserGame>(URLService, userGame, {headers});
   }
 
-  putGameSoldOut(userGame:UserGame, price?:number, buyerUser?:User){
+  putGameSoldOut(userGame:UserGame, conversation?:Conversation, price?:number, buyerUser?:User){
     
     const URLService = this._URLService + "/api/user/game-sold-out";
     let headers = new HttpHeaders();
@@ -335,13 +337,13 @@ export class UsersService {
     headers = headers.append('Acept', 'application/json');
     headers = headers.append('Authorization', `Bearer ${localStorage.getItem('auth_token')}`);
 
-    if(buyerUser && price)
-      return this.http.post<UserGame>(URLService, {userGame, price, buyerUser}, {headers});
+    if(conversation && buyerUser && price)
+      return this.http.post<GameSold>(URLService, {userGame, conversation, price, buyerUser}, {headers});
     
-    else if(buyerUser )
-      return this.http.post<UserGame>(URLService, {userGame, buyerUser}, {headers});
+    else if(buyerUser)
+      return this.http.post<GameSold>(URLService, {userGame, buyerUser}, {headers});
     
-    return this.http.post<UserGame>(URLService, {userGame}, {headers});
+    return this.http.post<GameSold>(URLService, {userGame}, {headers});
   }
 
   cancelGameForSale(userGame:UserGame){

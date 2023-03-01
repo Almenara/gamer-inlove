@@ -1,3 +1,5 @@
+import { NotificationsService } from 'src/app/services/notifications.service';
+import { UserNotification } from 'src/app/interfaces/user_notification';
 import { DeviceDetectorService } from './../../../../../services/device-detector.service';
 import { User } from 'src/app/interfaces/user';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
@@ -42,6 +44,7 @@ export class ChatComponent implements OnInit {
       private deviceDetectorService: DeviceDetectorService,
       private alertService: AlertService,
       private modalsService: ModalsService,
+      private notificationsService: NotificationsService,
       private modalService: NgbModal,
     ){
       this.user = this.authService.user;
@@ -56,15 +59,21 @@ export class ChatComponent implements OnInit {
     this.conversation = this.conversationsService.conversation;
 
     
+
     this.authService.userDataSubject.subscribe(data => {
       this.user = data;
     });
+    
+
+    
     this.route.paramMap.subscribe((params: ParamMap) => {
      
       const param = params.get('idConversation');
 
       this.id = Number(param);
 
+      this.notificationsService.idConversation = this.id;
+      
       this.conversationsService.getConversation(this.id).subscribe({
         next: resp => { 
           this.conversation = resp
@@ -76,6 +85,7 @@ export class ChatComponent implements OnInit {
     this.refreshMessages();    
    }
   refreshMessages(){
+
     this.conversationsService.getChat(this.id).subscribe({
       next:(resp)=>{
         this.messages = resp.data;
@@ -139,6 +149,7 @@ export class ChatComponent implements OnInit {
     this.destroy = true;
     document.querySelector('html')!.classList.remove('chating');
     document.querySelector('app-footer')!.classList.remove('chating');
+    this.notificationsService.idConversation = null;
   }
   openConfirmSellGameModal(){
     this.modalsService.openModal('confirmSellGame');

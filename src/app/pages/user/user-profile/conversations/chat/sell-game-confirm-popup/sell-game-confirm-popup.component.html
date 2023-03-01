@@ -1,5 +1,5 @@
 <ng-template #content let-modal>
-    <div class="modal-header">
+    <div class="modal-header align-items-center">
         <h3 class="modal-title" id="sing-up-popup-label">Sell your game:</h3>
         <div class="close" data-bs-dismiss="modal" (click)="modal.dismiss('Cross click')" aria-label="Close">
             <span></span>
@@ -10,7 +10,7 @@
         <div class="modal-body">
             <h3 class="mb-4">{{game.name}} to {{buyer.username}}</h3>
             <div id="sell-game-form" class="d-flex flex-column justify-content-start">
-                <input formControlName="price" type="number" min="0" [(ngModel)]="conversation.user_game.price" name="price" placeholder="Price in $">
+                <input formControlName="price" type="number" min="0" name="price" placeholder="Price in $">
             </div>
         </div>
         <div class="modal-footer d-flex justify-content-between">

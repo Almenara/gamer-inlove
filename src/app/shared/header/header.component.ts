@@ -206,5 +206,4 @@ export class HeaderComponent implements OnInit {
       this.user_notifications = null;
     }
   }
-
 }

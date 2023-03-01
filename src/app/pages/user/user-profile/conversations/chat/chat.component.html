@@ -1,5 +1,5 @@
 <div id="chatContainer" class="d-flex flex-column align-items-stretch flex-fill">
-    <div id="conversation-title" class="d-flex" *ngIf="conversation">
+    <div id="conversation-title" class="d-flex align-items-center" *ngIf="conversation">
         <a [routerLink]="[ '../']" class="btn gallery-btn prev-btn"><span></span></a>
         <div class="d-flex" *ngIf="conversation.seller.id == user.id && conversation.user_game">
             <a class="btn" (click)="openConfirmSellGameModal()">Sell it</a>
@@ -14,17 +14,25 @@
         <h6>Selling: {{conversation.game.name}}</h6>
         </div>
     </div>
-    <div id="alertMessage">
-        <!--TODO indicar que el juego esta vendido o fuera de la venta si conversation.user_game o conversation.game_sold-->
+    
+    <div id="alertMessage" [ngClass]="{'success' : conversation.seller.id == user.id}" *ngIf="conversation.game_sale && conversation.seller.id == user.id">
+       This game is sold!
     </div>
+    <div id="alertMessage" [ngClass]="{'success' : conversation.buyer.id == user.id}" *ngIf="conversation.game_sale?.buyer_user_id == user.id">
+       Congratulations! This game is sold to you!
+    </div>
+    <div id="alertMessage" [ngClass]="{'soldAnOtherUser' : conversation.game_sale?.buyer_user_id != user.id}" *ngIf="conversation?.game_sale && conversation.game_sale?.buyer_user_id != user.id && conversation.seller.id != user.id">
+       Sorry, the game was sold to another user
+    </div>
+    
     <div id="conversation" class="d-flex flex-column h-100 flex-fill" #conversationContainer>
         <div *ngFor="let message of messages" class="messages" [ngClass]="{'sended': message.receiving_user_id != user.id}">{{message.message}}</div>
     </div>
-    <form [formGroup]="contactForm" (click)="messageInput.focus()">
+    <form [formGroup]="contactForm" (click)="messageInput.focus()" *ngIf="!conversation?.game_sale || (conversation.seller.id == user.id || conversation.buyer.id == user.id)">
         <div id="inputContainer">
             <textarea class="no-animated" (keydown)="sendIfEnter($event)" formControlName="message" rows="1" id="messageInput" class="w-100" #messageInput></textarea>
         </div>
         <button type="submit" class="btn" [disabled]="!contactForm.valid" (click)="sendMessage()">Send</button>
     </form>
 </div>
-<app-sell-game-confirm-popup *ngIf="conversation" [conversation]="conversation" [buyer]="conversation.buyer" [game]="conversation.game" [userGame]="conversation.user_game" ></app-sell-game-confirm-popup>
+<app-sell-game-confirm-popup *ngIf="conversation && conversation.user_game" [conversation]="conversation" [buyer]="conversation.buyer" [game]="conversation.game" [userGame]="conversation.user_game" ></app-sell-game-confirm-popup>

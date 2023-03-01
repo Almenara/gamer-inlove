@@ -540,7 +540,7 @@
         animation: shadow 100ms ease-in-out forwards;
         animation-delay: 150ms;
         min-width: 250px;
-        min-height: 250px;
+        min-height: 160px;
         background-image: url('../../../assets/images/loading.svg');
         background-size: 0;
         background-position: center center;
@@ -596,7 +596,6 @@
     ul{
         display: flex;
         flex-direction: column;
-        overflow: hidden;
         padding: 0;
         margin: 0;
         list-style: none;

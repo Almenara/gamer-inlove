@@ -89,7 +89,7 @@ export class InfoComponent {
           return acc + curr.price
         },0)/this.gameData.stats.sold.length;
         this.lastSold = this.gameData.stats.sold.reduce((prev, curr) => {
-            return (prev.updated_at < curr.updated_at) ? prev : curr;
+            return (prev.updated_at > curr.updated_at) ? prev : curr;
         });
 
       }

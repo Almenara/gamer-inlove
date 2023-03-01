@@ -47,7 +47,7 @@ export class GamesService{
   getGame(id: number): Observable<GameData>{
     let URLService = this._URLService + "/api/game/detail/" + id; 
     let headers = new HttpHeaders();
-    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Accept', 'application/json');
     if(this._auth.ok){
       headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
       URLService = this._URLService + "/api/game/detailWithUserCollectionAndWishlistData/" + id; 

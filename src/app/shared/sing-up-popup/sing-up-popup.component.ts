@@ -96,7 +96,7 @@ export class SingUpPopupComponent implements OnInit {
     }
     this.usersService.postRegister(user).subscribe({
       next: resp => {
-        this.alertService.success('Signed successfuly! Please, log in.', { keepAfterRouteChange: true, autoClose: true });
+        this.alertService.success('Signed successfully! Please, log in.', { keepAfterRouteChange: true, autoClose: true });
         this.openLogInModal()
       },
       error: error => {

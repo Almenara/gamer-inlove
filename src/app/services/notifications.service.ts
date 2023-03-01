@@ -1,6 +1,9 @@
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { interval, Subscription, Subject, tap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { Howl } from 'howler';
 
 import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,19 +14,23 @@ import { UserNotification } from '../interfaces/user_notification';
   providedIn: 'root'
 })
 export class NotificationsService {
-  private intervalTime = interval(120000);
+  
   public newNotificationAlertActive: boolean = false;
   public hasNotifications = new Subject<boolean>();
   public newNotifications = new Subject<boolean>();
+  public idConversation: number | null = null;
+
+  private intervalTime = interval(5000);//interval(120000);
   private intervalSubscription!: Subscription;
   private user!: User;
 
-  public notificationsDataSubject = new Subject<Notification[]>();
+  public notificationsList: UserNotification[] = [];
 
 
   constructor(
     private authService: AuthService,
     private http: HttpClient, 
+    private route: ActivatedRoute,
     ) {     
       this.user = authService.user;
       this.hasNotifications.next(false);
@@ -45,10 +52,10 @@ export class NotificationsService {
   }
 
   playAudioNotification(){
-    let audio = new Audio();
-    audio.src = "/assets/sounds/marioCoin.mp3";
-    audio.load();
-    audio.play();
+    const sound = new Howl({
+      src: ['/assets/sounds/marioCoin.mp3']
+    });
+    sound.play();
   }
   refreshNotifications(){
 
@@ -59,28 +66,46 @@ export class NotificationsService {
       this.intervalSubscription = this.intervalTime.subscribe(() => this.refreshNotifications());
 
     }
-    if(!this.newNotificationAlertActive){
 
       const URLService = environment.baseUrl + "/api/notification/are-there-news";
     
       let headers = new HttpHeaders();
-      headers = headers.append('Acept', 'application/json');
+      headers = headers.append('Accept', 'application/json');
       headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
   
-      this.http.get<any>(URLService,{ headers }).subscribe(
+      this.http.get<UserNotification[]>(URLService,{ headers }).subscribe(
         {
           next: resp => {
-            if(resp.hasNotifications > 0){
+            console.log(resp);
+            
+            let notifications = resp;
+            
+            if(this.idConversation){
+              notifications = notifications.filter( not => { 
+                if(not.conversation_id == this.idConversation){
+                  this.deleteNotification(not.id);
+                }
+                return not.conversation_id != this.idConversation 
+              })
+            }
+            
+            
+            let news =  notifications.filter(not => {return !not.seen});
+            
+            if(notifications.length > 0){
               this.hasNotifications.next(true);
             }
             else{
               this.hasNotifications.next(false);
               this.newNotifications.next(false);
             }
-
-            if(resp.newNotifications > 0){
-              this.playAudioNotification();
-              this.newNotificationAlertActive = true;
+            
+            if(notifications.length > this.notificationsList.length){
+              if(news.length > 0){
+                this.playAudioNotification();
+                this.notificationsList = notifications;
+                this.newNotificationAlertActive = true;
+              }
               this.newNotifications.next(true);
             }
 
@@ -88,43 +113,51 @@ export class NotificationsService {
           error: error => console.log(error)
         }
       );
-    }
   }
   
   getHasNotifications(): Subject<boolean>{
     return this.hasNotifications;
   }
+
   getNewNotifications(): Subject<boolean>{
     return this.newNotifications;
   }
+
   getAllUserNotifications(){
     const URLService = environment.baseUrl + "/api/notification/all-of-user";
     
       let headers = new HttpHeaders();
-      headers = headers.append('Acept', 'application/json');
+      headers = headers.append('Accept', 'application/json');
       headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
   
       return this.http.get<UserNotification[]>(URLService,{ headers })
   }
 
   deleteAllNotifications(){
+    
     const URLService = environment.baseUrl + "/api/notification/delete-all-notifications";
     
     let headers = new HttpHeaders();
-    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Accept', 'application/json');
     headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
-
-    this.http.delete<any>(URLService,{ headers }).subscribe();
-  }
-  deleteNotification(id:number){
     
+    this.http.delete<any>(URLService,{ headers }).subscribe();
+
+    this.notificationsList = [];
+
+  }
+
+  deleteNotification(id:number){
     const URLService = environment.baseUrl + "/api/notification/delete-notification/" + id;
     
     let headers = new HttpHeaders();
-    headers = headers.append('Acept', 'application/json');
+    headers = headers.append('Accept', 'application/json');
     headers = headers.append('Authorization', `Bearer ${this.getToken()}`);
 
     this.http.delete<any>(URLService,{ headers }).subscribe();
+    
+    this.notificationsList = this.notificationsList.filter(not => {return not.id != id});
+  
   }
   
   ngOnDestroy() {

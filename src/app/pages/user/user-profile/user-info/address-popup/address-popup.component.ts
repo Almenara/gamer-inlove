@@ -50,7 +50,7 @@ export class AddressPopupComponent implements OnInit {
         this.usersService.user.address = resp.data;
         this.authService.user.address = resp.data;
         this.close();
-        this.alertService.success('Address added successfuly!', { keepAfterRouteChange: true, autoClose: true });
+        this.alertService.success('Address added successfully!', { keepAfterRouteChange: true, autoClose: true });
       },
       error: error => {
         this.close();
